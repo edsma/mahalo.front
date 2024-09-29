@@ -1,6 +1,6 @@
 export const environment = {
-    production: true,    
-    apiUrl: "localhost:7299",
+    production: true,
+    apiUrl: "https://localhost:7299",
     path: {
         cities: '/api/Cities',
         countries: '/api/Countries',

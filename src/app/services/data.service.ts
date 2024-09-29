@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject} from 'rxjs';
-import {HttpClient, HttpErrorResponse} from '@angular/common/http';
+import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import { ToastrService, ToastrModule } from 'ngx-toastr';
 
 import { ParamsCustomTable } from '../models/params-custom-table';
@@ -9,7 +9,7 @@ import { ParamsCustomTable } from '../models/params-custom-table';
   providedIn: 'root',
 })
 export class DataService {
-  
+
   dataChange: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
   // Temporarily stores data from dialogs
   dialogData: any;
@@ -53,7 +53,7 @@ export class DataService {
           this.toasterService.warning('Record not found!', 'Mahalo');
         }else{
           this.toasterService.success('Record found!', 'Mahalo');
-        }        
+        }
       },
       error: (err) => {
           console.error(err);
@@ -67,7 +67,12 @@ export class DataService {
 
   // ADD, POST METHOD
   addItem(params: ParamsCustomTable): void {
-    this.httpClient.post(`${params.path}`, params.row).subscribe({
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',  // Indica que el contenido es JSON
+      'Accept': 'application/json'          // Espera respuesta en formato JSON
+    });
+    params.row.isActive  = true;
+    this.httpClient.post(`${params.path}`, params.row, {headers}).subscribe({
       next: (result: any) => {
         console.log("Result: ", result);
         this.dialogData = params.row;
@@ -84,7 +89,7 @@ export class DataService {
   }
 
   // UPDATE, PUT METHOD
-  updateItem(params: ParamsCustomTable): void {    
+  updateItem(params: ParamsCustomTable): void {
     this.httpClient.put(`${params.path}/${params.row?.id}`, params.row).subscribe({
       next: (result: any) => {
         console.log("Result: ", result);
@@ -105,7 +110,7 @@ export class DataService {
   deleteItem(params: ParamsCustomTable): void {
     this.httpClient.delete(`${params.path}/${params.row?.id}`).subscribe({
       next: (result: any) => {
-        console.log("Result: ", result);        
+        console.log("Result: ", result);
         this.toasterService.success('Deleted Record!', 'Mahalo');
       },
       error: (err) => {
@@ -116,7 +121,7 @@ export class DataService {
         console.log("is completed");
       },
     });
-  }  
+  }
 }
 
 
