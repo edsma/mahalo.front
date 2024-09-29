@@ -50,14 +50,12 @@ export const navItems: INavData[] = [
         name: 'psychologists',
         url: '/cruds/psychologists',
         icon: 'nav-icon-bullet'
-      },
-      /*
+      },      
       {
         name: 'State',
         url: '/cruds/states',
         icon: 'nav-icon-bullet'
-      },
-      */
+      },      
       {
         name: 'Therapy',
         url: '/cruds/therapies',
