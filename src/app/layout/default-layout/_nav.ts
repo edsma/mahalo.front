@@ -35,25 +35,29 @@ export const navItems: INavData[] = [
         icon: 'nav-icon-bullet'
       },
       {
-        name: 'Notification',
+        name: 'Notification History',
         url: '/cruds/notification-history',
         icon: 'nav-icon-bullet'
       },
+      /*
       {
         name: 'Scheduling',
         url: '/cruds/notification-scheduling',
         icon: 'nav-icon-bullet'
       },
+      */
       {
         name: 'psychologists',
         url: '/cruds/psychologists',
         icon: 'nav-icon-bullet'
       },
+      /*
       {
         name: 'State',
         url: '/cruds/states',
         icon: 'nav-icon-bullet'
       },
+      */
       {
         name: 'Therapy',
         url: '/cruds/therapies',
