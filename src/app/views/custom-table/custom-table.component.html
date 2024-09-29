@@ -1,0 +1,53 @@
+<c-row ngPreserveWhitespaces>
+  <c-col xs="12">
+    <c-card class="mb-4">
+      <c-card-header>
+        <strong>{{ params.title }}</strong>
+      </c-card-header>  
+      <c-card-body>
+        
+        <mat-form-field class="search">
+          <mat-label>Search </mat-label>
+          <input matInput cFormControl [formControl]="searchKeywordFilter" placeholder="Type to Search" #input />
+        </mat-form-field>          
+        <table class="table" mat-table cTable [dataSource]="data" matSort matSortActive="id" matSortDisableClear matSortDirection="desc">
+          
+          <ng-container [matColumnDef]="column" *ngFor="let column of columnsWithButtons">
+            
+            <ng-container *ngIf="column!='__actions'">
+              <td mat-header-cell *matHeaderCellDef>{{ textHeaders.get(column) }}</td>
+              <td mat-cell *matCellDef="let emp">{{ emp[column] }}</td>
+            </ng-container>
+
+            <!-- Button Update and Delete -->              
+            <ng-container *ngIf="column =='__actions'">
+              <td mat-header-cell *matHeaderCellDef="let emp" >
+                <button mat-icon-button color="primary" (click)="add(emp)">
+                  <mat-icon aria-label="Example icon-button with a heart icon">add</mat-icon>
+                </button>
+              </td>
+              <td mat-cell *matCellDef="let emp">
+                <button mat-icon-button color="accent">
+                  <mat-icon aria-label="Edit" (click)="edit(emp)">edit</mat-icon>
+                </button>
+                <button mat-icon-button color="accent">
+                  <mat-icon aria-label="Delete" (click)="delete(emp)">delete</mat-icon>
+                </button>
+              </td>
+            </ng-container>              
+
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="columnsWithButtons"></tr>
+          <tr mat-row *matRowDef="let emprow; columns: columnsWithButtons"></tr>
+        </table>
+        <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
+        <mat-paginator [length]="totalCount" [pageSizeOptions]="pageSizes" showFirstLastButtons></mat-paginator>
+          
+
+        <div *ngIf="isLoading">
+          <ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "square-jelly-box" [fullScreen] = "true"><p style="color: white" > Loading... </p></ngx-spinner>
+        </div>
+      </c-card-body>
+    </c-card>
+  </c-col>  
+</c-row>

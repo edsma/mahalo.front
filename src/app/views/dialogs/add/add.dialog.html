@@ -1,0 +1,22 @@
+<div class="container">
+  <h3 mat-dialog-title>Add Record</h3>
+  <form class="mat-dialog-content" (ngSubmit)="submit" #formControl="ngForm">
+    <ng-container [matColumnDef]="column" *ngFor="let column of columnsWithButtons">
+      <div>
+        <mat-form-field class="search">
+          <mat-label>{{ textHeaders.get(column) }}</mat-label>
+          <input matInput class="form-control" [placeholder]="textHeaders.get(column)" [(ngModel)]="data.row[column]" [value]="data.row[column]"  required >
+          <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+        </mat-form-field>
+        {{data.row[column]}}
+        {{column}}
+      </div>
+    </ng-container>
+
+    <div mat-dialog-actions>
+      <!-- [disabled]="!formControl.valid" -->
+      <button mat-button type="submit" [mat-dialog-close]="1" (click)="confirmAdd()">Save</button>
+      <button mat-button (click)="onNoClick()" tabindex="-1">Cancel</button>      
+    </div>
+  </form>
+</div>
