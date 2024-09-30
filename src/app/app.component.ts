@@ -50,7 +50,7 @@ export class AppComponent implements OnInit {
   private getBrowserLang() {
     const lang = navigator.language || navigator.languages[0]; // Obtener el idioma del navegador
     let result =  lang.split('-')[0]; // Retorna solo el código del idioma (por ejemplo, "en" en lugar de "en-US")
-    this.translate.use(result); // Cambia esto si deseas otro idioma por defecto
+    //this.translate.use(result); // Cambia esto si deseas otro idioma por defecto
   }
 
   ngOnInit(): void {

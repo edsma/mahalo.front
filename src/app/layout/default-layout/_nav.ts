@@ -1,6 +1,9 @@
 import { INavData } from '@coreui/angular';
+import { TranslateService } from '@ngx-translate/core';
 
-export const navItems: INavData[] = [
+export function getNavItems(translate: TranslateService): INavData[]
+{
+return [
   {
     name: 'Components',
     title: true,
@@ -15,27 +18,27 @@ export const navItems: INavData[] = [
     },
     children: [
       {
-        name: 'City',
+        name: translate.instant('City'),
         url: '/cruds/cities',
         icon: 'nav-icon-bullet'
       },
       {
-        name: 'Country',
+        name: translate.instant('Country'),
         url: '/cruds/countries',
         icon: 'nav-icon-bullet'
       },
       {
-        name: 'Disorder',
+        name: translate.instant('Disorder'),
         url: '/cruds/disorders',
         icon: 'nav-icon-bullet'
       },
       {
-        name: 'DocumentsTypes',
+        name: translate.instant('DocumentsTypes'),
         url: '/cruds/documents-types',
         icon: 'nav-icon-bullet'
       },
       {
-        name: 'Notification History',
+        name: translate.instant('NotificationHistory'),
         url: '/cruds/notification-history',
         icon: 'nav-icon-bullet'
       },
@@ -47,25 +50,26 @@ export const navItems: INavData[] = [
       },
       */
       {
-        name: 'psychologists',
+        name: translate.instant('psychologists'),
         url: '/cruds/psychologists',
         icon: 'nav-icon-bullet'
       },
       {
-        name: 'State',
+        name: translate.instant('State'),
         url: '/cruds/states',
         icon: 'nav-icon-bullet'
       },
       {
-        name: 'Therapy',
+        name: translate.instant('Therapy'),
         url: '/cruds/therapies',
         icon: 'nav-icon-bullet'
       },
       {
-        name: 'User',
+        name: translate.instant('User'),
         url: '/cruds/users',
         icon: 'nav-icon-bullet'
       },
     ]
   },
 ];
+}

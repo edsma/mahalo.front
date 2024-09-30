@@ -3,7 +3,7 @@ import {
   OnInit,
   AfterViewInit,
   ViewChild,
-  Input,  
+  Input,
 } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -38,6 +38,9 @@ import { RowComponent, ColComponent, TextColorDirective, CardComponent, CardHead
 import { ParamsCustomTable } from '../../models/params-custom-table';
 import {BehaviorSubject, fromEvent, Observable} from 'rxjs';
 
+import { TranslateService } from '@ngx-translate/core';
+import { TranslationModule } from 'src/app/services/Transalation.module';
+
 export interface ApiResponse {
   data: any[];
   page: number;
@@ -49,7 +52,7 @@ export interface ApiResponse {
 @Component({
   selector: 'app-custom-table',
   standalone: true,
-  imports: [ 
+  imports: [
     MatIconModule,
     MatFormFieldModule,
     MatSelectModule,
@@ -67,18 +70,23 @@ export interface ApiResponse {
     NgxSpinnerModule,
     CommonModule,
     NgIf,
-    MatDialogModule,    
+    MatDialogModule,
     DeleteDialogComponent,
-
+    TranslationModule,
     RowComponent, ColComponent, TextColorDirective, CardComponent, CardHeaderComponent, CardBodyComponent, TableDirective, TableColorDirective, TableActiveDirective, BorderDirective, AlignDirective,
     //FormDirective, FormLabelDirective, FormControlDirective, ButtonDirective
     ProgressBarDirective, ProgressComponent_1, ProgressBarComponent, ProgressStackedComponent
-  ],  
+  ],
   templateUrl: './custom-table.component.html',
   styleUrls: ['./custom-table.component.scss']
 })
 export class CustomTableComponent implements OnInit, AfterViewInit {
-  ngOnInit(): void { }
+  ngOnInit(): void {
+
+    this.translate.onLangChange.subscribe(() => {
+      debugger;
+    });
+  }
 
   @Input() params!: ParamsCustomTable;
 
@@ -88,35 +96,45 @@ export class CustomTableComponent implements OnInit, AfterViewInit {
   isLoading = true;
   textHeaders: any;
   columnsWithButtons: string[] = [];
-  
+
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(public tableDataService: TableDataService, 
-    private spinner: NgxSpinnerService, 
+  constructor(public tableDataService: TableDataService,
+    private translate: TranslateService,
+    private spinner: NgxSpinnerService,
     private snackBar: MatSnackBar,
-    public dialog: MatDialog,) { }
+    public dialog: MatDialog) {
+      let language =  localStorage.getItem('language')?? 'es';
+      this.translate.use(language);
+    }
 
   searchKeywordFilter = new FormControl();
 
+
+
   buildHeaders() {
+    this.translate.onLangChange.subscribe(() => {
+      debugger;
+    });
     let headers = [];
-    for (var val  of this.params.jsonColumns) {      
+    for (var val  of this.params.jsonColumns) {
       if(this.textHeaders.has(val)){
-        headers.push(val);
+        headers.push(this.translate.instant(val));
       }
     }
     headers.push('__actions');
     return headers;
   }
 
+
+
   ngAfterViewInit() {
     //Prepare Headers
-    this.textHeaders = new Map(Object.entries(this.params.textHeaders));    
+    this.textHeaders = new Map(Object.entries(this.params.textHeaders));
     this.columnsWithButtons = this.buildHeaders();
-    
-    this.sort.sortChange.subscribe(() => (this.paginator.pageIndex = 0));   // on sort order change, reset back to the first page.
 
+    this.sort.sortChange.subscribe(() => (this.paginator.pageIndex = 0));   // on sort order change, reset back to the first page.
     merge(this.searchKeywordFilter.valueChanges.pipe(debounceTime(500)), this.sort.sortChange, this.paginator.page)
       .pipe(
         startWith({}),
@@ -140,7 +158,7 @@ export class CustomTableComponent implements OnInit, AfterViewInit {
           this.spinner.hide();
           /*
           this.snackBar.open('The API limit has been reached. Please try after a minute.', 'Close', {
-            duration: 5000 
+            duration: 5000
           });
           */
           if (result === null) {
@@ -152,12 +170,16 @@ export class CustomTableComponent implements OnInit, AfterViewInit {
       )
       .subscribe((result) => (this.data = result));
   }
-  
+
+
+
   add(row: any) {
+
     this.params.row = {};
+    this.params.language = this.translate.currentLang;
     const dialogRef =  this.dialog.open(AddDialogComponent, {
       data: this.params,
-    });    
+    });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 1) {
         /*
@@ -169,15 +191,20 @@ export class CustomTableComponent implements OnInit, AfterViewInit {
         */
         this.refreshTable();
       }
-    });    
+    });
   }
+
+
+
+
 
   edit(row: any) {
     this.params.row = {...row};
+
     const dialogRef =  this.dialog.open(EditDialogComponent, {
       data: this.params,
     });
-    
+
     dialogRef.afterClosed().subscribe(result => {
       if (result === 1) {
         /*
@@ -189,7 +216,7 @@ export class CustomTableComponent implements OnInit, AfterViewInit {
         */
         this.refreshTable();
       }
-    });    
+    });
   }
 
   delete(row: any) {
@@ -207,7 +234,7 @@ export class CustomTableComponent implements OnInit, AfterViewInit {
         */
         this.refreshTable();
       }
-    });    
+    });
   }
 
   private refreshTable() {

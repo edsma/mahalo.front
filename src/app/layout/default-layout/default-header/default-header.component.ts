@@ -45,7 +45,7 @@ export class DefaultHeaderComponent extends HeaderComponent {
 
   readonly #colorModeService = inject(ColorModeService);
   readonly colorMode = this.#colorModeService.colorMode;
-  language: string = 'EN';
+  language: string = this.getNavigatorLang();
 
   readonly colorModes = [
     { name: 'light', text: 'Light', icon: 'cilSun' },
@@ -61,11 +61,13 @@ export class DefaultHeaderComponent extends HeaderComponent {
   constructor(private translate: TranslateService) {
 
     super();
-    const browserLang = this.getBrowserLang();
+     this.getBrowserLang();
   }
 
   changeLanguage(lang: string){
     this.language = lang;
+    localStorage.setItem('language', lang);
+    this.translate.use(this.language); // Cambia esto si deseas otro idioma por defecto
   }
 
   sidebarId = input('sidebar1');
@@ -123,10 +125,15 @@ export class DefaultHeaderComponent extends HeaderComponent {
     }
   ];
 
-  private getBrowserLang() {
+  private getNavigatorLang(): string {
     const lang = navigator.language || navigator.languages[0]; // Obtener el idioma del navegador
-    let result =  lang.split('-')[0]; // Retorna solo el c�digo del idioma (por ejemplo, "en" en lugar de "en-US")
-    this.translate.use(result); // Cambia esto si deseas otro idioma por defecto
+    return lang.split('-')[0]; // Retorna solo el c�digo del idioma (por ejemplo, "en" en lugar de "en-US")
+  }
+
+  private getBrowserLang() {
+    let result = this.getNavigatorLang();
+    this.translate.use(result);
+    this.translate.currentLang = result;
   }
 
   public newNotifications = [

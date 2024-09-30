@@ -81,11 +81,13 @@ export class AddDialogComponent implements OnInit, AfterViewInit{
     @Inject(MAT_DIALOG_DATA) public data: ParamsCustomTable,
     public dataService: DataService
   ) {
+    //this.translate.use(data.language? data.language: 'en');
 
-    const browserLang = this.getBrowserLang();
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+
+   }
 
 
 
@@ -94,8 +96,6 @@ export class AddDialogComponent implements OnInit, AfterViewInit{
     this.textHeaders = new Map(Object.entries(this.data.textHeaders));
     this.dataType = new Map(Object.entries(this.data.dataType));
     this.columnsWithButtons = this.buildHeaders();
-    console.log("this.columnsWithButtons: ", this.columnsWithButtons);
-    console.log("DATA: ", this.data);
   }
 
   buildHeaders() {
@@ -113,11 +113,6 @@ export class AddDialogComponent implements OnInit, AfterViewInit{
     // Validators.email,
   ]);
 
-  private getBrowserLang() {
-    const lang = navigator.language || navigator.languages[0]; // Obtener el idioma del navegador
-    let result =  lang.split('-')[0]; // Retorna solo el c�digo del idioma (por ejemplo, "en" en lugar de "en-US")
-    this.translate.use(result); // Cambia esto si deseas otro idioma por defecto
-  }
 
   getErrorMessage() {
     return this.formControl.hasError('required') ? 'Required field' :

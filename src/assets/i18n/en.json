@@ -15,5 +15,15 @@
   "LockAccount": "Lock Account",
   "Logout": "Logout",
   "Save": "Save",
-  "Cancel": "Cancel"
+  "Cancel": "Cancel",
+  "City": "City",
+  "Country": "Country",
+  "Disorder": "Disorder",
+  "DocumentsTypes": "DocumentsTypes",
+  "NotificationHistory": "NotificationHistory",
+  "psychologists": "psychologists",
+  "State": "State",
+  "Therapy": "Therapy",
+  "User": "User",
+  "Search": "Search"
 }
