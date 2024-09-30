@@ -15,8 +15,8 @@
 
     <div mat-dialog-actions>
       <!-- [disabled]="!formControl.valid" -->
-      <button mat-button type="submit" [mat-dialog-close]="1" (click)="confirmEdit()">Save</button>
-      <button mat-button (click)="onNoClick()" tabindex="-1">Cancel</button>      
+      <button mat-button type="submit" [mat-dialog-close]="1" (click)="confirmEdit()">{{ 'Save' | translate }}</button>
+      <button mat-button (click)="onNoClick()" tabindex="-1">{{ 'Cancel' | translate }}</button>
     </div>
   </form>
 </div>

@@ -1,0 +1,19 @@
+{
+  "Welcome": "Welcome to ",
+  "GOODBYE": "Goodbye",
+  "login": "Login",
+  "Register": "Register",
+  "Account": "Account",
+  "Updates": "Updates",
+  "Messages": "Messages",
+  "Tasks": "Tasks",
+  "Comments": "Comments",
+  "Settings": "Settings",
+  "Profile": "Profile",
+  "Payments": "Payments",
+  "Projects": "Projects",
+  "LockAccount": "Lock Account",
+  "Logout": "Logout",
+  "Save": "Save",
+  "Cancel": "Cancel"
+}

@@ -3,7 +3,7 @@ import { INavData } from '@coreui/angular';
 export const navItems: INavData[] = [
   {
     name: 'Components',
-    title: true,    
+    title: true,
   },
   {
     name: 'Cruds',
@@ -13,7 +13,7 @@ export const navItems: INavData[] = [
       color: 'warning',
       text: 'NEW'
     },
-    children: [      
+    children: [
       {
         name: 'City',
         url: '/cruds/cities',
@@ -50,12 +50,12 @@ export const navItems: INavData[] = [
         name: 'psychologists',
         url: '/cruds/psychologists',
         icon: 'nav-icon-bullet'
-      },      
+      },
       {
         name: 'State',
         url: '/cruds/states',
         icon: 'nav-icon-bullet'
-      },      
+      },
       {
         name: 'Therapy',
         url: '/cruds/therapies',
@@ -67,5 +67,5 @@ export const navItems: INavData[] = [
         icon: 'nav-icon-bullet'
       },
     ]
-  },  
+  },
 ];

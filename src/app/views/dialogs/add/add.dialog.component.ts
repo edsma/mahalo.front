@@ -3,6 +3,8 @@ import {DataService} from '../../../services/data.service';
 import { BrowserAnimationsModule, provideAnimations } from '@angular/platform-browser/animations';
 import { ParamsCustomTable } from '../../../models/params-custom-table';
 
+import { TranslateService } from '@ngx-translate/core';
+
 
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -28,6 +30,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { CommonModule, NgIf } from '@angular/common';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { TranslationModule } from 'src/app/services/Transalation.module';
 
 @Component({
   selector: 'app-add.dialog',
@@ -37,6 +40,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     MatFormFieldModule,
     MatSelectModule,
     MatInputModule,
+    TranslationModule,
     MatButtonModule,
     MatTableModule,
     MatPaginatorModule,
@@ -52,7 +56,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     NgIf,
     MatDialogModule,
 
-    MatDialogModule, 
+    MatDialogModule,
     MatButtonModule,
     BrowserAnimationsModule,     // required animations module
     FormsModule,
@@ -66,23 +70,27 @@ export class AddDialogComponent implements OnInit, AfterViewInit{
 
   //ngOnInit(): void { }
   //ngAfterViewInit() {}
-  
+
   textHeaders: any;
   columnsWithButtons: string[] = [];
 
   constructor(
+    private translate: TranslateService,
     public dialogRef: MatDialogRef<AddDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: ParamsCustomTable,
     public dataService: DataService
-  ) {}
+  ) {
+
+    const browserLang = this.getBrowserLang();
+  }
 
   ngOnInit(): void { }
-  
-  
+
+
 
   ngAfterViewInit() {
     //Prepare Headers
-    this.textHeaders = new Map(Object.entries(this.data.textHeaders));    
+    this.textHeaders = new Map(Object.entries(this.data.textHeaders));
     this.columnsWithButtons = this.buildHeaders();
     console.log("this.columnsWithButtons: ", this.columnsWithButtons);
     console.log("DATA: ", this.data);
@@ -90,11 +98,11 @@ export class AddDialogComponent implements OnInit, AfterViewInit{
 
   buildHeaders() {
     let headers: string[] = [];
-    for (var val  of this.data.jsonColumns) {      
+    for (var val  of this.data.jsonColumns) {
       if(this.textHeaders.has(val)){
         headers.push(val);
       }
-    }    
+    }
     return [...headers];
   }
 
@@ -102,6 +110,12 @@ export class AddDialogComponent implements OnInit, AfterViewInit{
     Validators.required
     // Validators.email,
   ]);
+
+  private getBrowserLang() {
+    const lang = navigator.language || navigator.languages[0]; // Obtener el idioma del navegador
+    let result =  lang.split('-')[0]; // Retorna solo el código del idioma (por ejemplo, "en" en lugar de "en-US")
+    this.translate.use(result); // Cambia esto si deseas otro idioma por defecto
+  }
 
   getErrorMessage() {
     return this.formControl.hasError('required') ? 'Required field' :
@@ -120,5 +134,5 @@ export class AddDialogComponent implements OnInit, AfterViewInit{
   public confirmAdd(): void {
     this.dataService.addItem(this.data);
   }
-  
+
 }

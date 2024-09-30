@@ -1,6 +1,7 @@
 import { NgStyle, NgTemplateOutlet } from '@angular/common';
 import { Component, computed, inject, input } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 
 import {
   AvatarComponent,
@@ -27,14 +28,16 @@ import {
 } from '@coreui/angular';
 
 import { IconDirective } from '@coreui/icons-angular';
+import { TranslationModule } from 'src/app/services/Transalation.module';
 
 @Component({
   selector: 'app-default-header',
   templateUrl: './default-header.component.html',
   standalone: true,
-  imports: [ContainerComponent, HeaderTogglerDirective, SidebarToggleDirective, IconDirective, HeaderNavComponent, NavItemComponent, NavLinkDirective, RouterLink, RouterLinkActive, NgTemplateOutlet, BreadcrumbRouterComponent, ThemeDirective, DropdownComponent, DropdownToggleDirective, TextColorDirective, AvatarComponent, DropdownMenuDirective, DropdownHeaderDirective, DropdownItemDirective, BadgeComponent, DropdownDividerDirective, ProgressBarDirective, ProgressComponent, NgStyle]
+  imports: [ContainerComponent,TranslationModule, HeaderTogglerDirective, SidebarToggleDirective, IconDirective, HeaderNavComponent, NavItemComponent, NavLinkDirective, RouterLink, RouterLinkActive, NgTemplateOutlet, BreadcrumbRouterComponent, ThemeDirective, DropdownComponent, DropdownToggleDirective, TextColorDirective, AvatarComponent, DropdownMenuDirective, DropdownHeaderDirective, DropdownItemDirective, BadgeComponent, DropdownDividerDirective, ProgressBarDirective, ProgressComponent, NgStyle]
 })
 export class DefaultHeaderComponent extends HeaderComponent {
+
 
   readonly #colorModeService = inject(ColorModeService);
   readonly colorMode = this.#colorModeService.colorMode;
@@ -50,8 +53,10 @@ export class DefaultHeaderComponent extends HeaderComponent {
     return this.colorModes.find(mode => mode.name === currentMode)?.icon ?? 'cilSun';
   });
 
-  constructor() {
+  constructor(private translate: TranslateService) {
+
     super();
+    const browserLang = this.getBrowserLang();
   }
 
   sidebarId = input('sidebar1');
@@ -108,6 +113,12 @@ export class DefaultHeaderComponent extends HeaderComponent {
       message: 'Our latest customer feedback is in. Let\'s analyze and discuss improvements for an even better service...'
     }
   ];
+
+  private getBrowserLang() {
+    const lang = navigator.language || navigator.languages[0]; // Obtener el idioma del navegador
+    let result =  lang.split('-')[0]; // Retorna solo el código del idioma (por ejemplo, "en" en lugar de "en-US")
+    this.translate.use(result); // Cambia esto si deseas otro idioma por defecto
+  }
 
   public newNotifications = [
     { id: 0, title: 'New user registered', icon: 'cilUserFollow', color: 'success' },
