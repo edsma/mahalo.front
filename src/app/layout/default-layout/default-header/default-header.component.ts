@@ -1,6 +1,7 @@
 import { NgStyle, NgTemplateOutlet } from '@angular/common';
 import { Component, computed, inject, input } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
+import { CommonModule, NgIf } from '@angular/common';
 
 import {
   AvatarComponent,
@@ -32,12 +33,16 @@ import { IconDirective } from '@coreui/icons-angular';
   selector: 'app-default-header',
   templateUrl: './default-header.component.html',
   standalone: true,
-  imports: [ContainerComponent, HeaderTogglerDirective, SidebarToggleDirective, IconDirective, HeaderNavComponent, NavItemComponent, NavLinkDirective, RouterLink, RouterLinkActive, NgTemplateOutlet, BreadcrumbRouterComponent, ThemeDirective, DropdownComponent, DropdownToggleDirective, TextColorDirective, AvatarComponent, DropdownMenuDirective, DropdownHeaderDirective, DropdownItemDirective, BadgeComponent, DropdownDividerDirective, ProgressBarDirective, ProgressComponent, NgStyle]
+  imports: [ContainerComponent, HeaderTogglerDirective, SidebarToggleDirective, IconDirective, HeaderNavComponent, NavItemComponent, NavLinkDirective, RouterLink, RouterLinkActive, NgTemplateOutlet, BreadcrumbRouterComponent, ThemeDirective, DropdownComponent, DropdownToggleDirective, TextColorDirective, AvatarComponent, DropdownMenuDirective, DropdownHeaderDirective, DropdownItemDirective, BadgeComponent, DropdownDividerDirective, ProgressBarDirective, ProgressComponent, NgStyle,
+    CommonModule,
+    NgIf,
+  ]
 })
 export class DefaultHeaderComponent extends HeaderComponent {
 
   readonly #colorModeService = inject(ColorModeService);
   readonly colorMode = this.#colorModeService.colorMode;
+  language: string = 'EN';
 
   readonly colorModes = [
     { name: 'light', text: 'Light', icon: 'cilSun' },
@@ -52,6 +57,10 @@ export class DefaultHeaderComponent extends HeaderComponent {
 
   constructor() {
     super();
+  }
+
+  changeLanguage(lang: string){
+    this.language = lang;
   }
 
   sidebarId = input('sidebar1');

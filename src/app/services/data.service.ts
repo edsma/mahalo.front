@@ -14,6 +14,11 @@ export class DataService {
   // Temporarily stores data from dialogs
   dialogData: any;
 
+  headers = new HttpHeaders({
+    'Content-Type': 'application/json',  // Indica que el contenido es JSON
+    'Accept': 'application/json'          // Espera respuesta en formato JSON
+  });
+
   constructor (private httpClient: HttpClient,
     private toasterService: ToastrService
   ) {}
@@ -28,7 +33,11 @@ export class DataService {
 
   /** CRUD METHODS */
   getAllItems(params: ParamsCustomTable): void {
-    this.httpClient.get(`${params.path}`).subscribe({
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    });
+    this.httpClient.get(`${params.path}`, {headers}).subscribe({
       next: (result: any) => {
         console.log("Your code ...");
         //this.dataChange.next(result);
@@ -45,7 +54,11 @@ export class DataService {
   }
 
   getItemById(params: ParamsCustomTable): void {
-    this.httpClient.get(`${params.path}/${params.id}`).subscribe({
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    });
+    this.httpClient.get(`${params.path}/${params.id}`, {headers}).subscribe({
       next: (result: any) => {
         console.log("Result: ", result);
         //this.dataChange.next(result);
@@ -67,11 +80,11 @@ export class DataService {
 
   // ADD, POST METHOD
   addItem(params: ParamsCustomTable): void {
+    params.row[params.id] = 0;
     const headers = new HttpHeaders({
-      'Content-Type': 'application/json',  // Indica que el contenido es JSON
-      'Accept': 'application/json'          // Espera respuesta en formato JSON
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
     });
-    params.row.isActive  = true;
     this.httpClient.post(`${params.path}`, params.row, {headers}).subscribe({
       next: (result: any) => {
         console.log("Result: ", result);
@@ -90,7 +103,11 @@ export class DataService {
 
   // UPDATE, PUT METHOD
   updateItem(params: ParamsCustomTable): void {
-    this.httpClient.put(`${params.path}/${params.row?.id}`, params.row).subscribe({
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    });
+    this.httpClient.put(`${params.path}/${params.row?.id}`, params.row, {headers}).subscribe({
       next: (result: any) => {
         console.log("Result: ", result);
         this.dialogData = params.row;
@@ -108,7 +125,11 @@ export class DataService {
 
   // DELETE METHOD
   deleteItem(params: ParamsCustomTable): void {
-    this.httpClient.delete(`${params.path}/${params.row?.id}`).subscribe({
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    });
+    this.httpClient.delete(`${params.path}/${params.row?.id}`, {headers}).subscribe({
       next: (result: any) => {
         console.log("Result: ", result);
         this.toasterService.success('Deleted Record!', 'Mahalo');

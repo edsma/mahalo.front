@@ -29,6 +29,12 @@ export class DocumentTypeComponent {
       name: 'Document Type',
       abbreviation: 'Abbreviation',
       isActive: 'Is Active'
+    },
+    dataType: {
+      id: 'number',
+      name: 'string',
+      abbreviation: 'string',
+      isActive: 'boolean'
     }
   };
 }

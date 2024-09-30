@@ -33,6 +33,13 @@ export class UserComponent {
       email: 'Email',
       creationDate: 'Creation Date',
       isActive: 'Is Active'
-    }
+    },
+    dataType: {  
+      id: 'number',
+      name: 'string',
+      email: 'string',
+      creationDate: 'date',
+      isActive: 'boolean'
+    },
   };
 }
