@@ -21,19 +21,22 @@ export class TableDataService {
     limit_per_page: number,
     endpoint: string,
   ): Observable<ApiResponse> {
-    //const requestUrl = `${endpoint}?q=${search_filter}+in:title+repo:angular/components&sort=${sort_field}&order=${sort_order}&page=${page}&per_page=${limit_per_page}`;
 
-    let params = new HttpParams()
-      .set('Page', page1)
-      .set('RecordsNumber', limit_per_page  )
-      .set('Filter', search_filter.toString());
-    const requestUrl = `${endpoint}/paginated`;
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',  // Indica que el contenido es JSON
-      'Accept': 'application/json'          // Espera respuesta en formato JSON
-    });
-
-    return this.http.get<ApiResponse>(requestUrl, { params });
+    if(environment.isLocal){
+      const requestUrl = `${endpoint}?q=${search_filter}+in:title+repo:angular/components&sort=${sort_field}&order=${sort_order}&page=${page1}&per_page=${limit_per_page}`;
+      return this.http.get<ApiResponse>(requestUrl);
+    }else{
+      let params = new HttpParams()
+        .set('Page', page1)
+        .set('RecordsNumber', limit_per_page  )
+        .set('Filter', search_filter.toString());
+      const requestUrl = `${endpoint}/paginated`;
+      const headers = new HttpHeaders({
+        'Content-Type': 'application/json',  // Indica que el contenido es JSON
+        'Accept': 'application/json'          // Espera respuesta en formato JSON
+      });
+      return this.http.get<ApiResponse>(requestUrl, { params });
+    }
+    
   }
-
 }

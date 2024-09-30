@@ -1,5 +1,6 @@
 export const environment = {
     production: false,
+    isLocal: false,
     apiUrl: "https://localhost:7299",
     path: {
         cities: '/api/Cities',
@@ -8,7 +9,7 @@ export const environment = {
         documentsTypes: '/api/DocumentTypes',
         psychologists: '/api/Psychologists',
         states: '/api/States',
-        therapies: '/api/users',
-        users: '/api/users'
+        therapies: '/api/Terapies',
+        users: '/api/Users'
     }
 };

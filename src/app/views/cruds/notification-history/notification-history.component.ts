@@ -26,6 +26,11 @@ export class NotificationHistoryComponent {
       id: 'Id',
       creationDate: 'Creation Date',
       isActive: 'Is Active'
+    },
+    dataType: {
+      id: 'number',      
+      creationDate: 'date',
+      isActive: 'boolean'
     }
   };
 }

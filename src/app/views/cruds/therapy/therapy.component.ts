@@ -29,6 +29,12 @@ export class TherapyComponent {
       hourTerapy: 'Hour Therapy',
       name: 'Name',
       isActive: 'Is Active'
+    },
+    dataType: {
+      id: 'number',
+      hourTerapy: 'dateTime',
+      name: 'string',
+      isActive: 'date'
     }
   };
 }

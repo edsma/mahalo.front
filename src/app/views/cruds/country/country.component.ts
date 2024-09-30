@@ -29,6 +29,12 @@ export class CountryComponent {
       name: 'Country', // Cambié a 'Country' según el atributo Display
       isActive: 'Is Active', // Cambié a 'Is Active'
       creationDate: 'Creation Date' // Cambié a 'Creation Date'
+    },
+    dataType: {
+      id: 'number',
+      name: 'string',
+      isActive: 'boolean',
+      creationDate: 'date'
     }
   };
 }

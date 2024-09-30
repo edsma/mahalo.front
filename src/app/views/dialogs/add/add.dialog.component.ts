@@ -68,6 +68,7 @@ export class AddDialogComponent implements OnInit, AfterViewInit{
   //ngAfterViewInit() {}
   
   textHeaders: any;
+  dataType: any;
   columnsWithButtons: string[] = [];
 
   constructor(
@@ -82,7 +83,8 @@ export class AddDialogComponent implements OnInit, AfterViewInit{
 
   ngAfterViewInit() {
     //Prepare Headers
-    this.textHeaders = new Map(Object.entries(this.data.textHeaders));    
+    this.textHeaders = new Map(Object.entries(this.data.textHeaders));
+    this.dataType = new Map(Object.entries(this.data.dataType));
     this.columnsWithButtons = this.buildHeaders();
     console.log("this.columnsWithButtons: ", this.columnsWithButtons);
     console.log("DATA: ", this.data);
