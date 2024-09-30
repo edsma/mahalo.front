@@ -7,12 +7,9 @@
           <mat-label>{{ textHeaders.get(column) }}</mat-label>
           <input matInput class="form-control" [placeholder]="textHeaders.get(column)" [(ngModel)]="data.row[column]" [value]="data.row[column]"  required >
           <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
-        </mat-form-field>
-        {{data.row[column]}}
-        {{column}}
+        </mat-form-field>        
       </div>
     </ng-container>
-
     <div mat-dialog-actions>
       <!-- [disabled]="!formControl.valid" -->
       <button mat-button type="submit" [mat-dialog-close]="1" (click)="confirmAdd()">{{ 'Save' | translate }}</button>

@@ -157,19 +157,19 @@ export class CustomTableComponent implements OnInit, AfterViewInit {
     this.params.row = {};
     const dialogRef =  this.dialog.open(AddDialogComponent, {
       data: this.params,
-    });
-    /*
+    });    
     dialogRef.afterClosed().subscribe(result => {
       if (result === 1) {
+        /*
         // When using an edit things are little different, firstly we find record inside DataService by id
         const foundIndex = this.exampleDatabase.dataChange.value.findIndex(x => x.id === this.id);
         // Then you update that record using data from dialogData (values you enetered)
         this.exampleDatabase.dataChange.value[foundIndex] = this.dataService.getDialogData();
         // And lastly refresh table
+        */
         this.refreshTable();
       }
-    });
-    */
+    });    
   }
 
   edit(row: any) {
@@ -177,18 +177,19 @@ export class CustomTableComponent implements OnInit, AfterViewInit {
     const dialogRef =  this.dialog.open(EditDialogComponent, {
       data: this.params,
     });
-    /*
+    
     dialogRef.afterClosed().subscribe(result => {
       if (result === 1) {
+        /*
         // When using an edit things are little different, firstly we find record inside DataService by id
         const foundIndex = this.exampleDatabase.dataChange.value.findIndex(x => x.id === this.id);
         // Then you update that record using data from dialogData (values you enetered)
         this.exampleDatabase.dataChange.value[foundIndex] = this.dataService.getDialogData();
         // And lastly refresh table
+        */
         this.refreshTable();
       }
-    });
-    */
+    });    
   }
 
   delete(row: any) {
@@ -197,21 +198,22 @@ export class CustomTableComponent implements OnInit, AfterViewInit {
       data: this.params,
     });
 
-    /*
-    this.index = i;
-    this.id = id;
-    const dialogRef = this.dialog.open(DeleteDialogComponent, {
-      data: {id: id, title: title, state: state, url: url}
-    });
-
     dialogRef.afterClosed().subscribe(result => {
       if (result === 1) {
+        /*
         const foundIndex = this.exampleDatabase.dataChange.value.findIndex(x => x.id === this.id);
         // for delete we use splice in order to remove single object from DataService
         this.exampleDatabase.dataChange.value.splice(foundIndex, 1);
+        */
         this.refreshTable();
       }
-    });
-    */
+    });    
+  }
+
+  private refreshTable() {
+    // Refreshing table using paginator
+    // Thanks yeager-j for tips
+    // https://github.com/marinantonio/angular-mat-table-crud/issues/12
+    this.paginator._changePageSize(this.paginator.pageSize);
   }
 }

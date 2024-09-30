@@ -1,7 +1,7 @@
 export const environment = {
     production: false,
-    isLocal: false,
-    apiUrl: "https://localhost:7299",
+    isLocal: true,
+    apiUrl: "https://reqres.in",
     path: {
         cities: '/api/Cities',
         countries: '/api/Countries',

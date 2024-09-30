@@ -28,6 +28,12 @@ export class DisorderComponent {
       name: 'Disorder',
       isActive: 'Is Active',
       creationDate: 'Creation Date'
+    },
+    dataType: {
+      id: 'number',
+      name: 'string',
+      isActive: 'boolean',
+      creationDate: 'date'
     }
   };
 }

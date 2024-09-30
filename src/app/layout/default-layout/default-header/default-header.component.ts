@@ -1,6 +1,7 @@
 import { NgStyle, NgTemplateOutlet } from '@angular/common';
 import { Component, computed, inject, input } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
+import { CommonModule, NgIf } from '@angular/common';
 import { TranslateService } from '@ngx-translate/core';
 
 import {
@@ -34,13 +35,17 @@ import { TranslationModule } from 'src/app/services/Transalation.module';
   selector: 'app-default-header',
   templateUrl: './default-header.component.html',
   standalone: true,
-  imports: [ContainerComponent,TranslationModule, HeaderTogglerDirective, SidebarToggleDirective, IconDirective, HeaderNavComponent, NavItemComponent, NavLinkDirective, RouterLink, RouterLinkActive, NgTemplateOutlet, BreadcrumbRouterComponent, ThemeDirective, DropdownComponent, DropdownToggleDirective, TextColorDirective, AvatarComponent, DropdownMenuDirective, DropdownHeaderDirective, DropdownItemDirective, BadgeComponent, DropdownDividerDirective, ProgressBarDirective, ProgressComponent, NgStyle]
+    imports: [ContainerComponent, TranslationModule, HeaderTogglerDirective, SidebarToggleDirective, IconDirective, HeaderNavComponent, NavItemComponent, NavLinkDirective, RouterLink, RouterLinkActive, NgTemplateOutlet, BreadcrumbRouterComponent, ThemeDirective, DropdownComponent, DropdownToggleDirective, TextColorDirective, AvatarComponent, DropdownMenuDirective, DropdownHeaderDirective, DropdownItemDirective, BadgeComponent, DropdownDividerDirective, ProgressBarDirective, ProgressComponent, NgStyle,
+    CommonModule,
+    NgIf,
+  ]
 })
 export class DefaultHeaderComponent extends HeaderComponent {
 
 
   readonly #colorModeService = inject(ColorModeService);
   readonly colorMode = this.#colorModeService.colorMode;
+  language: string = 'EN';
 
   readonly colorModes = [
     { name: 'light', text: 'Light', icon: 'cilSun' },
@@ -57,6 +62,10 @@ export class DefaultHeaderComponent extends HeaderComponent {
 
     super();
     const browserLang = this.getBrowserLang();
+  }
+
+  changeLanguage(lang: string){
+    this.language = lang;
   }
 
   sidebarId = input('sidebar1');
@@ -116,7 +125,7 @@ export class DefaultHeaderComponent extends HeaderComponent {
 
   private getBrowserLang() {
     const lang = navigator.language || navigator.languages[0]; // Obtener el idioma del navegador
-    let result =  lang.split('-')[0]; // Retorna solo el código del idioma (por ejemplo, "en" en lugar de "en-US")
+    let result =  lang.split('-')[0]; // Retorna solo el c�digo del idioma (por ejemplo, "en" en lugar de "en-US")
     this.translate.use(result); // Cambia esto si deseas otro idioma por defecto
   }
 

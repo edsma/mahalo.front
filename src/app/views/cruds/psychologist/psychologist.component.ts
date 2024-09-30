@@ -41,6 +41,18 @@ export class PsychologistComponent {
       terapyPrice: 'Therapy Price',
       isActive: 'Is Active',
       creationDate: 'Creation Date'
+    },
+    dataType: {
+      id: 'number',
+      name: 'string',
+      address: 'string',
+      xCoordinate: 'number',
+      yCoordinate: 'number',
+      officeStart: 'dateTime',
+      officeEnd: 'dateTime',
+      terapyPrice: 'number',
+      isActive: 'boolean',
+      creationDate: 'date'
     }
   };
 }

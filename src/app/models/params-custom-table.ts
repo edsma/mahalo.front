@@ -4,5 +4,6 @@ export class ParamsCustomTable {
   id: any;
   jsonColumns: string[] = [];
   textHeaders: any;
+  dataType: any;
   row?: any;
 }

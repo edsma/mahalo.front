@@ -83,6 +83,25 @@
                   "with": "src/environments/environment.development.ts"
                 }
               ]
+            },
+            "local": {
+              "optimization": {
+                "scripts": true,
+                "styles": true,
+                "fonts": false
+              },
+              "outputHashing": "all",
+              "extractLicenses": true,
+              "sourceMap": true,
+              "ssr": false,
+              "prerender": false,
+             
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.local.ts"
+                }
+              ]
             }
           },
           "defaultConfiguration": "development"
@@ -95,6 +114,9 @@
             },
             "development": {
               "buildTarget": "Mahalo:build:development"
+            },
+            "local": {
+              "buildTarget": "Mahalo:build:local"
             }
           },
           "defaultConfiguration": "development"

@@ -40,6 +40,7 @@
         <div class="vr h-100 mx-2 text-body text-opacity-75"></div>
       </div>
       <ng-container *ngTemplateOutlet="themeDropdown" />
+      <ng-container *ngTemplateOutlet="languageDropdown" />
       <div class="nav-item py-1">
         <div class="vr h-100 mx-2 text-body text-opacity-75"></div>
       </div>
@@ -181,5 +182,17 @@
         </button>
       }
     </div>
+  </c-dropdown>
+</ng-template>
+
+<ng-template #languageDropdown>
+  <c-dropdown>
+    <button cButton cDropdownToggle color="primary">
+      {{language}}
+    </button>
+    <ul cDropdownMenu>
+      <li cDropdownItem *ngIf="language=='EN'" (click)="changeLanguage('ES')">ES</li>
+      <li cDropdownItem *ngIf="language=='ES'" (click)="changeLanguage('EN')">EN</li>
+    </ul>
   </c-dropdown>
 </ng-template>
