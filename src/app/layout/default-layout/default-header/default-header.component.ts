@@ -2,6 +2,7 @@ import { NgStyle, NgTemplateOutlet } from '@angular/common';
 import { Component, computed, inject, input } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { CommonModule, NgIf } from '@angular/common';
+import { TranslateService } from '@ngx-translate/core';
 
 import {
   AvatarComponent,
@@ -28,21 +29,23 @@ import {
 } from '@coreui/angular';
 
 import { IconDirective } from '@coreui/icons-angular';
+import { TranslationModule } from 'src/app/services/Transalation.module';
 
 @Component({
   selector: 'app-default-header',
   templateUrl: './default-header.component.html',
   standalone: true,
-  imports: [ContainerComponent, HeaderTogglerDirective, SidebarToggleDirective, IconDirective, HeaderNavComponent, NavItemComponent, NavLinkDirective, RouterLink, RouterLinkActive, NgTemplateOutlet, BreadcrumbRouterComponent, ThemeDirective, DropdownComponent, DropdownToggleDirective, TextColorDirective, AvatarComponent, DropdownMenuDirective, DropdownHeaderDirective, DropdownItemDirective, BadgeComponent, DropdownDividerDirective, ProgressBarDirective, ProgressComponent, NgStyle,
+    imports: [ContainerComponent, TranslationModule, HeaderTogglerDirective, SidebarToggleDirective, IconDirective, HeaderNavComponent, NavItemComponent, NavLinkDirective, RouterLink, RouterLinkActive, NgTemplateOutlet, BreadcrumbRouterComponent, ThemeDirective, DropdownComponent, DropdownToggleDirective, TextColorDirective, AvatarComponent, DropdownMenuDirective, DropdownHeaderDirective, DropdownItemDirective, BadgeComponent, DropdownDividerDirective, ProgressBarDirective, ProgressComponent, NgStyle,
     CommonModule,
     NgIf,
   ]
 })
 export class DefaultHeaderComponent extends HeaderComponent {
 
+
   readonly #colorModeService = inject(ColorModeService);
   readonly colorMode = this.#colorModeService.colorMode;
-  language: string = 'EN';
+  language: string = this.getNavigatorLang();
 
   readonly colorModes = [
     { name: 'light', text: 'Light', icon: 'cilSun' },
@@ -55,12 +58,16 @@ export class DefaultHeaderComponent extends HeaderComponent {
     return this.colorModes.find(mode => mode.name === currentMode)?.icon ?? 'cilSun';
   });
 
-  constructor() {
+  constructor(private translate: TranslateService) {
+
     super();
+     this.getBrowserLang();
   }
 
   changeLanguage(lang: string){
     this.language = lang;
+    localStorage.setItem('language', lang);
+    this.translate.use(this.language); // Cambia esto si deseas otro idioma por defecto
   }
 
   sidebarId = input('sidebar1');
@@ -117,6 +124,17 @@ export class DefaultHeaderComponent extends HeaderComponent {
       message: 'Our latest customer feedback is in. Let\'s analyze and discuss improvements for an even better service...'
     }
   ];
+
+  private getNavigatorLang(): string {
+    const lang = navigator.language || navigator.languages[0]; // Obtener el idioma del navegador
+    return lang.split('-')[0]; // Retorna solo el c�digo del idioma (por ejemplo, "en" en lugar de "en-US")
+  }
+
+  private getBrowserLang() {
+    let result = this.getNavigatorLang();
+    this.translate.use(result);
+    this.translate.currentLang = result;
+  }
 
   public newNotifications = [
     { id: 0, title: 'New user registered', icon: 'cilUserFollow', color: 'success' },

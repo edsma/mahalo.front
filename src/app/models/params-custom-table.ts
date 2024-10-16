@@ -6,4 +6,5 @@ export class ParamsCustomTable {
   textHeaders: any;
   dataType: any;
   row?: any;
+  language?: string;
 }

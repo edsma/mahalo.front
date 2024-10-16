@@ -1,0 +1,31 @@
+{
+  "Welcome": "Bienvenido(a) a ",
+  "GOODBYE": "Adiós",
+  "login": "Iniciar sesión",
+  "Register": "Registrar",
+  "Account": "Cuenta",
+  "Updates": "Actualizaciones",
+  "Messages": "Mensajes",
+  "Tasks": "Tareas",
+  "Comments": "Comentarios",
+  "Settings": "Configuración",
+  "Profile": "Perfil",
+  "Payments": "Pagos",
+  "Projects": "Proyectos",
+  "LockAccount": "Bloquear cuenta",
+  "Logout": "Cerrar sesión",
+  "Save": "Guardar",
+  "Cancel": "Cancelar",
+  "City": "Ciudad",
+  "Country": "Pais",
+  "Disorder": "Tratamiento",
+  "DocumentsTypes": "Tipo de documento",
+  "NotificationHistory": "Historial de notificación",
+  "psychologists": "Psicologos",
+  "State": "Departamentos",
+  "Therapy": "Terapia",
+  "User": "Usuario",
+  "Search": "Buscar"
+
+
+}

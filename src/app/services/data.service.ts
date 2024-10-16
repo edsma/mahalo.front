@@ -39,16 +39,13 @@ export class DataService {
     });
     this.httpClient.get(`${params.path}`, {headers}).subscribe({
       next: (result: any) => {
-        console.log("Your code ...");
         //this.dataChange.next(result);
         this.toasterService.success('Records found!', 'Mahalo');
       },
       error: (err) => {
-          console.error(err);
           this.toasterService.error(`Error occurred. Details: ${err.name} ${err.message}`, 'Mahalo');
       },
       complete() {
-        console.log("is completed");
       },
     });
   }
@@ -60,7 +57,6 @@ export class DataService {
     });
     this.httpClient.get(`${params.path}/${params.id}`, {headers}).subscribe({
       next: (result: any) => {
-        console.log("Result: ", result);
         //this.dataChange.next(result);
         if (result.length == 0){
           this.toasterService.warning('Record not found!', 'Mahalo');
@@ -69,11 +65,9 @@ export class DataService {
         }
       },
       error: (err) => {
-          console.error(err);
           this.toasterService.error(`Error occurred. Details: ${err.name} ${err.message}`, 'Mahalo');
       },
       complete() {
-        console.log("is completed");
       },
     });
   }
@@ -87,16 +81,13 @@ export class DataService {
     });
     this.httpClient.post(`${params.path}`, params.row, {headers}).subscribe({
       next: (result: any) => {
-        console.log("Result: ", result);
         this.dialogData = params.row;
         this.toasterService.success('Added Record!', 'Mahalo');
       },
       error: (err) => {
-          console.error(err);
           this.toasterService.error(`Error occurred. Details: ${err.name} ${err.message}`, 'Mahalo');
       },
       complete() {
-        console.log("is completed");
       },
     });
   }
@@ -109,16 +100,13 @@ export class DataService {
     });
     this.httpClient.put(`${params.path}/${params.row?.id}`, params.row, {headers}).subscribe({
       next: (result: any) => {
-        console.log("Result: ", result);
         this.dialogData = params.row;
         this.toasterService.success('Updated Record!', 'Mahalo');
       },
       error: (err) => {
-          console.error(err);
           this.toasterService.error(`Error occurred. Details: ${err.name} ${err.message}`, 'Mahalo');
       },
       complete() {
-        console.log("is completed");
       },
     });
   }
@@ -131,15 +119,12 @@ export class DataService {
     });
     this.httpClient.delete(`${params.path}/${params.row?.id}`, {headers}).subscribe({
       next: (result: any) => {
-        console.log("Result: ", result);
         this.toasterService.success('Deleted Record!', 'Mahalo');
       },
       error: (err) => {
-          console.error(err);
           this.toasterService.error(`Error occurred. Details: ${err.name} ${err.message}`, 'Mahalo');
       },
       complete() {
-        console.log("is completed");
       },
     });
   }
@@ -175,7 +160,7 @@ export class DataService {
   // DELETE METHOD
   deleteItem(id: number): void {
     this.httpClient.delete(this.API_URL + id).subscribe(data => {
-      console.log(data['']);
+
         this.toasterService.showToaster('Successfully deleted', 3000);
       },
       (err: HttpErrorResponse) => {

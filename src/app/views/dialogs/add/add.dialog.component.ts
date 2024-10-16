@@ -3,6 +3,8 @@ import {DataService} from '../../../services/data.service';
 import { BrowserAnimationsModule, provideAnimations } from '@angular/platform-browser/animations';
 import { ParamsCustomTable } from '../../../models/params-custom-table';
 
+import { TranslateService } from '@ngx-translate/core';
+
 
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -35,6 +37,7 @@ import {MAT_DATE_LOCALE, provideNativeDateAdapter, ThemePalette} from '@angular/
 //import { NgxMatDatetimePickerModule, NgxMatTimepickerModule, NgxMatNativeDateModule, NgxMatDateAdapter } from 'ngx-mat-datetime-picker';
 //import { NgxMatMomentModule } from '@angular-material-components/moment-adapter';
 import * as moment from 'moment';
+import { TranslationModule } from 'src/app/services/Transalation.module';
 
 @Component({
   selector: 'app-add.dialog',
@@ -47,6 +50,7 @@ import * as moment from 'moment';
     MatFormFieldModule,
     MatSelectModule,
     MatInputModule,
+    TranslationModule,
     MatButtonModule,
     MatTableModule,
     MatPaginatorModule,
@@ -62,7 +66,7 @@ import * as moment from 'moment';
     NgIf,
     MatDialogModule,
 
-    MatDialogModule, 
+    MatDialogModule,
     MatButtonModule,
     BrowserAnimationsModule,     // required animations module
     FormsModule,
@@ -84,6 +88,9 @@ export class AddDialogComponent implements OnInit, AfterViewInit{
 
   @ViewChild('picker') picker: any;
   
+  //ngOnInit(): void { }
+  //ngAfterViewInit() {}
+
   textHeaders: any;
   dataType: any;
   columnsWithButtons: string[] = [];
@@ -104,10 +111,14 @@ export class AddDialogComponent implements OnInit, AfterViewInit{
   public hideTime: boolean = false;
 
   constructor(
+    private translate: TranslateService,
     public dialogRef: MatDialogRef<AddDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: ParamsCustomTable,
     public dataService: DataService
-  ) {}
+  ) {
+    //this.translate.use(data.language? data.language: 'en');
+
+  }
 
   ngOnInit(): void { }
   
@@ -120,17 +131,15 @@ export class AddDialogComponent implements OnInit, AfterViewInit{
     this.textHeaders = new Map(Object.entries(this.data.textHeaders));
     this.dataType = new Map(Object.entries(this.data.dataType));
     this.columnsWithButtons = this.buildHeaders();
-    console.log("this.columnsWithButtons: ", this.columnsWithButtons);
-    console.log("DATA: ", this.data);
   }
 
   buildHeaders() {
     let headers: string[] = [];
-    for (var val  of this.data.jsonColumns) {      
+    for (var val  of this.data.jsonColumns) {
       if(this.textHeaders.has(val)){
         headers.push(val);
       }
-    }    
+    }
     return [...headers];
   }
 
@@ -138,6 +147,7 @@ export class AddDialogComponent implements OnInit, AfterViewInit{
     Validators.required
     // Validators.email,
   ]);
+
 
   getErrorMessage() {
     return this.formControl.hasError('required') ? 'Required field' :
@@ -156,5 +166,5 @@ export class AddDialogComponent implements OnInit, AfterViewInit{
   public confirmAdd(): void {
     this.dataService.addItem(this.data);
   }
-  
+
 }

@@ -4,7 +4,7 @@
     
   <!-- <ngx-mat-timepicker [(ngModel)]="date"></ngx-mat-timepicker> -->
 
-  <!--
+  <!--  
   <mat-form-field>
     <input matInput [ngxMatDatetimePicker]="picker" placeholder="Choose a date" 
        [min]="minDate" [max]="maxDate" [disabled]="disabled">
@@ -43,7 +43,7 @@
       <mat-form-field *ngIf="isType(['date', 'dateTime'], column) && data.id != column" class="example-full-width">
         <mat-label>{{ textHeaders.get(column) }}</mat-label>
         <input matInput [matDatepicker]="picker" [(ngModel)]="data.row[column]">
-        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-hint>DD/MM/YYYY</mat-hint>
         <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
         <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
@@ -51,8 +51,8 @@
     </ng-container>
     <div mat-dialog-actions>
       <!-- [disabled]="!formControl.valid" -->
-      <button mat-button type="submit" [mat-dialog-close]="1" (click)="confirmAdd()">Save</button>
-      <button mat-button (click)="onNoClick()" tabindex="-1">Cancel</button>      
+      <button mat-button type="submit" [mat-dialog-close]="1" (click)="confirmAdd()">{{ 'Save' | translate }}</button>
+      <button mat-button (click)="onNoClick()" tabindex="-1">{{ 'Cancel' | translate }}</button>
     </div>
   </form>
 </div>

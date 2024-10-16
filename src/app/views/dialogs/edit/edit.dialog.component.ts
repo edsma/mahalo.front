@@ -31,6 +31,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {provideNativeDateAdapter} from '@angular/material/core';
+import { TranslationModule } from 'src/app/services/Transalation.module';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-add.dialog',
@@ -38,6 +40,7 @@ import {provideNativeDateAdapter} from '@angular/material/core';
   providers: [provideNativeDateAdapter()],
   imports: [
     MatIconModule,
+    TranslationModule,
     MatFormFieldModule,
     MatSelectModule,
     MatInputModule,
@@ -56,7 +59,7 @@ import {provideNativeDateAdapter} from '@angular/material/core';
     NgIf,
     MatDialogModule,
 
-    MatDialogModule, 
+    MatDialogModule,
     MatButtonModule,
     BrowserAnimationsModule,     // required animations module
     FormsModule,
@@ -71,18 +74,21 @@ export class EditDialogComponent {
 
   //ngOnInit(): void { }
   //ngAfterViewInit() {}
-  
+
   textHeaders: any;
   dataType: any;
   columnsWithButtons: string[] = [];
 
   constructor(
+    private translate: TranslateService,
     public dialogRef: MatDialogRef<EditDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: ParamsCustomTable,
     public dataService: DataService
   ) {}
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.getBrowserLang();
+   }
   
   isType(types:string[], column: string){    
     return types.includes(this.dataType.get(column));
@@ -93,17 +99,22 @@ export class EditDialogComponent {
     this.textHeaders = new Map(Object.entries(this.data.textHeaders)); 
     this.dataType = new Map(Object.entries(this.data.dataType));   
     this.columnsWithButtons = this.buildHeaders();
-    console.log("this.columnsWithButtons: ", this.columnsWithButtons);
-    console.log("DATA: ", this.data);
+  }
+
+
+  private getBrowserLang() {
+    const lang = navigator.language || navigator.languages[0]; // Obtener el idioma del navegador
+    let result =  lang.split('-')[0]; // Retorna solo el código del idioma (por ejemplo, "en" en lugar de "en-US")
+    //this.translate.use(result); // Cambia esto si deseas otro idioma por defecto
   }
 
   buildHeaders() {
     let headers: string[] = [];
-    for (var val  of this.data.jsonColumns) {      
+    for (var val  of this.data.jsonColumns) {
       if(this.textHeaders.has(val)){
         headers.push(val);
       }
-    }    
+    }
     return [...headers];
   }
 

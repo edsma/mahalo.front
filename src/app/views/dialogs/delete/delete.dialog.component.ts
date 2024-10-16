@@ -9,7 +9,7 @@ import { BrowserAnimationsModule, provideAnimations } from '@angular/platform-br
   selector: 'app-delete.dialog',
   standalone: true,
   imports: [
-    MatDialogModule, 
+    MatDialogModule,
     MatButtonModule,
     BrowserAnimationsModule,     // required animations module
   ],
@@ -18,7 +18,7 @@ import { BrowserAnimationsModule, provideAnimations } from '@angular/platform-br
 })
 export class DeleteDialogComponent implements OnInit, AfterViewInit {
 
-  //x:string; 
+  //x:string;
 
   constructor(
     public dialogRef: MatDialogRef<DeleteDialogComponent>,
@@ -27,9 +27,8 @@ export class DeleteDialogComponent implements OnInit, AfterViewInit {
   ) {}
 
   ngOnInit(): void { }
-  
+
   ngAfterViewInit() {
-    console.log("data: ", this.data);
   }
 
   onNoClick(): void {
