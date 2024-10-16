@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, Inject, OnInit, Optional} from '@angular/core';
+import {AfterViewInit, Component, Inject, OnInit, Optional, ViewChild} from '@angular/core';
 import {DataService} from '../../../services/data.service';
 import { BrowserAnimationsModule, provideAnimations } from '@angular/platform-browser/animations';
 import { ParamsCustomTable } from '../../../models/params-custom-table';
@@ -28,10 +28,20 @@ import { MatIconModule } from '@angular/material/icon';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { CommonModule, NgIf } from '@angular/common';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MAT_DATE_LOCALE, provideNativeDateAdapter, ThemePalette} from '@angular/material/core';
+//import { NgxMatDatetimePickerModule, NgxMatTimepickerModule, NgxMatNativeDateModule, NgxMatDateAdapter,  } from '@angular-material-components/datetime-picker';
+//import { NgxMatDatetimePickerModule, NgxMatTimepickerModule, NgxMatNativeDateModule, NgxMatDateAdapter } from 'ngx-mat-datetime-picker';
+//import { NgxMatMomentModule } from '@angular-material-components/moment-adapter';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-add.dialog',
   standalone: true,
+  providers: [provideNativeDateAdapter(),
+    { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
+  ],
   imports: [
     MatIconModule,
     MatFormFieldModule,
@@ -57,6 +67,14 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     BrowserAnimationsModule,     // required animations module
     FormsModule,
     MatFormFieldModule,
+    MatCheckboxModule,
+    MatDatepickerModule,
+
+    //NgxMatNativeDateModule,
+    //NgxMatTimepickerModule,
+    //NgxMatDatetimePickerModule,
+    //NgxMatMomentModule,
+
   ],
   templateUrl: '../../dialogs/add/add.dialog.html',
   styleUrls: ['../../dialogs/add/add.dialog.css']
@@ -64,12 +82,26 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 export class AddDialogComponent implements OnInit, AfterViewInit{
 
-  //ngOnInit(): void { }
-  //ngAfterViewInit() {}
+  @ViewChild('picker') picker: any;
   
   textHeaders: any;
   dataType: any;
   columnsWithButtons: string[] = [];
+
+  public date: moment.Moment;
+  public disabled = false;
+  public showSpinners = true;
+  public showSeconds = false;
+  public touchUi = false;
+  public enableMeridian = false;
+  public minDate: moment.Moment;
+  public maxDate: moment.Moment;
+  public stepHour = 1;
+  public stepMinute = 1;
+  public stepSecond = 1;
+  public color: ThemePalette = 'primary';
+  public disableMinute: boolean = false;
+  public hideTime: boolean = false;
 
   constructor(
     public dialogRef: MatDialogRef<AddDialogComponent>,
@@ -79,7 +111,9 @@ export class AddDialogComponent implements OnInit, AfterViewInit{
 
   ngOnInit(): void { }
   
-  
+  isType(types:string[], column: string){    
+    return types.includes(this.dataType.get(column));
+  }
 
   ngAfterViewInit() {
     //Prepare Headers

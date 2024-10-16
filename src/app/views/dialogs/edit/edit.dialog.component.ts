@@ -28,10 +28,14 @@ import { MatIconModule } from '@angular/material/icon';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { CommonModule, NgIf } from '@angular/common';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {provideNativeDateAdapter} from '@angular/material/core';
 
 @Component({
   selector: 'app-add.dialog',
   standalone: true,
+  providers: [provideNativeDateAdapter()],
   imports: [
     MatIconModule,
     MatFormFieldModule,
@@ -57,6 +61,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     BrowserAnimationsModule,     // required animations module
     FormsModule,
     MatFormFieldModule,
+    MatCheckboxModule,
+    MatDatepickerModule,
   ],
   templateUrl: '../../dialogs/edit/edit.dialog.html',
   styleUrls: ['../../dialogs/edit/edit.dialog.css']
@@ -67,6 +73,7 @@ export class EditDialogComponent {
   //ngAfterViewInit() {}
   
   textHeaders: any;
+  dataType: any;
   columnsWithButtons: string[] = [];
 
   constructor(
@@ -77,11 +84,14 @@ export class EditDialogComponent {
 
   ngOnInit(): void { }
   
-  
+  isType(types:string[], column: string){    
+    return types.includes(this.dataType.get(column));
+  }
 
   ngAfterViewInit() {
     //Prepare Headers
-    this.textHeaders = new Map(Object.entries(this.data.textHeaders));    
+    this.textHeaders = new Map(Object.entries(this.data.textHeaders)); 
+    this.dataType = new Map(Object.entries(this.data.dataType));   
     this.columnsWithButtons = this.buildHeaders();
     console.log("this.columnsWithButtons: ", this.columnsWithButtons);
     console.log("DATA: ", this.data);

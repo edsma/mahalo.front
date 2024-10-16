@@ -12,7 +12,7 @@
   },
   "scripts": {
     "ng": "ng",
-    "start": "ng serve -o",    
+    "start": "ng serve -o",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
@@ -39,6 +39,7 @@
     "@coreui/utils": "^2.0.2",
     "chart.js": "^4.4.4",
     "lodash-es": "^4.17.21",
+    "moment": "^2.30.1",
     "ngx-scrollbar": "^13.0.3",
     "ngx-spinner": "^17.0.0",
     "ngx-toastr": "^19.0.0",
