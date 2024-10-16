@@ -1,14 +1,53 @@
 <div class="container">
   <h3 mat-dialog-title>Add Record</h3>
-  <form class="mat-dialog-content" (ngSubmit)="submit" #formControl="ngForm">
+  <form class="mat-dialog-content mt-3" (ngSubmit)="submit" #formControl="ngForm">
+    
+  <!-- <ngx-mat-timepicker [(ngModel)]="date"></ngx-mat-timepicker> -->
+
+  <!--  
+  <mat-form-field>
+    <input matInput [ngxMatDatetimePicker]="picker" placeholder="Choose a date" 
+       [min]="minDate" [max]="maxDate" [disabled]="disabled">
+    
+    <mat-datepicker-toggle matSuffix [for]="$any(picker)"></mat-datepicker-toggle>       
+    <ngx-mat-datetime-picker #picker ></ngx-mat-datetime-picker>
+    
+    
+    <ngx-mat-datetime-picker #picker [showSpinners]="showSpinners" [showSeconds]="showSeconds"
+       [stepHour]="stepHour" [stepMinute]="stepMinute" [stepSecond]="stepSecond"
+       [touchUi]="touchUi" [color]="color" [enableMeridian]="enableMeridian" 
+       [disableMinute]="disableMinute" [hideTime]="hideTime">
+    </ngx-mat-datetime-picker>
+  
+ </mat-form-field>
+  -->
+
+
     <ng-container [matColumnDef]="column" *ngFor="let column of columnsWithButtons">
-      <div>
-        <mat-form-field class="search">
-          <mat-label>{{ textHeaders.get(column) }}</mat-label>
-          <input matInput class="form-control" [placeholder]="textHeaders.get(column)" [(ngModel)]="data.row[column]" [value]="data.row[column]"  required >
+      <div *ngIf="isType(['number', 'string'], column) && data.id != column">
+        <!-- 'number', 'string', 'dateTime' -->
+        <mat-form-field class="example-full-width">
+          <mat-label>{{ textHeaders.get(column) }}</mat-label>          
+          <input matInput [placeholder]="textHeaders.get(column)" [(ngModel)]="data.row[column]" [value]="data.row[column]"   >          
           <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
         </mat-form-field>
       </div>
+        <!-- 'boolean' -->
+      <section *ngIf="isType(['boolean'], column) && data.id != column">
+        <mat-checkbox [(ngModel)]="data.row[column]"  >
+          {{ textHeaders.get(column) }}
+        </mat-checkbox >
+        <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+      </section>
+
+      <mat-form-field *ngIf="isType(['date', 'dateTime'], column) && data.id != column" class="example-full-width">
+        <mat-label>{{ textHeaders.get(column) }}</mat-label>
+        <input matInput [matDatepicker]="picker" [(ngModel)]="data.row[column]">
+        <mat-hint>DD/MM/YYYY</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+      </mat-form-field>
     </ng-container>
     <div mat-dialog-actions>
       <!-- [disabled]="!formControl.valid" -->
