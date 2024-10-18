@@ -4,6 +4,7 @@ import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import { ToastrService, ToastrModule } from 'ngx-toastr';
 
 import { ParamsCustomTable } from '../models/params-custom-table';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Injectable({
   providedIn: 'root',
@@ -13,6 +14,7 @@ export class DataService {
   dataChange: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
   // Temporarily stores data from dialogs
   dialogData: any;
+  translateMessages: { name: string, value: string }[] = []; // Inicializar como un arreglo vacío
 
   headers = new HttpHeaders({
     'Content-Type': 'application/json',  // Indica que el contenido es JSON
@@ -73,9 +75,9 @@ export class DataService {
   }
 
   // ADD, POST METHOD
-  addItem(params: ParamsCustomTable): void {
+  addItem(params: ParamsCustomTable, translate: TranslateService): void {
     params.row[params.id] = 0;
-    delete params.row.creationDate;    
+    delete params.row.creationDate;
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Accept': 'application/json'
@@ -83,10 +85,10 @@ export class DataService {
     this.httpClient.post(`${params.path}`, params.row, {headers}).subscribe({
       next: (result: any) => {
         this.dialogData = params.row;
-        this.toasterService.success('Added Record!', 'Mahalo');
+        this.toasterService.success(translate.instant('Added'), 'Mahalo');
       },
       error: (err) => {
-          this.toasterService.error(`Error occurred. Details: ${err.name} ${err.message}`, 'Mahalo');
+          this.toasterService.error(`${translate.instant('ErrorDetails')}: ${err.name} ${err.message}`, 'Mahalo');
       },
       complete() {
       },
@@ -94,7 +96,7 @@ export class DataService {
   }
 
   // UPDATE, PUT METHOD
-  updateItem(params: ParamsCustomTable): void {
+  updateItem(params: ParamsCustomTable, translate:TranslateService): void {
     delete params.row.creationDate;
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -103,28 +105,30 @@ export class DataService {
     this.httpClient.put(`${params.path}`, params.row, {headers}).subscribe({
       next: (result: any) => {
         this.dialogData = params.row;
-        this.toasterService.success('Updated Record!', 'Mahalo');
+        this.toasterService.success(translate.instant('Updated'), 'Mahalo');
       },
       error: (err) => {
-          this.toasterService.error(`Error occurred. Details: ${err.name} ${err.message}`, 'Mahalo');
+          this.toasterService.error(`${translate.instant('ErrorDetails')}: ${err.name} ${err.message}`, 'Mahalo');
       },
       complete() {
       },
     });
   }
 
+
+
   // DELETE METHOD
-  deleteItem(params: ParamsCustomTable): void {
+  deleteItem(params: ParamsCustomTable, translate: TranslateService): void {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Accept': 'application/json'
     });
     this.httpClient.delete(`${params.path}/${params.row?.id}`, {headers}).subscribe({
       next: (result: any) => {
-        this.toasterService.success('Deleted Record!', 'Mahalo');
+        this.toasterService.success( translate.instant('Deleted'), 'Mahalo');
       },
       error: (err) => {
-          this.toasterService.error(`Error occurred. Details: ${err.name} ${err.message}`, 'Mahalo');
+          this.toasterService.error(`${translate.instant('ErrorDetails')}: ${err.name} ${err.message}`, 'Mahalo');
       },
       complete() {
       },

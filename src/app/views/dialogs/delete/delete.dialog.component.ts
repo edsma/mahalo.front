@@ -5,16 +5,17 @@ import {DataService} from '../../../services/data.service';
 import { ParamsCustomTable } from '../../../models/params-custom-table';
 import { BrowserAnimationsModule, provideAnimations } from '@angular/platform-browser/animations';
 
-import { RowComponent, ColComponent, TextColorDirective, CardComponent, CardHeaderComponent, CardBodyComponent, 
-  TableDirective, TableColorDirective, TableActiveDirective, BorderDirective, AlignDirective, 
-  FormDirective, FormLabelDirective, FormControlDirective, ButtonDirective, ProgressBarDirective, 
-  ProgressComponent as ProgressComponent_1, ProgressBarComponent, ProgressStackedComponent, 
+import { RowComponent, ColComponent, TextColorDirective, CardComponent, CardHeaderComponent, CardBodyComponent,
+  TableDirective, TableColorDirective, TableActiveDirective, BorderDirective, AlignDirective,
+  FormDirective, FormLabelDirective, FormControlDirective, ButtonDirective, ProgressBarDirective,
+  ProgressComponent as ProgressComponent_1, ProgressBarComponent, ProgressStackedComponent,
   FormCheckComponent, FormCheckInputDirective, FormCheckLabelDirective,
 
   ButtonGroupComponent,  ButtonToolbarComponent, InputGroupComponent, InputGroupTextDirective, ThemeDirective, DropdownComponent, DropdownToggleDirective, DropdownMenuDirective, DropdownItemDirective, DropdownDividerDirective,
 
   FormFloatingDirective, FormSelectDirective, GutterDirective
 } from '@coreui/angular';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-delete.dialog',
@@ -31,8 +32,8 @@ import { RowComponent, ColComponent, TextColorDirective, CardComponent, CardHead
     ButtonGroupComponent,  ButtonToolbarComponent, InputGroupComponent, InputGroupTextDirective, ThemeDirective, DropdownComponent, DropdownToggleDirective, DropdownMenuDirective, DropdownItemDirective, DropdownDividerDirective,
     FormFloatingDirective, FormSelectDirective, GutterDirective,
 
-    FormCheckComponent, 
-    FormCheckInputDirective, 
+    FormCheckComponent,
+    FormCheckInputDirective,
     FormCheckLabelDirective,
   ],
   templateUrl: '../../dialogs/delete/delete.dialog.html',
@@ -43,6 +44,7 @@ export class DeleteDialogComponent implements OnInit, AfterViewInit {
   //x:string;
 
   constructor(
+    private translate: TranslateService,
     public dialogRef: MatDialogRef<DeleteDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: ParamsCustomTable,
     public dataService: DataService
@@ -58,6 +60,8 @@ export class DeleteDialogComponent implements OnInit, AfterViewInit {
   }
 
   confirmDelete(): void {
-    this.dataService.deleteItem(this.data);
+
+    this.translate.use(localStorage.getItem('language')?? 'es');
+    this.dataService.deleteItem(this.data,this.translate);
   }
 }

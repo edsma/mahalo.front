@@ -1,39 +1,39 @@
 <c-row ngPreserveWhitespaces>
   <c-col xs="12">
-    <c-card>    
+    <c-card>
       <c-card-header>
         <!-- <strong>Angular Form Control</strong> -->
-        <strong>Add Record</strong>
+        <strong>{{ 'EditRecord' | translate }}</strong>
       </c-card-header>
       <c-card-body style="margin:20px;">
         <form class="mat-dialog-content mt-3" (ngSubmit)="submit" #formControl="ngForm">
-          
+
         <!-- <ngx-mat-timepicker [(ngModel)]="date"></ngx-mat-timepicker> -->
 
-        <!--  
+        <!--
         <mat-form-field>
-          <input matInput [ngxMatDatetimePicker]="picker" placeholder="Choose a date" 
+          <input matInput [ngxMatDatetimePicker]="picker" placeholder="Choose a date"
             [min]="minDate" [max]="maxDate" [disabled]="disabled">
-          
-          <mat-datepicker-toggle matSuffix [for]="$any(picker)"></mat-datepicker-toggle>       
+
+          <mat-datepicker-toggle matSuffix [for]="$any(picker)"></mat-datepicker-toggle>
           <ngx-mat-datetime-picker #picker ></ngx-mat-datetime-picker>
-          
-          
+
+
           <ngx-mat-datetime-picker #picker [showSpinners]="showSpinners" [showSeconds]="showSeconds"
             [stepHour]="stepHour" [stepMinute]="stepMinute" [stepSecond]="stepSecond"
-            [touchUi]="touchUi" [color]="color" [enableMeridian]="enableMeridian" 
+            [touchUi]="touchUi" [color]="color" [enableMeridian]="enableMeridian"
             [disableMinute]="disableMinute" [hideTime]="hideTime">
           </ngx-mat-datetime-picker>
-        
+
       </mat-form-field>
         -->
 
 
           <ng-container [matColumnDef]="column" *ngFor="let column of columnsWithButtons">
             <div *ngIf="isType(['number', 'string'], column) && data.id != column && column != 'creationDate'">
-              <!-- 'number', 'string', 'dateTime' -->              
+              <!-- 'number', 'string', 'dateTime' -->
               <div class="example-full-width mb-3" [cFormFloating]="true">
-                <input cFormControl [placeholder]="textHeaders.get(column)" [(ngModel)]="data.row[column]" [value]="data.row[column]"   >          
+                <input cFormControl [placeholder]="textHeaders.get(column)" [(ngModel)]="data.row[column]" [value]="data.row[column]"   >
                 <label cLabel>{{ textHeaders.get(column) }}</label>
                 <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
               </div>
@@ -55,7 +55,7 @@
 
             <!--
             <div *ngIf="isType(['date', 'dateTime'], column) && data.id != column && column != 'creationDate'" class="example-full-width" [cFormFloating]="true">
-              
+
               <label cLabel>{{ textHeaders.get(column) }}</label>
               <input cFormControl [matDatepicker]="picker" [(ngModel)]="data.row[column]">
               <mat-hint>DD/MM/YYYY</mat-hint>
@@ -63,7 +63,7 @@
               <mat-datepicker #picker></mat-datepicker>
               <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
 
-              
+
             </div>
           -->
             <section *ngIf="isType(['date', 'dateTime'], column) && data.id != column && column != 'creationDate'" class="mb-3">
@@ -76,14 +76,14 @@
               </c-input-group>
               <mat-hint style="width: 100%; text-align:right;display: block;">DD/MM/YYYY</mat-hint>
             </section>
-          </ng-container>          
+          </ng-container>
           <div class="col-auto" class="mt-3">
             <!-- [disabled]="!formControl.valid" -->
             <button cButton type="submit" [mat-dialog-close]="1" (click)="confirmAdd()">{{ 'Save' | translate }}</button>
             <button cButton (click)="onNoClick()" tabindex="-1">{{ 'Cancel' | translate }}</button>
           </div>
         </form>
-      </c-card-body> 
+      </c-card-body>
     </c-card>
-  </c-col> 
+  </c-col>
 </c-row>

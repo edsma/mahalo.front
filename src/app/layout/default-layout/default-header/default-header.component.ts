@@ -43,7 +43,7 @@ import { TranslationModule } from 'src/app/services/Transalation.module';
 export class DefaultHeaderComponent extends HeaderComponent implements OnInit {
 
 
-  
+
 
   constructor(private translate: TranslateService) {
 
@@ -52,7 +52,6 @@ export class DefaultHeaderComponent extends HeaderComponent implements OnInit {
   }
   ngOnInit(): void {
     this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
-      console.log("LANG: >>>>> ", event.lang);
       this.translate.use(event.lang);
     });
   }

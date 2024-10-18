@@ -32,12 +32,12 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {provideNativeDateAdapter} from '@angular/material/core';
 import { TranslationModule } from 'src/app/services/Transalation.module';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
-import { RowComponent, ColComponent, TextColorDirective, CardComponent, CardHeaderComponent, CardBodyComponent, 
-  TableDirective, TableColorDirective, TableActiveDirective, BorderDirective, AlignDirective, 
-  FormDirective, FormLabelDirective, FormControlDirective, ButtonDirective, ProgressBarDirective, 
-  ProgressComponent as ProgressComponent_1, ProgressBarComponent, ProgressStackedComponent, 
+import { RowComponent, ColComponent, TextColorDirective, CardComponent, CardHeaderComponent, CardBodyComponent,
+  TableDirective, TableColorDirective, TableActiveDirective, BorderDirective, AlignDirective,
+  FormDirective, FormLabelDirective, FormControlDirective, ButtonDirective, ProgressBarDirective,
+  ProgressComponent as ProgressComponent_1, ProgressBarComponent, ProgressStackedComponent,
   FormCheckComponent, FormCheckInputDirective, FormCheckLabelDirective,
 
   ButtonGroupComponent,  ButtonToolbarComponent, InputGroupComponent, InputGroupTextDirective, ThemeDirective, DropdownComponent, DropdownToggleDirective, DropdownMenuDirective, DropdownItemDirective, DropdownDividerDirective,
@@ -69,7 +69,7 @@ import { RowComponent, ColComponent, TextColorDirective, CardComponent, CardHead
     CommonModule,
     NgIf,
     MatDialogModule,
-
+    TranslateModule,
     MatDialogModule,
     MatButtonModule,
     BrowserAnimationsModule,     // required animations module
@@ -90,8 +90,8 @@ import { RowComponent, ColComponent, TextColorDirective, CardComponent, CardHead
     ButtonGroupComponent,  ButtonToolbarComponent, InputGroupComponent, InputGroupTextDirective, ThemeDirective, DropdownComponent, DropdownToggleDirective, DropdownMenuDirective, DropdownItemDirective, DropdownDividerDirective,
     FormFloatingDirective, FormSelectDirective, GutterDirective,
 
-    FormCheckComponent, 
-    FormCheckInputDirective, 
+    FormCheckComponent,
+    FormCheckInputDirective,
     FormCheckLabelDirective,
   ],
   templateUrl: '../../dialogs/edit/edit.dialog.html',
@@ -117,14 +117,14 @@ export class EditDialogComponent {
     this.getBrowserLang();
    }
 
-  isType(types:string[], column: string){    
+  isType(types:string[], column: string){
     return types.includes(this.dataType.get(column));
   }
 
   ngAfterViewInit() {
     //Prepare Headers
-    this.textHeaders = new Map(Object.entries(this.data.textHeaders)); 
-    this.dataType = new Map(Object.entries(this.data.dataType));   
+    this.textHeaders = new Map(Object.entries(this.data.textHeaders));
+    this.dataType = new Map(Object.entries(this.data.dataType));
     this.columnsWithButtons = this.buildHeaders();
   }
 
@@ -165,6 +165,7 @@ export class EditDialogComponent {
   }
 
   public confirmEdit(): void {
-    this.dataService.updateItem(this.data);
+    this.translate.use(localStorage.getItem('language')?? 'es');
+    this.dataService.updateItem(this.data,this.translate);
   }
 }

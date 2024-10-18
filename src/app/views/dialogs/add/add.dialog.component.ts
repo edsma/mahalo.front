@@ -3,7 +3,7 @@ import {DataService} from '../../../services/data.service';
 import { BrowserAnimationsModule, provideAnimations } from '@angular/platform-browser/animations';
 import { ParamsCustomTable } from '../../../models/params-custom-table';
 
-import { TranslateService } from '@ngx-translate/core';
+import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
 
 
 import { MatPaginator } from '@angular/material/paginator';
@@ -38,10 +38,10 @@ import {MAT_DATE_LOCALE, provideNativeDateAdapter, ThemePalette} from '@angular/
 //import { NgxMatMomentModule } from '@angular-material-components/moment-adapter';
 import * as moment from 'moment';
 import { TranslationModule } from 'src/app/services/Transalation.module';
-import { RowComponent, ColComponent, TextColorDirective, CardComponent, CardHeaderComponent, CardBodyComponent, 
-  TableDirective, TableColorDirective, TableActiveDirective, BorderDirective, AlignDirective, 
-  FormDirective, FormLabelDirective, FormControlDirective, ButtonDirective, ProgressBarDirective, 
-  ProgressComponent as ProgressComponent_1, ProgressBarComponent, ProgressStackedComponent, 
+import { RowComponent, ColComponent, TextColorDirective, CardComponent, CardHeaderComponent, CardBodyComponent,
+  TableDirective, TableColorDirective, TableActiveDirective, BorderDirective, AlignDirective,
+  FormDirective, FormLabelDirective, FormControlDirective, ButtonDirective, ProgressBarDirective,
+  ProgressComponent as ProgressComponent_1, ProgressBarComponent, ProgressStackedComponent,
   FormCheckComponent, FormCheckInputDirective, FormCheckLabelDirective,
 
   ButtonGroupComponent,  ButtonToolbarComponent, InputGroupComponent, InputGroupTextDirective, ThemeDirective, DropdownComponent, DropdownToggleDirective, DropdownMenuDirective, DropdownItemDirective, DropdownDividerDirective,
@@ -96,8 +96,8 @@ import { RowComponent, ColComponent, TextColorDirective, CardComponent, CardHead
     ButtonGroupComponent,  ButtonToolbarComponent, InputGroupComponent, InputGroupTextDirective, ThemeDirective, DropdownComponent, DropdownToggleDirective, DropdownMenuDirective, DropdownItemDirective, DropdownDividerDirective,
     FormFloatingDirective, FormSelectDirective, GutterDirective,
 
-    FormCheckComponent, 
-    FormCheckInputDirective, 
+    FormCheckComponent,
+    FormCheckInputDirective,
     FormCheckLabelDirective,
 
   ],
@@ -108,7 +108,7 @@ import { RowComponent, ColComponent, TextColorDirective, CardComponent, CardHead
 export class AddDialogComponent implements OnInit, AfterViewInit{
 
   @ViewChild('picker') picker: any;
-  
+
   //ngOnInit(): void { }
   //ngAfterViewInit() {}
 
@@ -139,11 +139,16 @@ export class AddDialogComponent implements OnInit, AfterViewInit{
   ) {
     //this.translate.use(data.language? data.language: 'en');
 
+
   }
 
-  ngOnInit(): void { }
-  
-  isType(types:string[], column: string){    
+  ngOnInit(): void {
+    this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
+      this.translate.use(event.lang);
+    });
+  }
+
+  isType(types:string[], column: string){
     return types.includes(this.dataType.get(column));
   }
 
@@ -185,7 +190,9 @@ export class AddDialogComponent implements OnInit, AfterViewInit{
   }
 
   public confirmAdd(): void {
-    this.dataService.addItem(this.data);
+
+    this.translate.use(localStorage.getItem('language')?? 'es');
+    this.dataService.addItem(this.data, this.translate);
   }
 
 }

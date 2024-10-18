@@ -61,10 +61,9 @@ export class DefaultLayoutComponent {
   }
 
   ngOnInit(): void {
-    //this.getBrowserLang();  
+    //this.getBrowserLang();
 
     this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
-      console.log("LANG: <<<<<<< ", event.lang);
       this.loadNavItems();
     });
 
