@@ -48,7 +48,7 @@ import { RowComponent, ColComponent, TextColorDirective, CardComponent, CardHead
 import { ParamsCustomTable } from '../../models/params-custom-table';
 import {BehaviorSubject, fromEvent, Observable} from 'rxjs';
 
-import { TranslateService } from '@ngx-translate/core';
+import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
 import { TranslationModule } from 'src/app/services/Transalation.module';
 
 export interface ApiResponse {
@@ -98,14 +98,8 @@ export interface ApiResponse {
   templateUrl: './custom-table.component.html',
   styleUrls: ['./custom-table.component.scss']
 })
-export class CustomTableComponent implements OnInit, AfterViewInit {
-  ngOnInit(): void {
-
-    this.translate.onLangChange.subscribe(() => {
-      //debugger;
-    });
-  }
-
+export class CustomTableComponent implements AfterViewInit {
+  
   @Input() params!: ParamsCustomTable;
 
   data: any[] = [];
@@ -129,12 +123,12 @@ export class CustomTableComponent implements OnInit, AfterViewInit {
 
   searchKeywordFilter = new FormControl();
 
-
-
   buildHeaders() {
+    /*
     this.translate.onLangChange.subscribe(() => {
       //debugger;
     });
+    */
     let headers = [];
     for (var val  of this.params.jsonColumns) {
       if(this.textHeaders.has(val)){
@@ -187,6 +181,11 @@ export class CustomTableComponent implements OnInit, AfterViewInit {
         })
       )
       .subscribe((result) => (this.data = result));
+
+      this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
+        console.log("LANG: ", event.lang);
+        this.translate.use(event.lang);
+      });
   }
 
 

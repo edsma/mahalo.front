@@ -1,8 +1,8 @@
 import { NgStyle, NgTemplateOutlet } from '@angular/common';
-import { Component, computed, inject, input } from '@angular/core';
+import { Component, computed, inject, input, OnInit } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { CommonModule, NgIf } from '@angular/common';
-import { TranslateService } from '@ngx-translate/core';
+import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
 
 import {
   AvatarComponent,
@@ -40,29 +40,37 @@ import { TranslationModule } from 'src/app/services/Transalation.module';
     NgIf,
   ]
 })
-export class DefaultHeaderComponent extends HeaderComponent {
+export class DefaultHeaderComponent extends HeaderComponent implements OnInit {
 
 
-  readonly #colorModeService = inject(ColorModeService);
-  readonly colorMode = this.#colorModeService.colorMode;
-  language: string = this.getNavigatorLang();
-
-  readonly colorModes = [
-    { name: 'light', text: 'Light', icon: 'cilSun' },
-    { name: 'dark', text: 'Dark', icon: 'cilMoon' },
-    { name: 'auto', text: 'Auto', icon: 'cilContrast' }
-  ];
-
-  readonly icons = computed(() => {
-    const currentMode = this.colorMode();
-    return this.colorModes.find(mode => mode.name === currentMode)?.icon ?? 'cilSun';
-  });
+  
 
   constructor(private translate: TranslateService) {
 
     super();
      this.getBrowserLang();
   }
+  ngOnInit(): void {
+    this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
+      console.log("LANG: >>>>> ", event.lang);
+      this.translate.use(event.lang);
+    });
+  }
+
+  readonly #colorModeService = inject(ColorModeService);
+  readonly colorMode = this.#colorModeService.colorMode;
+  language: string = this.getNavigatorLang();
+
+  readonly colorModes = [
+    { name: 'light', text: this.translate.instant('Light'), icon: 'cilSun' },
+    { name: 'dark', text: this.translate.instant('Dark'), icon: 'cilMoon' },
+    { name: 'auto', text: this.translate.instant('Auto'), icon: 'cilContrast' }
+  ];
+
+  readonly icons = computed(() => {
+    const currentMode = this.colorMode();
+    return this.colorModes.find(mode => mode.name === currentMode)?.icon ?? 'cilSun';
+  });
 
   changeLanguage(lang: string){
     this.language = lang;

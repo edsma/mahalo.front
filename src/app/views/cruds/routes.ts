@@ -16,35 +16,35 @@ export const routes: Routes = [
         path: 'cities',
         loadComponent: () => import('./city/city.component').then(m => m.CityComponent),
         data: {
-          title: 'City'
+          title: 'Cities'
         }
       },
       {
         path: 'countries',
         loadComponent: () => import('./country/country.component').then(m => m.CountryComponent),
         data: {
-          title: 'Country'
+          title: 'Countries'
         }
       },
       {
         path: 'disorders',
         loadComponent: () => import('./disorder/disorder.component').then(m => m.DisorderComponent),
         data: {
-          title: 'Disorder'
+          title: 'Disorders'
         }
       },
       {
         path: 'documents-types',
         loadComponent: () => import('./document-type/document-type.component').then(m => m.DocumentTypeComponent),
         data: {
-          title: 'DocumentsTypes'
+          title: 'Document types'
         }
       },
       {
         path: 'notification-history',
         loadComponent: () => import('./notification-history/notification-history.component').then(m => m.NotificationHistoryComponent),
         data: {
-          title: 'Notification'
+          title: 'Notification History'
         }
       },
       {
@@ -58,28 +58,28 @@ export const routes: Routes = [
         path: 'psychologists',
         loadComponent: () => import('./psychologist/psychologist.component').then(m => m.PsychologistComponent),
         data: {
-          title: 'Psychologist'
+          title: 'Psychologists'
         }
       },
       {
         path: 'states',
         loadComponent: () => import('./state/state.component').then(m => m.StateComponent),
         data: {
-          title: 'State'
+          title: 'States'
         }
       },
       {
         path: 'therapies',
-        loadComponent: () => import('./state/state.component').then(m => m.StateComponent),
+        loadComponent: () => import('./therapy/therapy.component').then(m => m.TherapyComponent),
         data: {
-          title: 'Therapy'
+          title: 'Therapies'
         }
       },
       {
         path: 'users',
         loadComponent: () => import('./user/user.component').then(m => m.UserComponent),
         data: {
-          title: 'User'
+          title: 'Users'
         }
       }
     ]
