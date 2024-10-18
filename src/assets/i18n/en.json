@@ -9,6 +9,9 @@
   "ErrorDetails": "Error occurred. Details",
   "Added": "Added Record!",
   "Deleted": "Deleted Record!",
+  "DeleteRecord": "Delete record",
+  "QuestionInDelete": "Are you sure you want to delete the record?",
+
   "Messages": "Messages",
   "Tasks": "Tasks",
   "Comments": "Comments",
@@ -21,6 +24,7 @@
   "Save": "Save",
   "EditRecord": "Edit Record",
   "Cancel": "Cancel",
+  "Delete": "Delete",
   "Cities": "Cities",
   "Countries": "Countries",
   "Country": "Country",

@@ -15,7 +15,7 @@ import { RowComponent, ColComponent, TextColorDirective, CardComponent, CardHead
 
   FormFloatingDirective, FormSelectDirective, GutterDirective
 } from '@coreui/angular';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-delete.dialog',
@@ -23,6 +23,7 @@ import { TranslateService } from '@ngx-translate/core';
   imports: [
     MatDialogModule,
     MatButtonModule,
+    TranslateModule,
     BrowserAnimationsModule,     // required animations module
 
     RowComponent, ColComponent, TextColorDirective, CardComponent, CardHeaderComponent, CardBodyComponent, TableDirective, TableColorDirective, TableActiveDirective, BorderDirective, AlignDirective,
