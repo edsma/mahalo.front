@@ -95,6 +95,29 @@ export class DataService {
     });
   }
 
+    // ADD, POST METHOD
+    addItemWithOutTable(params: any, translate: TranslateService): void {
+      const headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      });
+
+      console.log(params);
+      this.httpClient.post(`${params.path}`, params.model, {headers}).subscribe({
+        next: (result: any) => {
+          this.dialogData = params.row;
+          this.toasterService.success(translate.instant('success'), 'Mahalo');
+        },
+        error: (err) => {
+            this.toasterService.error(`${translate.instant('ErrorDetails')}: ${err.name} ${err.message}`, 'Mahalo');
+        },
+        complete() {
+        },
+      });
+    }
+
+
+
   // UPDATE, PUT METHOD
   updateItem(params: ParamsCustomTable, translate:TranslateService): void {
     delete params.row.creationDate;
