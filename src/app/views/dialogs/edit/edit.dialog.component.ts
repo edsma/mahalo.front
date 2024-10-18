@@ -34,16 +34,27 @@ import {provideNativeDateAdapter} from '@angular/material/core';
 import { TranslationModule } from 'src/app/services/Transalation.module';
 import { TranslateService } from '@ngx-translate/core';
 
+import { RowComponent, ColComponent, TextColorDirective, CardComponent, CardHeaderComponent, CardBodyComponent, 
+  TableDirective, TableColorDirective, TableActiveDirective, BorderDirective, AlignDirective, 
+  FormDirective, FormLabelDirective, FormControlDirective, ButtonDirective, ProgressBarDirective, 
+  ProgressComponent as ProgressComponent_1, ProgressBarComponent, ProgressStackedComponent, 
+  FormCheckComponent, FormCheckInputDirective, FormCheckLabelDirective,
+
+  ButtonGroupComponent,  ButtonToolbarComponent, InputGroupComponent, InputGroupTextDirective, ThemeDirective, DropdownComponent, DropdownToggleDirective, DropdownMenuDirective, DropdownItemDirective, DropdownDividerDirective,
+
+  FormFloatingDirective, FormSelectDirective, GutterDirective
+} from '@coreui/angular';
+
 @Component({
   selector: 'app-add.dialog',
   standalone: true,
   providers: [provideNativeDateAdapter()],
   imports: [
     MatIconModule,
-    TranslationModule,
     MatFormFieldModule,
     MatSelectModule,
     MatInputModule,
+    TranslationModule,
     MatButtonModule,
     MatTableModule,
     MatPaginatorModule,
@@ -66,6 +77,22 @@ import { TranslateService } from '@ngx-translate/core';
     MatFormFieldModule,
     MatCheckboxModule,
     MatDatepickerModule,
+
+    //NgxMatNativeDateModule,
+    //NgxMatTimepickerModule,
+    //NgxMatDatetimePickerModule,
+    //NgxMatMomentModule,
+
+    RowComponent, ColComponent, TextColorDirective, CardComponent, CardHeaderComponent, CardBodyComponent, TableDirective, TableColorDirective, TableActiveDirective, BorderDirective, AlignDirective,
+    //FormDirective, FormLabelDirective, FormControlDirective, ButtonDirective
+    ProgressBarDirective, ProgressComponent_1, ProgressBarComponent, ProgressStackedComponent,
+    FormDirective, FormLabelDirective, FormControlDirective, ButtonDirective,
+    ButtonGroupComponent,  ButtonToolbarComponent, InputGroupComponent, InputGroupTextDirective, ThemeDirective, DropdownComponent, DropdownToggleDirective, DropdownMenuDirective, DropdownItemDirective, DropdownDividerDirective,
+    FormFloatingDirective, FormSelectDirective, GutterDirective,
+
+    FormCheckComponent, 
+    FormCheckInputDirective, 
+    FormCheckLabelDirective,
   ],
   templateUrl: '../../dialogs/edit/edit.dialog.html',
   styleUrls: ['../../dialogs/edit/edit.dialog.css']
@@ -89,7 +116,7 @@ export class EditDialogComponent {
   ngOnInit(): void {
     this.getBrowserLang();
    }
-  
+
   isType(types:string[], column: string){    
     return types.includes(this.dataType.get(column));
   }

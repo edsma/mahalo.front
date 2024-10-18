@@ -6,10 +6,10 @@
       </c-card-header>
       <c-card-body>
 
-        <mat-form-field class="search">
-          <mat-label>         {{ 'Search' | translate }}</mat-label>
-          <input matInput cFormControl [formControl]="searchKeywordFilter" placeholder="Type to Search" #input />
-        </mat-form-field>
+        <div class="search" [cFormFloating]="true">          
+          <input cFormControl [formControl]="searchKeywordFilter" placeholder="Type to Search" #input />
+          <label cLabel> {{ 'Search' | translate }}</label>
+        </div>
         <table class="table" mat-table cTable [dataSource]="data" matSort matSortActive="id" matSortDisableClear matSortDirection="desc">
 
           <ng-container [matColumnDef]="column" *ngFor="let column of columnsWithButtons">

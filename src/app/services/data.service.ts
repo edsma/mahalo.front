@@ -75,6 +75,7 @@ export class DataService {
   // ADD, POST METHOD
   addItem(params: ParamsCustomTable): void {
     params.row[params.id] = 0;
+    delete params.row.creationDate;    
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Accept': 'application/json'
@@ -94,11 +95,12 @@ export class DataService {
 
   // UPDATE, PUT METHOD
   updateItem(params: ParamsCustomTable): void {
+    delete params.row.creationDate;
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Accept': 'application/json'
     });
-    this.httpClient.put(`${params.path}/${params.row?.id}`, params.row, {headers}).subscribe({
+    this.httpClient.put(`${params.path}`, params.row, {headers}).subscribe({
       next: (result: any) => {
         this.dialogData = params.row;
         this.toasterService.success('Updated Record!', 'Mahalo');

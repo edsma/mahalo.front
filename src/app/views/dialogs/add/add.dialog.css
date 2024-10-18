@@ -22,3 +22,18 @@
 .example-full-width {
   width: 100%;
 }
+
+::ng-deep .mat-mdc-dialog-surface{
+  /*overflow-y: unset !important;*/
+  overflow-x: hidden !important;
+}
+
+::ng-deep c-card-body{
+  margin:10px 20xp 20xp 20xp;
+}
+
+::ng-deep mat-hint{
+  width: 100%;
+  text-align: right;
+  display: block;
+}

@@ -34,7 +34,17 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { AddDialogComponent } from '../dialogs/add/add.dialog.component';
 import { EditDialogComponent } from '../dialogs/edit/edit.dialog.component';
 import { DeleteDialogComponent } from '../dialogs/delete/delete.dialog.component';
-import { RowComponent, ColComponent, TextColorDirective, CardComponent, CardHeaderComponent, CardBodyComponent, TableDirective, TableColorDirective, TableActiveDirective, BorderDirective, AlignDirective, FormDirective, FormLabelDirective, FormControlDirective, ButtonDirective, ProgressBarDirective, ProgressComponent as ProgressComponent_1, ProgressBarComponent, ProgressStackedComponent } from '@coreui/angular';
+import { RowComponent, ColComponent, TextColorDirective, CardComponent, CardHeaderComponent, CardBodyComponent, 
+  TableDirective, TableColorDirective, TableActiveDirective, BorderDirective, AlignDirective, 
+  FormDirective, FormLabelDirective, FormControlDirective, ButtonDirective, ProgressBarDirective, 
+  ProgressComponent as ProgressComponent_1, ProgressBarComponent, ProgressStackedComponent, 
+  FormCheckComponent, FormCheckInputDirective, FormCheckLabelDirective,
+
+  ButtonGroupComponent,  ButtonToolbarComponent, InputGroupComponent, InputGroupTextDirective, ThemeDirective, DropdownComponent, DropdownToggleDirective, DropdownMenuDirective, DropdownItemDirective, DropdownDividerDirective,
+
+  FormFloatingDirective, FormSelectDirective, GutterDirective
+} from '@coreui/angular';
+
 import { ParamsCustomTable } from '../../models/params-custom-table';
 import {BehaviorSubject, fromEvent, Observable} from 'rxjs';
 
@@ -73,9 +83,17 @@ export interface ApiResponse {
     MatDialogModule,
     DeleteDialogComponent,
     TranslationModule,
+    
     RowComponent, ColComponent, TextColorDirective, CardComponent, CardHeaderComponent, CardBodyComponent, TableDirective, TableColorDirective, TableActiveDirective, BorderDirective, AlignDirective,
     //FormDirective, FormLabelDirective, FormControlDirective, ButtonDirective
-    ProgressBarDirective, ProgressComponent_1, ProgressBarComponent, ProgressStackedComponent
+    ProgressBarDirective, ProgressComponent_1, ProgressBarComponent, ProgressStackedComponent,
+    FormDirective, FormLabelDirective, FormControlDirective, ButtonDirective,
+    ButtonGroupComponent,  ButtonToolbarComponent, InputGroupComponent, InputGroupTextDirective, ThemeDirective, DropdownComponent, DropdownToggleDirective, DropdownMenuDirective, DropdownItemDirective, DropdownDividerDirective,
+    FormFloatingDirective, FormSelectDirective, GutterDirective,
+
+    FormCheckComponent, 
+    FormCheckInputDirective, 
+    FormCheckLabelDirective,    
   ],
   templateUrl: './custom-table.component.html',
   styleUrls: ['./custom-table.component.scss']
@@ -84,7 +102,7 @@ export class CustomTableComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
 
     this.translate.onLangChange.subscribe(() => {
-      debugger;
+      //debugger;
     });
   }
 
@@ -115,7 +133,7 @@ export class CustomTableComponent implements OnInit, AfterViewInit {
 
   buildHeaders() {
     this.translate.onLangChange.subscribe(() => {
-      debugger;
+      //debugger;
     });
     let headers = [];
     for (var val  of this.params.jsonColumns) {
@@ -176,9 +194,11 @@ export class CustomTableComponent implements OnInit, AfterViewInit {
   add(row: any) {
 
     this.params.row = {};
-    this.params.language = this.translate.currentLang;
+    this.params.language = this.translate.currentLang;    
     const dialogRef =  this.dialog.open(AddDialogComponent, {
       data: this.params,
+      maxHeight: '500px',
+      width: '600px',
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 1) {
@@ -199,10 +219,11 @@ export class CustomTableComponent implements OnInit, AfterViewInit {
 
 
   edit(row: any) {
-    this.params.row = {...row};
-
+    this.params.row = {...row};    
     const dialogRef =  this.dialog.open(EditDialogComponent, {
       data: this.params,
+      maxHeight: '500px',
+      width: '600px',
     });
 
     dialogRef.afterClosed().subscribe(result => {
