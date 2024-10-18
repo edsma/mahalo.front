@@ -18,27 +18,27 @@ return [
     },
     children: [
       {
-        name: translate.instant('City'),
+        name: translate.instant('Cities'),
         url: '/cruds/cities',
         icon: 'nav-icon-bullet'
       },
       {
-        name: translate.instant('Country'),
+        name: translate.instant('Countries'),
         url: '/cruds/countries',
         icon: 'nav-icon-bullet'
       },
       {
-        name: translate.instant('Disorder'),
+        name: translate.instant('Disorders'),
         url: '/cruds/disorders',
         icon: 'nav-icon-bullet'
       },
       {
-        name: translate.instant('DocumentsTypes'),
+        name: translate.instant('Document Types'),
         url: '/cruds/documents-types',
         icon: 'nav-icon-bullet'
       },
       {
-        name: translate.instant('NotificationHistory'),
+        name: translate.instant('Notification History'),
         url: '/cruds/notification-history',
         icon: 'nav-icon-bullet'
       },
@@ -55,17 +55,17 @@ return [
         icon: 'nav-icon-bullet'
       },
       {
-        name: translate.instant('State'),
+        name: translate.instant('States'),
         url: '/cruds/states',
         icon: 'nav-icon-bullet'
       },
       {
-        name: translate.instant('Therapy'),
+        name: translate.instant('Therapies'),
         url: '/cruds/therapies',
         icon: 'nav-icon-bullet'
       },
       {
-        name: translate.instant('User'),
+        name: translate.instant('Users'),
         url: '/cruds/users',
         icon: 'nav-icon-bullet'
       },

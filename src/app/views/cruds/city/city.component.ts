@@ -24,7 +24,7 @@ export class CityComponent {
       'creationDate',
     ],
     textHeaders: {
-      id: 'id',
+      id: 'Id',
       name: 'Name',
       isActive: 'Is Active',
       creationDate: 'Creation Date',      

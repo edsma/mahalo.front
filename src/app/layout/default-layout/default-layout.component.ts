@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { NgScrollbar } from 'ngx-scrollbar';
 
-import { TranslateService } from '@ngx-translate/core';
+import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
 import { IconDirective } from '@coreui/icons-angular';
 import {
   ContainerComponent,
@@ -61,9 +61,10 @@ export class DefaultLayoutComponent {
   }
 
   ngOnInit(): void {
-    //this.getBrowserLang();
-    this.translate.onLangChange.subscribe(() => {
+    //this.getBrowserLang();  
 
+    this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
+      console.log("LANG: <<<<<<< ", event.lang);
       this.loadNavItems();
     });
 
