@@ -28,5 +28,10 @@ export const routes: Routes = [
     data: {
       title: 'Register Page'
     }
+  },
+  {
+    path: 'renew',
+    loadComponent: () => import('./RecoverPassword/recover-password/recover-password.component').then(m => m.RecoverPasswordComponent),
+
   }
 ];

@@ -10,6 +10,7 @@ export const environment = {
         psychologists: '/api/Psychologists',
         states: '/api/States',
         therapies: '/api/Terapies',
-        users: '/api/Users'
+        users: '/api/Users',
+        accounts: '/api/Accounts'
     }
 };

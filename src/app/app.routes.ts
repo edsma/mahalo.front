@@ -13,7 +13,7 @@ export const routes: Routes = [
     data: {
       title: 'Home'
     },
-    children: [      
+    children: [
       {
         path: 'pages',
         loadChildren: () => import('./views/pages/routes').then((m) => m.routes)
@@ -51,6 +51,11 @@ export const routes: Routes = [
     data: {
       title: 'Register Page'
     }
+  },
+  {
+    path: 'renew',
+    loadComponent: () => import('./views/pages/RecoverPassword/recover-password/recover-password.component').then(m => m.RecoverPasswordComponent),
+
   },
   { path: '**', redirectTo: 'cruds' }
 ];
