@@ -77,6 +77,9 @@ export class DataService {
   // ADD, POST METHOD
   addItem(params: ParamsCustomTable, translate: TranslateService): void {
     params.row[params.id] = 0;
+    if(params.type == 'country'){
+      params.row.states = [];
+    }
     delete params.row.creationDate;
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -120,6 +123,9 @@ export class DataService {
 
   // UPDATE, PUT METHOD
   updateItem(params: ParamsCustomTable, translate:TranslateService): void {
+    if(params.type == 'country'){
+      params.row.states = [];
+    }
     delete params.row.creationDate;
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',

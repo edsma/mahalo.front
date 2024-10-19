@@ -44,6 +44,8 @@ import { RowComponent, ColComponent, TextColorDirective, CardComponent, CardHead
 
   FormFloatingDirective, FormSelectDirective, GutterDirective
 } from '@coreui/angular';
+import { ListService } from 'src/app/services/list.service';
+import {environment} from '../../../../environments/environment';
 
 @Component({
   selector: 'app-add.dialog',
@@ -106,19 +108,24 @@ export class EditDialogComponent {
   dataType: any;
   columnsWithButtons: string[] = [];
 
+  countries: any[];
+  states: any[];
+  cities: any[];
+  pathCountries: string;
+  pathStates: string;
+  pathCities: string;
+
   constructor(
     private translate: TranslateService,
     public dialogRef: MatDialogRef<EditDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: ParamsCustomTable,
-    public dataService: DataService
+    public dataService: DataService,
+    public listService : ListService,
   ) {}
 
   ngOnInit(): void {
+    this.fillList();
     this.getBrowserLang();
-   }
-
-  isType(types:string[], column: string){
-    return types.includes(this.dataType.get(column));
   }
 
   ngAfterViewInit() {
@@ -128,6 +135,40 @@ export class EditDialogComponent {
     this.columnsWithButtons = this.buildHeaders();
   }
 
+  fillList(){
+    this.pathCities = `${environment.apiUrl}${environment.path.cities}`,
+    this.pathCountries = `${environment.apiUrl}${environment.path.countries}`
+    this.pathStates = `${environment.apiUrl}${environment.path.states}`
+
+    this.listService.getList(this.pathCountries)
+    .subscribe({
+      next: (result: any) => {
+        this.countries = result;
+      },
+    });
+
+    this.listService.getList(this.pathStates)
+    .subscribe({
+      next: (result: any) => {
+        this.states = result;
+      },
+    });
+
+    this.listService.getList(this.pathCities)
+    .subscribe({
+      next: (result: any) => {
+        this.cities = result;
+      },
+    });
+  }
+
+  getPlaceholder(value:any){
+    return this.translate.instant(value);
+  }
+
+  isType(types:string[], column: string){
+    return types.includes(this.dataType.get(column));
+  }
 
   private getBrowserLang() {
     const lang = navigator.language || navigator.languages[0]; // Obtener el idioma del navegador

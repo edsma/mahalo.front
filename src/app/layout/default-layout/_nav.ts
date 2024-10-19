@@ -50,7 +50,7 @@ return [
       },
       */
       {
-        name: translate.instant('psychologists'),
+        name: translate.instant('Psychologists'),
         url: '/cruds/psychologists',
         icon: 'nav-icon-bullet'
       },
