@@ -14,6 +14,7 @@ import { ParamsCustomTable } from './../../../models/params-custom-table';
 export class StateComponent {
 
   params: ParamsCustomTable = {
+    type: 'state',
     title: 'STATES',
     path: `${environment.apiUrl}${environment.path.states}`,
     id: 'id',
