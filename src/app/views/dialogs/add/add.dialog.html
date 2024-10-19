@@ -33,8 +33,8 @@
             <div *ngIf="isType(['number', 'string'], column) && data.id != column && column != 'creationDate'">
               <!-- 'number', 'string', 'dateTime' -->
               <div class="example-full-width mb-3" [cFormFloating]="true">
-                <input cFormControl [placeholder]="textHeaders.get(column)" [(ngModel)]="data.row[column]" [value]="data.row[column]"   >
-                <label cLabel>{{ textHeaders.get(column) }}</label>
+                <input cFormControl [placeholder]="getPlaceholder(textHeaders.get(column))" [(ngModel)]="data.row[column]" [value]="data.row[column]"   >
+                <label cLabel>{{ textHeaders.get(column) | translate }}</label>
                 <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
               </div>
             </div>
@@ -42,12 +42,12 @@
             <section *ngIf="isType(['boolean'], column) && data.id != column && column != 'creationDate'" class="mb-3 mt-3">
               <c-form-check [switch]="true">
                 <input cFormCheckInput checked type="checkbox" [(ngModel)]="data.row[column]" />
-                <label cFormCheckLabel>{{ textHeaders.get(column) }}</label>
+                <label cFormCheckLabel>{{ textHeaders.get(column) | translate }}</label>
               </c-form-check>
               <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
               <!--
               <mat-checkbox [(ngModel)]="data.row[column]"  >
-                {{ textHeaders.get(column) }}
+                {{ textHeaders.get(column) | translate }}
               </mat-checkbox >
               <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
               -->
@@ -56,7 +56,7 @@
             <!--
             <div *ngIf="isType(['date', 'dateTime'], column) && data.id != column && column != 'creationDate'" class="example-full-width" [cFormFloating]="true">
 
-              <label cLabel>{{ textHeaders.get(column) }}</label>
+              <label cLabel>{{ textHeaders.get(column) | translate }}</label>
               <input cFormControl [matDatepicker]="picker" [(ngModel)]="data.row[column]">
               <mat-hint>DD/MM/YYYY</mat-hint>
               <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
@@ -68,7 +68,7 @@
           -->
             <section *ngIf="isType(['date', 'dateTime'], column) && data.id != column && column != 'creationDate'" class="mb-3">
               <c-input-group>
-                <input cFormControl [matDatepicker]="picker" [(ngModel)]="data.row[column]" [placeholder]="textHeaders.get(column)" readonly>
+                <input cFormControl [matDatepicker]="picker" [(ngModel)]="data.row[column]" [placeholder]="getPlaceholder(textHeaders.get(column))" readonly>
                 <span cInputGroupText id="basic-addon1">
                   <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                   <mat-datepicker #picker></mat-datepicker>
