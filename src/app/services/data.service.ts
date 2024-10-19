@@ -79,6 +79,9 @@ export class DataService {
     params.row[params.id] = 0;
     if(params.type == 'country'){
       params.row.states = [];
+    }else if(params.type == 'state'){
+      params.row.country.id = 0;
+      params.row.cities = [];
     }
     delete params.row.creationDate;
     const headers = new HttpHeaders({
@@ -102,6 +105,9 @@ export class DataService {
   updateItem(params: ParamsCustomTable, translate:TranslateService): void {
     if(params.type == 'country'){
       params.row.states = [];
+    }else if(params.type == 'state'){
+      params.row.country.id = 0;
+      params.row.cities = [];
     }
     delete params.row.creationDate;
     const headers = new HttpHeaders({
