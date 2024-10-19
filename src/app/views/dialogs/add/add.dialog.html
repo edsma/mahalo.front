@@ -28,6 +28,20 @@
       </mat-form-field>
         -->
 
+        <!--
+        <select cSelect [(ngModel)]="data.country">
+          <option>Seleccione</option>
+          <option *ngFor="let country of countries" [value]="country.id">{{ country.name }}</option>
+        </select>
+        <select cSelect [(ngModel)]="data.city">
+          <option>Seleccione</option>
+          <option *ngFor="let city of cities" [value]="city.id">{{ city.name }}</option>
+        </select>
+        <select cSelect [(ngModel)]="data.state">
+          <option>Seleccione</option>
+          <option *ngFor="let state of states" [value]="state.id">{{ state.name }}</option>
+        </select>
+      -->
 
           <ng-container [matColumnDef]="column" *ngFor="let column of columnsWithButtons">
             <div *ngIf="isType(['number', 'string'], column) && data.id != column && column != 'creationDate'">

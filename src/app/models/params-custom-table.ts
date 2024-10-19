@@ -1,4 +1,5 @@
 export class ParamsCustomTable {
+  type?: string = '';
   title: string = '';
   path: string = '';
   id: any;

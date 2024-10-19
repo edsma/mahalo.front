@@ -165,6 +165,7 @@ export class AddDialogComponent implements OnInit, AfterViewInit{
   }
 
   fillList(){
+    console.log("LLENANDO LISTAS");
     this.pathCities = `${environment.apiUrl}${environment.path.cities}`,
     this.pathCountries = `${environment.apiUrl}${environment.path.countries}`
     this.pathStates = `${environment.apiUrl}${environment.path.states}`
