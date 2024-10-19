@@ -14,6 +14,7 @@ import { ParamsCustomTable } from '../../../../models/params-custom-table';
 import { DataService } from 'src/app/services/data.service';
 import { environment } from 'src/environments/environment';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { LocalService } from 'src/app/services/local.service';
 
 function isOverflown(element: HTMLElement) {
   return (
@@ -52,7 +53,8 @@ export class RecoverPasswordComponent {
   public navItems: INavData[] | undefined;
   constructor(private translate: TranslateService,
     private dataService: DataService,
-    private fb: FormBuilder){
+    private fb: FormBuilder,
+    private localService: LocalService){
     this.loadNavItems();
   }
 
@@ -66,7 +68,14 @@ export class RecoverPasswordComponent {
   }
 
   loadNavItems(): void {
-    this.navItems = getNavItems(this.translate);  // Regenera el menú con el idioma actual
+    const screens: string = this.localService.getData("screens") || '';
+    let options: string[] =  screens.split(','); 
+    this.navItems = getNavItems(this.translate);
+    for( var it of this.navItems ){
+      if(it.children){
+        it.children = it.children.filter( ch => options.includes(ch.screen || ''));
+      }
+    }
   }
 
   onScrollbarUpdate($event: any) {

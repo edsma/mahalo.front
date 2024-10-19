@@ -5,25 +5,25 @@ import { ToastrService, ToastrModule } from 'ngx-toastr';
 
 import { ParamsCustomTable } from '../models/params-custom-table';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { HeaderService } from './header.service';
+import { LocalService } from './local.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class DataService {
+export class DataService extends HeaderService {
 
   dataChange: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
   // Temporarily stores data from dialogs
   dialogData: any;
   translateMessages: { name: string, value: string }[] = []; // Inicializar como un arreglo vacío
 
-  headers = new HttpHeaders({
-    'Content-Type': 'application/json',  // Indica que el contenido es JSON
-    'Accept': 'application/json'          // Espera respuesta en formato JSON
-  });
-
   constructor (private httpClient: HttpClient,
-    private toasterService: ToastrService
-  ) {}
+    private toasterService: ToastrService,
+    protected override localService: LocalService
+  ) {
+    super(localService);
+  }
 
   get data(): any[] {
     return this.dataChange.value;
@@ -35,10 +35,7 @@ export class DataService {
 
   /** CRUD METHODS */
   getAllItems(params: ParamsCustomTable): void {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Accept': 'application/json'
-    });
+    const headers = this.getHeaders();
     this.httpClient.get(`${params.path}`, {headers}).subscribe({
       next: (result: any) => {
         //this.dataChange.next(result);
@@ -53,10 +50,7 @@ export class DataService {
   }
 
   getItemById(params: ParamsCustomTable): void {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Accept': 'application/json'
-    });
+    const headers = this.getHeaders();
     this.httpClient.get(`${params.path}/${params.id}`, {headers}).subscribe({
       next: (result: any) => {
         //this.dataChange.next(result);
@@ -84,10 +78,7 @@ export class DataService {
       params.row.cities = [];
     }
     delete params.row.creationDate;
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Accept': 'application/json'
-    });
+    const headers = this.getHeaders();
     this.httpClient.post(`${params.path}`, params.row, {headers}).subscribe({
       next: (result: any) => {
         this.dialogData = params.row;
@@ -103,11 +94,7 @@ export class DataService {
 
     // ADD, POST METHOD
     addItemWithOutTable(params: any, translate: TranslateService): void {
-      const headers = new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      });
-
+      const headers = this.getHeaders();
       console.log(params);
       this.httpClient.post(`${params.path}`, params.model, {headers}).subscribe({
         next: (result: any) => {
@@ -133,10 +120,7 @@ export class DataService {
       params.row.cities = [];
     }
     delete params.row.creationDate;
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Accept': 'application/json'
-    });
+    const headers = this.getHeaders();
     this.httpClient.put(`${params.path}`, params.row, {headers}).subscribe({
       next: (result: any) => {
         this.dialogData = params.row;
@@ -154,10 +138,7 @@ export class DataService {
 
   // DELETE METHOD
   deleteItem(params: ParamsCustomTable, translate: TranslateService): void {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Accept': 'application/json'
-    });
+    const headers = this.getHeaders();
     this.httpClient.delete(`${params.path}/${params.row?.id}`, {headers}).subscribe({
       next: (result: any) => {
         this.toasterService.success( translate.instant('Deleted'), 'Mahalo');

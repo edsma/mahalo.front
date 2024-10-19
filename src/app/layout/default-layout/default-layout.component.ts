@@ -20,6 +20,7 @@ import {
 import { DefaultFooterComponent, DefaultHeaderComponent } from './';
  import { getNavItems } from './_nav';
 import { TranslationModule } from 'src/app/services/Transalation.module';
+import { LocalService } from 'src/app/services/local.service';
 
 function isOverflown(element: HTMLElement) {
   return (
@@ -54,7 +55,9 @@ function isOverflown(element: HTMLElement) {
 })
 export class DefaultLayoutComponent {
   public navItems: INavData[] | undefined;
-  constructor(private translate: TranslateService){
+  constructor(private translate: TranslateService,
+    private localService: LocalService
+  ){
 
 
     this.loadNavItems();
@@ -70,7 +73,14 @@ export class DefaultLayoutComponent {
   }
 
   loadNavItems(): void {
-    this.navItems = getNavItems(this.translate);  // Regenera el menú con el idioma actual
+    const screens: string = this.localService.getData("screens") || '';
+    let options: string[] =  screens.split(','); 
+    this.navItems = getNavItems(this.translate);
+    for( var it of this.navItems ){
+      if(it.children){
+        it.children = it.children.filter( ch => options.includes(ch.screen || ''));
+      }
+    }
   }
 
 
