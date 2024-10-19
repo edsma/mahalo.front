@@ -11,7 +11,13 @@
                 <span cInputGroupText>
                   <svg cIcon name="cilUser"></svg>
                 </span>
-                <input autoComplete="name" cFormControl placeholder="Username" />
+                <input autoComplete="firstName" cFormControl placeholder="firstName" />
+              </c-input-group>
+              <c-input-group class="mb-3">
+                <span cInputGroupText>
+                  <svg cIcon name="cilUser"></svg>
+                </span>
+                <input autoComplete="lastName" cFormControl placeholder="lastName" />
               </c-input-group>
               <c-input-group class="mb-3">
                 <span cInputGroupText>&#64;</span>
@@ -19,16 +25,58 @@
               </c-input-group>
               <c-input-group class="mb-3">
                 <span cInputGroupText>
+                  <svg cIcon name="cilUser"></svg>
+                </span>
+                <input autoComplete="userName" cFormControl placeholder="userName" />
+              </c-input-group>
+              <c-input-group class="mb-3">
+                <span cInputGroupText>
                   <svg cIcon name="cilLockLocked"></svg>
                 </span>
                 <input autoComplete="new-password" cFormControl placeholder="Password" type="password" />
               </c-input-group>
-              <c-input-group class="mb-4">
+              <select class="form-select" aria-label="Default select example">
+                <option selected>Language</option>
+                <option value="1">Español</option>
+                <option value="2">English</option>
+              </select>
+              <c-input-group class="mb-3 mt-3">
                 <span cInputGroupText>
-                  <svg cIcon name="cilLockLocked"></svg>
+                  <svg cIcon name="cilFile"></svg>
                 </span>
-                <input autoComplete="new-password" cFormControl placeholder="Repeat password" type="password" />
+                <input autoComplete="phoneNumber" cFormControl placeholder="phoneNumber" />
               </c-input-group>
+              <select class="form-select" aria-label="Default select example">
+                <option selected>userType</option>
+                <option value="1">Admin</option>
+                <option value="2">User</option>
+              </select>
+              <div class="mb-3 mt -3"></div>
+              <select class="form-select" aria-label="Default select example">
+                <option selected>cityId</option>
+                <option value="1">cityName</option>
+                <option value="2">country</option>
+              </select>
+              <div class="mb-3 mt -3"></div>
+              <div class="mb-3 mt -3">
+                <label for="profileImage" class="me-2">Subir foto de perfil</label>
+                <input id="profileImage" type="file" accept="image/*" />
+              </div>  
+              <div class="mb-3 mt -3"></div>
+              <select class="form-select" aria-label="Default select example">
+                <option selected>documentTypeId</option>
+                <option value="1">TI</option>
+                <option value="2">CC</option>
+                <option value="2">CE</option>
+                <option value="2">passport</option>
+              </select>
+              <div class="mb-3 mt -3"></div>
+              <c-input-group class="mb-3">
+                <span cInputGroupText>
+                  <svg cIcon name="cilFile"></svg>
+                </span>
+                <input autoComplete="documentNumber" cFormControl placeholder="documentNumber" />
+              </c-input-group>    
               <div class="d-grid">
                 <button cButton color="primary">Create Account</button>
               </div>
@@ -39,3 +87,4 @@
     </c-row>
   </c-container>
 </div>
+
