@@ -42,9 +42,9 @@ sidebarId="sidebar1"
               <form cForm [formGroup]="profileForm">
                 <h1>Profile</h1>
                 <p class="text-body-secondary">Update your account</p>
-                <select class="form-select mb-3 mt-3"aria-label="Default select example" formControlName="documentTypeId">
+                <select class="form-select mb-3 mt-3" aria-label="Default select example" >
                   <option selected value="">Select document type</option>
-                  <option *ngFor="let docType of documentTypes" [value]="docType.id">{{ docType.name }}</option>
+                  <option *ngFor="let docType of documentTypes" [value]="docType.id">{{docType.name}}</option>
                 </select>
                 <div class="mb-3"></div>
                 <c-input-group class="mb-3">
@@ -74,12 +74,6 @@ sidebarId="sidebar1"
                     <svg cIcon name="cilUser"></svg>
                   </span>
                   <input autoComplete="userName" cFormControl placeholder="userName" formControlName="userName"/>
-                </c-input-group>
-                <c-input-group class="mb-3">
-                  <span cInputGroupText>
-                    <svg cIcon name="cilLockLocked"></svg>
-                  </span>
-                  <input autoComplete="new-password" cFormControl placeholder="Password" type="password" formControlName="password"/>
                 </c-input-group>
                 <c-input-group class="mb-3 mt-3">
                   <span cInputGroupText>

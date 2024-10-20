@@ -23,21 +23,24 @@ export class UserComponent {
     id: 'id',
     jsonColumns: [
       'id',
-      'name',
+      'firstName',
+      'lastName',
       'email',
       'creationDate',
       'isActive'
     ],
     textHeaders: {
       id: 'Id',
-      name: 'Name',
+      firstName: 'FirstName',
+      lastName: 'LastName',
       email: 'Email',
       creationDate: 'Creation Date',
       isActive: 'Is Active'
     },
     dataType: {  
       id: 'number',
-      name: 'string',
+      firstName: 'string',
+      lastName: 'string',
       email: 'string',
       creationDate: 'date',
       isActive: 'boolean'
