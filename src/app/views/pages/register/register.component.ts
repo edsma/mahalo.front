@@ -31,7 +31,7 @@ import { TranslationModule } from 'src/app/services/Transalation.module';
     templateUrl: './register.component.html',
     styleUrls: ['./register.component.scss'],
     standalone: true,
-    imports: [ContainerComponent,TranslationModule,NgFor, RowComponent, ColComponent, TextColorDirective, CardComponent, CardBodyComponent, FormDirective, InputGroupComponent, InputGroupTextDirective, IconDirective, FormControlDirective, ButtonDirective, ReactiveFormsModule, RouterModule, RouterOutlet ]
+    imports: [ContainerComponent,TranslationModule, RowComponent, ColComponent, TextColorDirective, CardComponent, CardBodyComponent, FormDirective, InputGroupComponent, InputGroupTextDirective, IconDirective, FormControlDirective, ButtonDirective, ReactiveFormsModule, RouterModule, RouterOutlet, NgFor ]
 })
 export class RegisterComponent implements AfterViewInit {
 

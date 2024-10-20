@@ -73,6 +73,7 @@ export class LoginComponent {
           this.localService.saveData("token", result.token, true);
           this.localService.saveData("expiration", result.expiration, true);
           this.localService.saveData("userType", result.userType!=undefined? result.userType.toString() : "-", true);
+          this.localService.saveData("photo", result.photo);
 
 
           console.log("result.userType: ", result.userType);

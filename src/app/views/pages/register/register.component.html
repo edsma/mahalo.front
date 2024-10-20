@@ -8,10 +8,7 @@
               <h1>Register</h1>
               <p class="text-body-secondary">Create your account</p>
               <select class="form-select mb-3 mt-3" aria-label="Default select example" formControlName="documentTypeId">
-                <!-- Opción predeterminada -->
                 <option value="" selected>{{ 'selectTypeOfDocument' | translate }}</option>
-                <option value="1" selected>Cédula de ciudadania</option>
-                <!-- Opciones generadas dinámicamente desde documentTypesList -->
                 <option *ngFor="let docType of documentTypes" [value]="docType.id">{{ docType.name }}</option>
               </select>
               <div class="mb-3"></div>
