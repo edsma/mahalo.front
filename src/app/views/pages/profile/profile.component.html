@@ -40,10 +40,10 @@ sidebarId="sidebar1"
           <c-card class="mx-4">
             <c-card-body class="p-4">
               <form cForm [formGroup]="profileForm">
-                <h1>Profile</h1>
-                <p class="text-body-secondary">Update your account</p>
+                <h1>{{'Profile'| translate}}</h1>
+                <p class="text-body-secondary">{{'UpdateAccount'| translate}}</p>
                 <select class="form-select mb-3 mt-3" aria-label="Default select example" >
-                  <option selected value="">Select document type</option>
+                  <option selected value="">{{'selectTypeOfDocument'| translate}}</option>
                   <option *ngFor="let docType of documentTypes" [value]="docType.id">{{docType.name}}</option>
                 </select>
                 <div class="mb-3"></div>
@@ -94,19 +94,18 @@ sidebarId="sidebar1"
 
                 <select class="form-select mb-3 mt-3"aria-label="Default select example" formControlName="cityId">
                   <option selected value="">{{ 'selectCity' | translate }}</option>
-                  <option selected value="1">Medell�n</option>
                   <option *ngFor="let city of cities" [value]="city.id">{{ city.name }}</option>
                 </select>
 
                 <div class="mb-3">
-                  <label for="profileImage" class="me-2">Subir foto de perfil</label>
+                  <label for="profileImage" class="me-2">{{ 'selecPhoto' | translate }}</label>
                   <input id="profileImage" type="file" accept="image/*" (change)="onFileSelected($event)" />
                 </div>
                 <div class="mb-3"></div>
                 <!-- <div class="d-grid"> -->
                   <img class="" [src]="base64Output" width="150"/>
                 <div  class="d-grid" style="text-align: center;">
-                  <button cButton class="mb-2" color="primary" [disabled]="!profileForm.valid" (click)="update()">Update Profile</button>
+                  <button cButton class="mb-2" color="primary" [disabled]="!profileForm.valid" (click)="update()">{{ 'UpdateAccount' | translate }}</button>
                 </div>
               </form>
             </c-card-body>
