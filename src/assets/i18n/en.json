@@ -76,5 +76,8 @@
   "Email": "Email",
   "Light": "Light",
   "Dark": "Dark",
-  "Auto": "Auto"
+  "Auto": "Auto",
+  "AccountRecovery": "Account Recovery",
+  "MessageRegisteredEmail": "Please, insert your registered email account",
+  "Send": "Send"
 }

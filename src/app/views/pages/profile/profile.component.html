@@ -83,8 +83,8 @@ sidebarId="sidebar1"
                 </c-input-group>
                 <select class="form-select mb-3 mt-3" aria-label="Default select example" formControlName="language" placeholder="Select language">
                   <option selected value="">{{ 'selectLanguage' | translate }}</option>
-                  <option value="ES">Spanish</option>
-                  <option value="EN">English</option>
+                  <option value="es">Spanish</option>
+                  <option value="en">English</option>
                 </select>
                 <select class="form-select" aria-label="Default select example" formControlName="userType">
                   <option selected value="">{{ 'selectUserType' | translate }}</option>
@@ -94,7 +94,6 @@ sidebarId="sidebar1"
 
                 <select class="form-select mb-3 mt-3"aria-label="Default select example" formControlName="cityId">
                   <option selected value="">{{ 'selectCity' | translate }}</option>
-                  <option selected value="1">Medell�n</option>
                   <option *ngFor="let city of cities" [value]="city.id">{{ city.name }}</option>
                 </select>
 

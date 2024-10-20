@@ -61,5 +61,10 @@ export const routes: Routes = [
     path: 'profile',
     loadComponent: () => import('./views/pages/profile/profile.component').then(m => m.ProfileComponent),
   },
+  {
+    path: 'send-email',
+    loadComponent: () => import('./views/pages/send-email/send-email.component').then(m => m.SendEmailComponent),
+
+  },
   { path: '**', redirectTo: 'therapies' }
 ];
