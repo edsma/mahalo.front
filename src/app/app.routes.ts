@@ -61,5 +61,5 @@ export const routes: Routes = [
     path: 'profile',
     loadComponent: () => import('./views/pages/profile/profile.component').then(m => m.ProfileComponent),
   },
-  { path: '**', redirectTo: 'cruds' }
+  { path: '**', redirectTo: 'therapies' }
 ];

@@ -74,8 +74,10 @@ export class DataService extends HeaderService {
     if(params.type == 'country'){
       params.row.states = [];
     }else if(params.type == 'state'){
-      params.row.country.id = 0;
+      params.row.countryId = 1;
       params.row.cities = [];
+    }else if(params.type == 'city'){
+      params.row.stateId = 1;
     }
     delete params.row.creationDate;
     const headers = this.getHeaders();
@@ -116,8 +118,10 @@ export class DataService extends HeaderService {
     if(params.type == 'country'){
       params.row.states = [];
     }else if(params.type == 'state'){
-      params.row.country.id = 0;
+      params.row.countryId = 1;
       params.row.cities = [];
+    }else if(params.type == 'city'){
+      params.row.stateId = 1;
     }
     delete params.row.creationDate;
     const headers = this.getHeaders();

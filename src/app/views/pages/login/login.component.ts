@@ -32,7 +32,6 @@ import {LoginDTO} from '../../../models/loginDto'
 export class LoginComponent {
 
   data: LoginDTO;
-
   loginForm: FormGroup;
 
   constructor(private loginService: LoginService,
@@ -52,11 +51,14 @@ export class LoginComponent {
       this.loginService.login(this.data)
       .subscribe({
         next: (result: any) => {
+          result.userType = 0; //TODO
           this.localService.saveData("email", this.data.email);
           this.localService.saveData("token", result.token, true);
           this.localService.saveData("expiration", result.expiration, true);
-          this.localService.saveData("userType", result.userType.toString(), true);
+          this.localService.saveData("userType", result.userType!=undefined? result.userType.toString() : "-", true);
           
+          console.log("result.userType: ", result.userType);
+          console.log("result.userType Decrypt: ", this.localService.getData("userType", true));
           let screens = '';
           if(result.userType == 0){
             screens = 'Cities,Countries,Disorders,Document Types,Notification History,Psychologists,States,Therapies,Users';            

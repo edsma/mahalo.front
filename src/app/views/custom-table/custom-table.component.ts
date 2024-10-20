@@ -45,6 +45,8 @@ import { RowComponent, ColComponent, TextColorDirective, CardComponent, CardHead
   FormFloatingDirective, FormSelectDirective, GutterDirective
 } from '@coreui/angular';
 
+import { Router, RouterLink, RouterOutlet } from '@angular/router';
+
 import { ParamsCustomTable } from '../../models/params-custom-table';
 import {BehaviorSubject, fromEvent, Observable} from 'rxjs';
 
@@ -95,6 +97,8 @@ export interface ApiResponse {
     FormCheckComponent, 
     FormCheckInputDirective, 
     FormCheckLabelDirective,    
+    RouterOutlet,
+    RouterLink,
   ],
   templateUrl: './custom-table.component.html',
   styleUrls: ['./custom-table.component.scss']
@@ -118,33 +122,17 @@ export class CustomTableComponent implements AfterViewInit {
     private spinner: NgxSpinnerService,
     private snackBar: MatSnackBar,
     public dialog: MatDialog,
-    private localService: LocalService) {
+    private localService: LocalService,
+    private router: Router) {
       let language =  localStorage.getItem('language')?? 'es';
       this.translate.use(language);
     }
 
   searchKeywordFilter = new FormControl();
 
-  buildHeaders() {
-    /*
-    this.translate.onLangChange.subscribe(() => {
-      //debugger;
-    });
-    */
-    let headers = [];
-    for (var val  of this.params.jsonColumns) {
-      if(this.textHeaders.has(val)){
-        headers.push(this.translate.instant(val));
-      }
-    }
-    const userType = this.localService.getData("userType", true) || '-1';
-    if(parseInt(userType) == 0){
-      headers.push('__actions');
-    }
-    return headers;
+  ngOnInit(): void {
+    this.validateSesion();
   }
-
-
 
   ngAfterViewInit() {
     //Prepare Headers
@@ -193,7 +181,30 @@ export class CustomTableComponent implements AfterViewInit {
       });
   }
 
+  buildHeaders() {
+    /*
+    this.translate.onLangChange.subscribe(() => {
+      //debugger;
+    });
+    */
+    let headers = [];
+    for (var val  of this.params.jsonColumns) {
+      if(this.textHeaders.has(val)){
+        headers.push(this.translate.instant(val));
+      }
+    }
+    const userType = this.localService.getData("userType", true) || '-1';
+    if(parseInt(userType) == 0){
+      headers.push('__actions');
+    }
+    return headers;
+  }
 
+  validateSesion(){
+    if(!this.localService.getData("email")){
+      this.router.navigateByUrl("/login");
+    }
+  }
 
   add(row: any) {
 

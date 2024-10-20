@@ -14,6 +14,7 @@ import { ParamsCustomTable } from './../../../models/params-custom-table';
 export class CityComponent {
 
   params: ParamsCustomTable = {
+    type: 'city',
     title: 'CITIES',
     path: `${environment.apiUrl}${environment.path.cities}`,
     id: 'id',

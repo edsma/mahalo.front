@@ -4,7 +4,7 @@ import { ButtonDirective, CardBodyComponent, CardComponent, CardGroupComponent, 
 import { IconDirective } from '@coreui/icons-angular';
 import { NgScrollbar } from 'ngx-scrollbar';
 import { DefaultHeaderComponent } from "../../../../layout/default-layout/default-header/default-header.component";
-import { RouterLink, RouterOutlet } from '@angular/router';
+import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { DefaultFooterComponent } from 'src/app/layout';
 import { TranslateService } from '@ngx-translate/core';
 import { getNavItems } from 'src/app/layout/default-layout/_nav';
@@ -54,17 +54,25 @@ export class RecoverPasswordComponent {
   constructor(private translate: TranslateService,
     private dataService: DataService,
     private fb: FormBuilder,
-    private localService: LocalService){
+    private localService: LocalService,
+    private router: Router){
     this.loadNavItems();
   }
 
 
   ngOnInit(): void {
     // Inicializar el formulario con los controles de 'oldPassword' y 'newPassword'
+    this.validateSesion();
     this.changePasswordForm = this.fb.group({
       oldPassword: ['', [Validators.required]], // Campo obligatorio
       newPassword: ['', [Validators.required]]  // Campo obligatorio
     });
+  }
+
+  validateSesion(){
+    if(!this.localService.getData("email")){
+      this.router.navigateByUrl("/login");
+    }
   }
 
   loadNavItems(): void {
