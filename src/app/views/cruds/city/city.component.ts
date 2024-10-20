@@ -14,7 +14,7 @@ import { ParamsCustomTable } from './../../../models/params-custom-table';
 export class CityComponent {
 
   params: ParamsCustomTable = {
-    type: 'city',
+    type: 'Cities',
     title: 'CITIES',
     path: `${environment.apiUrl}${environment.path.cities}`,
     id: 'id',
@@ -37,25 +37,4 @@ export class CityComponent {
       creationDate: 'date',      
     },
   };
-
-  /*
-  params: ParamsCustomTable = {
-    title: 'CITIES',
-    path: `${environment.apiUrl}${environment.path.cities}`,
-    id: 'id',
-    jsonColumns: [
-      'id',
-      'name',
-      'year',
-      'color',
-      'pantone_value',
-    ],
-    textHeaders: {
-      name: 'Name',
-      year: 'Year',
-      color: 'Color',
-      pantone_value: 'Pantone',
-    },
-  };
-  */
 }

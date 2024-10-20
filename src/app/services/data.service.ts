@@ -71,12 +71,12 @@ export class DataService extends HeaderService {
   // ADD, POST METHOD
   addItem(params: ParamsCustomTable, translate: TranslateService): void {
     params.row[params.id] = 0;
-    if(params.type == 'country'){
+    if(params.type == 'Countries'){
       params.row.states = [];
-    }else if(params.type == 'state'){
+    }else if(params.type == 'States'){
       params.row.countryId = 1;
       params.row.cities = [];
-    }else if(params.type == 'city'){
+    }else if(params.type == 'Cities'){
       params.row.stateId = 1;
     }
     delete params.row.creationDate;
@@ -115,12 +115,12 @@ export class DataService extends HeaderService {
 
   // UPDATE, PUT METHOD
   updateItem(params: ParamsCustomTable, translate:TranslateService): void {
-    if(params.type == 'country'){
+    if(params.type == 'Countries'){
       params.row.states = [];
-    }else if(params.type == 'state'){
+    }else if(params.type == 'States'){
       params.row.countryId = 1;
       params.row.cities = [];
-    }else if(params.type == 'city'){
+    }else if(params.type == 'Cities'){
       params.row.stateId = 1;
     }
     delete params.row.creationDate;

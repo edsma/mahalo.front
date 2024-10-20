@@ -204,6 +204,12 @@ export class CustomTableComponent implements AfterViewInit {
   validateSesion(){
     if(!this.localService.getData("email")){
       this.router.navigateByUrl("/login");
+    }else{
+      const screens: string = this.localService.getData("screens") || '';
+      let options: string[] =  screens.split(','); 
+      if(!options.includes(this.params.type || '')){
+        this.router.navigateByUrl("/404");
+      }
     }
   }
 

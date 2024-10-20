@@ -15,6 +15,7 @@ import { ParamsCustomTable } from './../../../models/params-custom-table';
 export class PsychologistComponent {
 
   params: ParamsCustomTable = {
+    type: 'Psychologists',
     title: 'PSYCHOLOGISTS',
     path: `${environment.apiUrl}${environment.path.psychologists}`,
     id: 'id',

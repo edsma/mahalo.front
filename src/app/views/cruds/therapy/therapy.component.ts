@@ -15,6 +15,7 @@ import { ParamsCustomTable } from './../../../models/params-custom-table';
 export class TherapyComponent {
 
   params: ParamsCustomTable = {
+    type: 'Therapies',
     title: 'TERAPIES',
     path: `${environment.apiUrl}${environment.path.therapies}`,
     id: 'id',
