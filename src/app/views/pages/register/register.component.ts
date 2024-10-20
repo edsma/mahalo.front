@@ -22,15 +22,16 @@ import {
 import { LanguageVariant } from 'typescript';
 import { ListService } from 'src/app/services/list.service';
 import { Observable, ReplaySubject } from 'rxjs';
+import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
+
+import { TranslationModule } from 'src/app/services/Transalation.module';
 
 @Component({
     selector: 'app-register',
     templateUrl: './register.component.html',
     styleUrls: ['./register.component.scss'],
     standalone: true,
-    imports: [ContainerComponent, RowComponent, ColComponent, TextColorDirective, CardComponent, CardBodyComponent, FormDirective, InputGroupComponent, InputGroupTextDirective, IconDirective, FormControlDirective, ButtonDirective, ReactiveFormsModule, RouterModule, RouterOutlet,
-      NgFor, NgIf
-     ]
+    imports: [ContainerComponent,TranslationModule, RowComponent, ColComponent, TextColorDirective, CardComponent, CardBodyComponent, FormDirective, InputGroupComponent, InputGroupTextDirective, IconDirective, FormControlDirective, ButtonDirective, ReactiveFormsModule, RouterModule, RouterOutlet ]
 })
 export class RegisterComponent implements AfterViewInit {
 
@@ -41,17 +42,25 @@ export class RegisterComponent implements AfterViewInit {
   pathCities: string;
   documentTypes: any[] = [];
   pathDocumentTypes: string;
+  numbers: number[] = [];
 
   constructor(private registerService: RegisterService,
     private toasterService: ToastrService,
+
+    private translate: TranslateService,
     private listService: ListService,
     private router: Router
   ) {
     //console.log(this.documentTypes);
+    let language =  localStorage.getItem('language')?? 'es';
+    this.translate.use(language);
+    this.numbers = Array.from({ length: 10 }, (_, i) => i + 1);
    }
 
   ngOnInit(): void {
-
+    this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
+      this.translate.use(event.lang);
+    });
     this.registerForm = new FormGroup({
       firstName: new FormControl('', [Validators.required]),
       lastName: new FormControl('', [Validators.required]),
@@ -79,7 +88,6 @@ export class RegisterComponent implements AfterViewInit {
     this.data.userType =  Number(this.data.userType);
     this.data.cityId = 1;
     this.data.documentTypeId = 1;
-    debugger;
     this.registerService.createUser(this.data)
     .subscribe({
       next: (result: any) => {
@@ -115,7 +123,7 @@ export class RegisterComponent implements AfterViewInit {
   }
 
   base64Output : string;
-  
+
   onFileSelected(event) {
     if(event.target.files.length == 1){
       this.convertFile(event.target.files[0]).subscribe(base64 => {

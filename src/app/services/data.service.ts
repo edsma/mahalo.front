@@ -7,6 +7,7 @@ import { ParamsCustomTable } from '../models/params-custom-table';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { HeaderService } from './header.service';
 import { LocalService } from './local.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -75,9 +76,12 @@ export class DataService extends HeaderService {
       params.row.states = [];
     }else if(params.type == 'States'){
       params.row.countryId = 1;
-      params.row.cities = [];
+      params.row.country = {Name : '', Id: 1, States: []};
+      params.path = `${environment.apiUrl}${environment.path.states}`+ '/PostAsyncDto';
     }else if(params.type == 'Cities'){
       params.row.stateId = 1;
+      params.row.State = {Name : '', Id: 1};
+      params.path = `${environment.apiUrl}${environment.path.cities}`+ '/PostAsyncDto';
     }
     delete params.row.creationDate;
     const headers = this.getHeaders();
@@ -119,9 +123,13 @@ export class DataService extends HeaderService {
       params.row.states = [];
     }else if(params.type == 'States'){
       params.row.countryId = 1;
-      params.row.cities = [];
+      params.row.country = {Name : '', Id: 1, States: []};
+      params.path = `${environment.apiUrl}${environment.path.states}`+ '/EditAsyncDto';
     }else if(params.type == 'Cities'){
       params.row.stateId = 1;
+      params.row.State = {Name : '', Id: 1};
+      params.path = `${environment.apiUrl}${environment.path.cities}`+ '/EditAsyncDto';
+
     }
     delete params.row.creationDate;
     const headers = this.getHeaders();

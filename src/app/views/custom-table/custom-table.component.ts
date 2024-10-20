@@ -138,6 +138,7 @@ export class CustomTableComponent implements AfterViewInit {
     //Prepare Headers
     this.textHeaders = new Map(Object.entries(this.params.textHeaders));
     this.columnsWithButtons = this.buildHeaders();
+    let originalPath =   this.params.path;
 
     this.sort.sortChange.subscribe(() => (this.paginator.pageIndex = 0));   // on sort order change, reset back to the first page.
     merge(this.searchKeywordFilter.valueChanges.pipe(debounceTime(500)), this.sort.sortChange, this.paginator.page)
@@ -154,7 +155,7 @@ export class CustomTableComponent implements AfterViewInit {
               this.sort.direction,
               this.paginator.pageIndex + 1,
               this.paginator.pageSize,
-              this.params.path
+              originalPath
             )
             .pipe(catchError(() => observableOf(null)));
         }),
@@ -170,6 +171,7 @@ export class CustomTableComponent implements AfterViewInit {
             return [];
           }
           this.totalCount = result.total;
+          this.params.path = originalPath;
           return result.data;
         })
       )
@@ -194,7 +196,7 @@ export class CustomTableComponent implements AfterViewInit {
       }
     }
     const userType = this.localService.getData("userType", true) || '-1';
-    debugger;
+
     if(parseInt(userType) == 0){
       headers.push('__actions');
     }
@@ -206,7 +208,8 @@ export class CustomTableComponent implements AfterViewInit {
       this.router.navigateByUrl("/login");
     }else{
       const screens: string = this.localService.getData("screens") || '';
-      let options: string[] =  screens.split(','); 
+      let options: string[] =  screens.split(',');
+      console.log(options);
       if(!options.includes(this.params.type || '')){
         this.router.navigateByUrl("/404");
       }

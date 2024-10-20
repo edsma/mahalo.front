@@ -7,6 +7,8 @@ import { ToastrService } from 'ngx-toastr';
 import { LocalService } from 'src/app/services/local.service';
 import { LoginService } from 'src/app/services/login.service';
 
+import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
+
 import {
   FormGroup,
   FormControl,
@@ -20,13 +22,20 @@ import {
 import { CommonModule, NgIf } from '@angular/common';
 
 import {LoginDTO} from '../../../models/loginDto'
+import { TranslationModule } from 'src/app/services/Transalation.module';
+import { MAT_DATE_LOCALE, provideNativeDateAdapter } from '@angular/material/core';
 
 @Component({
     selector: 'app-login',
     templateUrl: './login.component.html',
     styleUrls: ['./login.component.scss'],
     standalone: true,
-    imports: [ContainerComponent, RowComponent, ColComponent, CardGroupComponent, TextColorDirective, CardComponent, CardBodyComponent, FormDirective, InputGroupComponent, InputGroupTextDirective, IconDirective, FormControlDirective, ButtonDirective, NgStyle,
+    providers: [provideNativeDateAdapter(),
+      { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
+    ],
+    imports: [ContainerComponent, RowComponent, ColComponent,
+      TranslationModule,
+      CardGroupComponent, TextColorDirective, CardComponent, CardBodyComponent, FormDirective, InputGroupComponent, InputGroupTextDirective, IconDirective, FormControlDirective, ButtonDirective, NgStyle,
       RouterModule, RouterOutlet, CommonModule, ReactiveFormsModule]
 })
 export class LoginComponent {
@@ -37,9 +46,18 @@ export class LoginComponent {
   constructor(private loginService: LoginService,
     private toasterService: ToastrService,
     private localService: LocalService,
-    private router: Router) { }
+    private translate: TranslateService,
+    private router: Router) {
+      let language =  localStorage.getItem('language')?? 'es';
+      this.translate.use(language);
+
+     }
 
     ngOnInit(): void {
+      this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
+        this.translate.use(event.lang);
+      });
+
       this.loginForm = new FormGroup({
         email: new FormControl('', [Validators.required]),
         password: new FormControl('', [Validators.required])
@@ -51,21 +69,20 @@ export class LoginComponent {
       this.loginService.login(this.data)
       .subscribe({
         next: (result: any) => {
-          result.userType = 0; //TODO
           this.localService.saveData("email", this.data.email);
           this.localService.saveData("token", result.token, true);
           this.localService.saveData("expiration", result.expiration, true);
           this.localService.saveData("userType", result.userType!=undefined? result.userType.toString() : "-", true);
-          console.log(result);
-          debugger;
+
 
           console.log("result.userType: ", result.userType);
           console.log("result.userType Decrypt: ", this.localService.getData("userType", true));
           let screens = '';
+          console.log(result.userType);
           if(result.userType == 0){
-            screens = 'Cities,Countries,Disorders,Document Types,Notification History,Psychologists,States,Therapies,Users,Profiles,Renews';
+            screens = 'Cities,Countries,Disorders,Document Types,Notification History,Psychologists,States,Therapies,Users,Profiles,renew';
           }else{
-              screens = 'Therapies,Profiles,Renews';            
+              screens = 'Therapies,Profiles,renew';
           }
           this.localService.saveData("screens", screens);
 
