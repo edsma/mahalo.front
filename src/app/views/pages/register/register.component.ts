@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { NgFor, NgIf } from '@angular/common';
+import { AfterViewInit, Component } from '@angular/core';
 import { IconDirective } from '@coreui/icons-angular';
 import { ContainerComponent, RowComponent, ColComponent, TextColorDirective, CardComponent, CardBodyComponent, FormDirective, InputGroupComponent, InputGroupTextDirective, FormControlDirective, ButtonDirective } from '@coreui/angular';
 
@@ -27,16 +28,18 @@ import { Observable, ReplaySubject } from 'rxjs';
     templateUrl: './register.component.html',
     styleUrls: ['./register.component.scss'],
     standalone: true,
-    imports: [ContainerComponent, RowComponent, ColComponent, TextColorDirective, CardComponent, CardBodyComponent, FormDirective, InputGroupComponent, InputGroupTextDirective, IconDirective, FormControlDirective, ButtonDirective, ReactiveFormsModule, RouterModule, RouterOutlet ]
+    imports: [ContainerComponent, RowComponent, ColComponent, TextColorDirective, CardComponent, CardBodyComponent, FormDirective, InputGroupComponent, InputGroupTextDirective, IconDirective, FormControlDirective, ButtonDirective, ReactiveFormsModule, RouterModule, RouterOutlet,
+      NgFor, NgIf
+     ]
 })
-export class RegisterComponent {
+export class RegisterComponent implements AfterViewInit {
 
   data: RegisterDTO;
   registerForm: FormGroup;
 
-  cities: any[];
+  cities: any[] = [];
   pathCities: string;
-  documentTypes: any[];
+  documentTypes: any[] = [];
   pathDocumentTypes: string;
 
   constructor(private registerService: RegisterService,
@@ -44,9 +47,6 @@ export class RegisterComponent {
     private listService: ListService,
     private router: Router
   ) {
-
-    this.fillCities();
-    this.fillDocumentTypes();
     //console.log(this.documentTypes);
    }
 
@@ -67,6 +67,11 @@ export class RegisterComponent {
       documentNumber: new FormControl('', [Validators.required]),
     });
 
+  }
+
+  ngAfterViewInit(): void {
+    this.fillCities();
+    this.fillDocumentTypes();
   }
 
   save(){
