@@ -51,7 +51,7 @@ export class LoginComponent {
       this.loginService.login(this.data)
       .subscribe({
         next: (result: any) => {
-          result.userType = 0; //TODO
+          //result.userType = 0; //TODO
           this.localService.saveData("email", this.data.email);
           this.localService.saveData("token", result.token, true);
           this.localService.saveData("expiration", result.expiration, true);
