@@ -1,5 +1,5 @@
-import { NgStyle } from '@angular/common';
-import { Component } from '@angular/core';
+import { NgStyle, NgFor, NgIf } from '@angular/common';
+import { AfterViewInit, Component } from '@angular/core';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ProfileService } from 'src/app/services/profile.service';
@@ -17,6 +17,8 @@ import { getNavItems } from 'src/app/layout/default-layout/_nav';
 
 import { TranslationModule } from 'src/app/services/Transalation.module';
 import {environment} from '../../../../environments/environment';
+
+import { ListDTO } from '../../../models/listDTO'
 
 import { RowComponent, ColComponent, TextColorDirective, CardComponent, CardHeaderComponent, CardBodyComponent,
   TableDirective, TableColorDirective, TableActiveDirective, BorderDirective, AlignDirective,
@@ -57,18 +59,20 @@ import { Observable, ReplaySubject } from 'rxjs';
      SidebarHeaderComponent,
      SidebarBrandComponent,
      SidebarTogglerDirective,
+     NgFor, 
+     NgIf
   ],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss'
 })
-export class ProfileComponent {
+export class ProfileComponent implements AfterViewInit {
 
   data: ProfileDTO;
   profileForm: FormGroup;
 
   cities: any[];
   pathCities: string;
-  documentTypes: any[];
+  documentTypes: any[] = [];
   pathDocumentTypes: string;
 
   public navItems: INavData[] | undefined;
@@ -83,11 +87,14 @@ export class ProfileComponent {
     this.loadNavItems();
   }
 
-  ngOnInit(): void {
-    this.validateSesion();
+  ngAfterViewInit(): void {
     this.fillCities();
     this.fillDocumentTypes();
     this.getPerfil();
+  }
+
+  ngOnInit(): void {
+    this.validateSesion();
     this.profileForm = new FormGroup({
       firstName: new FormControl('', [Validators.required]),
       lastName: new FormControl('', [Validators.required]),

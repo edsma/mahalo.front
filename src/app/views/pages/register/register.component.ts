@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { NgFor, NgIf } from '@angular/common';
+import { AfterViewInit, Component } from '@angular/core';
 import { IconDirective } from '@coreui/icons-angular';
 import { ContainerComponent, RowComponent, ColComponent, TextColorDirective, CardComponent, CardBodyComponent, FormDirective, InputGroupComponent, InputGroupTextDirective, FormControlDirective, ButtonDirective } from '@coreui/angular';
 
@@ -32,14 +33,14 @@ import { TranslationModule } from 'src/app/services/Transalation.module';
     standalone: true,
     imports: [ContainerComponent,TranslationModule, RowComponent, ColComponent, TextColorDirective, CardComponent, CardBodyComponent, FormDirective, InputGroupComponent, InputGroupTextDirective, IconDirective, FormControlDirective, ButtonDirective, ReactiveFormsModule, RouterModule, RouterOutlet ]
 })
-export class RegisterComponent {
+export class RegisterComponent implements AfterViewInit {
 
   data: RegisterDTO;
   registerForm: FormGroup;
 
-  cities: any[];
+  cities: any[] = [];
   pathCities: string;
-  documentTypesList: any[];
+  documentTypes: any[] = [];
   pathDocumentTypes: string;
   numbers: number[] = [];
 
@@ -50,16 +51,10 @@ export class RegisterComponent {
     private listService: ListService,
     private router: Router
   ) {
+    //console.log(this.documentTypes);
     let language =  localStorage.getItem('language')?? 'es';
     this.translate.use(language);
     this.numbers = Array.from({ length: 10 }, (_, i) => i + 1);
-    this.fillCities();
-    this.fillDocumentTypes();
-    this.documentTypesList = [
-      { id: 1, name: 'Passport' },
-      { id: 2, name: 'Driver’s License' },
-      { id: 3, name: 'National ID' }
-    ];
    }
 
   ngOnInit(): void {
@@ -81,6 +76,11 @@ export class RegisterComponent {
       documentNumber: new FormControl('', [Validators.required]),
     });
 
+  }
+
+  ngAfterViewInit(): void {
+    this.fillCities();
+    this.fillDocumentTypes();
   }
 
   save(){
@@ -117,10 +117,7 @@ export class RegisterComponent {
     this.listService.getList(this.pathDocumentTypes)
     .subscribe({
       next: (result: any) => {
-        //this.documentTypes = result;
-        result.map((item) => {
-          this.documentTypesList.push(item);
-      });
+        this.documentTypes = [...result];
       }
     });
   }
