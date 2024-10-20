@@ -14,6 +14,7 @@
 
   "Account": "Account",
   "Updates": "Updates",
+  "UpdateAccount": "Update your account",
   "Updated": "Updated",
   "ErrorDetails": "Error occurred. Details",
   "Added": "Added Record!",
@@ -24,6 +25,7 @@
   "SignInMessages": "Sign In to your account",
   "MessageNewPassword": "Please, insert your new password",
   "MessageOldPassword": "Please, insert your current password",
+  "selecPhoto": "Please, select a photo",
   "Messages": "Messages",
   "Tasks": "Tasks",
   "Comments": "Comments",

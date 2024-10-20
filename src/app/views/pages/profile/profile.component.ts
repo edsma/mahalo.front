@@ -59,7 +59,7 @@ import { Observable, ReplaySubject } from 'rxjs';
      SidebarHeaderComponent,
      SidebarBrandComponent,
      SidebarTogglerDirective,
-     NgFor, 
+     NgFor,
      NgIf
   ],
   templateUrl: './profile.component.html',
@@ -74,6 +74,8 @@ export class ProfileComponent implements AfterViewInit {
   pathCities: string;
   documentTypes: any[] = [];
   pathDocumentTypes: string;
+
+  photo: string;
 
   public navItems: INavData[] | undefined;
 
@@ -91,6 +93,7 @@ export class ProfileComponent implements AfterViewInit {
     this.fillCities();
     this.fillDocumentTypes();
     this.getPerfil();
+
   }
 
   ngOnInit(): void {
@@ -197,10 +200,11 @@ export class ProfileComponent implements AfterViewInit {
     .subscribe({
       next: (result: any) => {
         this.profileForm.patchValue(result);
-        this.base64Output = "data:image/*;base64, " + this.profileForm.get("photo").value;
+        this.base64Output =  result.photo;
       }
     });
   }
+
 
   base64Output : string;
 
@@ -212,7 +216,7 @@ export class ProfileComponent implements AfterViewInit {
       });
     }else{
       this.profileForm.get("photo").setValue(null);
-      this.base64Output = "";
+      this.base64Output = this.localService.getData("photo")?? "";
     }
   }
 
