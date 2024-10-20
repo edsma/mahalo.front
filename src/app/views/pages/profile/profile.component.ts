@@ -29,6 +29,7 @@ import { RowComponent, ColComponent, TextColorDirective, CardComponent, CardHead
 } from '@coreui/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { ListService } from 'src/app/services/list.service';
+import { Observable, ReplaySubject } from 'rxjs';
 
 @Component({
   selector: 'app-profile',
@@ -189,7 +190,30 @@ export class ProfileComponent {
     .subscribe({
       next: (result: any) => {
         this.profileForm.patchValue(result);
+        this.base64Output = "data:image/*;base64, " + this.profileForm.get("photo").value;
       }
     });
+  }
+
+  base64Output : string;
+  
+  onFileSelected(event) {
+    if(event.target.files.length == 1){
+      this.convertFile(event.target.files[0]).subscribe(base64 => {
+        this.base64Output = "data:image/*;base64, " + base64;
+        this.profileForm.get("photo").setValue(base64);
+      });
+    }else{
+      this.profileForm.get("photo").setValue(null);
+      this.base64Output = "";
+    }
+  }
+
+  convertFile(file : File) : Observable<string> {
+    const result = new ReplaySubject<string>(1);
+    const reader = new FileReader();
+    reader.readAsBinaryString(file);
+    reader.onload = (event) => result.next(btoa(event.target.result?.toString()));
+    return result;
   }
 }
