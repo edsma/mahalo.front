@@ -172,21 +172,21 @@ export class AddDialogComponent implements OnInit, AfterViewInit{
     this.listService.getList(this.pathCountries)
     .subscribe({
       next: (result: any) => {
-        this.countries = result;
+        this.countries = [...result];
       },
     });
 
     this.listService.getList(this.pathStates)
     .subscribe({
       next: (result: any) => {
-        this.states = result;
+        this.states = [...result];
       },
     });
 
     this.listService.getList(this.pathCities)
     .subscribe({
       next: (result: any) => {
-        this.cities = result;
+        this.cities = [...result];
       },
     });
   }
