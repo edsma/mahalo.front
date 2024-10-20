@@ -31,6 +31,7 @@ import {
 import { IconDirective } from '@coreui/icons-angular';
 import { TranslationModule } from 'src/app/services/Transalation.module';
 import { LoginService } from 'src/app/services/login.service';
+import { LocalService } from 'src/app/services/local.service';
 
 @Component({
   selector: 'app-default-header',
@@ -44,19 +45,26 @@ import { LoginService } from 'src/app/services/login.service';
 export class DefaultHeaderComponent extends HeaderComponent implements OnInit {
 
 
-
+  photo: string;
 
   constructor(private translate: TranslateService,
-    private loginService: LoginService
+    private loginService: LoginService,
+    private localService: LocalService,
   ) {
 
     super();
      this.getBrowserLang();
+
   }
   ngOnInit(): void {
     this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
       this.translate.use(event.lang);
     });
+    this.loadProfilePhoto();
+  }
+
+  loadProfilePhoto(){
+    this.localService.getData("photo");
   }
 
   logout(){
