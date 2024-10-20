@@ -34,10 +34,10 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { AddDialogComponent } from '../dialogs/add/add.dialog.component';
 import { EditDialogComponent } from '../dialogs/edit/edit.dialog.component';
 import { DeleteDialogComponent } from '../dialogs/delete/delete.dialog.component';
-import { RowComponent, ColComponent, TextColorDirective, CardComponent, CardHeaderComponent, CardBodyComponent,
-  TableDirective, TableColorDirective, TableActiveDirective, BorderDirective, AlignDirective,
-  FormDirective, FormLabelDirective, FormControlDirective, ButtonDirective, ProgressBarDirective,
-  ProgressComponent as ProgressComponent_1, ProgressBarComponent, ProgressStackedComponent,
+import { RowComponent, ColComponent, TextColorDirective, CardComponent, CardHeaderComponent, CardBodyComponent, 
+  TableDirective, TableColorDirective, TableActiveDirective, BorderDirective, AlignDirective, 
+  FormDirective, FormLabelDirective, FormControlDirective, ButtonDirective, ProgressBarDirective, 
+  ProgressComponent as ProgressComponent_1, ProgressBarComponent, ProgressStackedComponent, 
   FormCheckComponent, FormCheckInputDirective, FormCheckLabelDirective,
 
   ButtonGroupComponent,  ButtonToolbarComponent, InputGroupComponent, InputGroupTextDirective, ThemeDirective, DropdownComponent, DropdownToggleDirective, DropdownMenuDirective, DropdownItemDirective, DropdownDividerDirective,
@@ -45,11 +45,14 @@ import { RowComponent, ColComponent, TextColorDirective, CardComponent, CardHead
   FormFloatingDirective, FormSelectDirective, GutterDirective
 } from '@coreui/angular';
 
+import { Router, RouterLink, RouterOutlet } from '@angular/router';
+
 import { ParamsCustomTable } from '../../models/params-custom-table';
 import {BehaviorSubject, fromEvent, Observable} from 'rxjs';
 
 import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
 import { TranslationModule } from 'src/app/services/Transalation.module';
+import { LocalService } from 'src/app/services/local.service';
 
 export interface ApiResponse {
   data: any[];
@@ -83,7 +86,7 @@ export interface ApiResponse {
     MatDialogModule,
     DeleteDialogComponent,
     TranslationModule,
-
+    
     RowComponent, ColComponent, TextColorDirective, CardComponent, CardHeaderComponent, CardBodyComponent, TableDirective, TableColorDirective, TableActiveDirective, BorderDirective, AlignDirective,
     //FormDirective, FormLabelDirective, FormControlDirective, ButtonDirective
     ProgressBarDirective, ProgressComponent_1, ProgressBarComponent, ProgressStackedComponent,
@@ -91,15 +94,17 @@ export interface ApiResponse {
     ButtonGroupComponent,  ButtonToolbarComponent, InputGroupComponent, InputGroupTextDirective, ThemeDirective, DropdownComponent, DropdownToggleDirective, DropdownMenuDirective, DropdownItemDirective, DropdownDividerDirective,
     FormFloatingDirective, FormSelectDirective, GutterDirective,
 
-    FormCheckComponent,
-    FormCheckInputDirective,
-    FormCheckLabelDirective,
+    FormCheckComponent, 
+    FormCheckInputDirective, 
+    FormCheckLabelDirective,    
+    RouterOutlet,
+    RouterLink,
   ],
   templateUrl: './custom-table.component.html',
   styleUrls: ['./custom-table.component.scss']
 })
 export class CustomTableComponent implements AfterViewInit {
-
+  
   @Input() params!: ParamsCustomTable;
 
   data: any[] = [];
@@ -116,35 +121,21 @@ export class CustomTableComponent implements AfterViewInit {
     private translate: TranslateService,
     private spinner: NgxSpinnerService,
     private snackBar: MatSnackBar,
-    public dialog: MatDialog) {
+    public dialog: MatDialog,
+    private localService: LocalService,
+    private router: Router) {
       let language =  localStorage.getItem('language')?? 'es';
       this.translate.use(language);
     }
 
   searchKeywordFilter = new FormControl();
 
-  buildHeaders() {
-    /*
-    this.translate.onLangChange.subscribe(() => {
-      //debugger;
-    });
-    */
-    let headers = [];
-    for (var val  of this.params.jsonColumns) {
-      if(this.textHeaders.has(val)){
-        headers.push(this.translate.instant(val));
-      }
-    }
-    headers.push('__actions');
-    return headers;
+  ngOnInit(): void {
+    this.validateSesion();
   }
-
-
 
   ngAfterViewInit() {
     //Prepare Headers
-
-    this.translate.use(localStorage.getItem('language')?? 'es');
     this.textHeaders = new Map(Object.entries(this.params.textHeaders));
     this.columnsWithButtons = this.buildHeaders();
 
@@ -185,17 +176,40 @@ export class CustomTableComponent implements AfterViewInit {
       .subscribe((result) => (this.data = result));
 
       this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
+        console.log("LANG: ", event.lang);
         this.translate.use(event.lang);
       });
   }
 
+  buildHeaders() {
+    /*
+    this.translate.onLangChange.subscribe(() => {
+      //debugger;
+    });
+    */
+    let headers = [];
+    for (var val  of this.params.jsonColumns) {
+      if(this.textHeaders.has(val)){
+        headers.push(this.translate.instant(val));
+      }
+    }
+    const userType = this.localService.getData("userType", true) || '-1';
+    if(parseInt(userType) == 0){
+      headers.push('__actions');
+    }
+    return headers;
+  }
 
+  validateSesion(){
+    if(!this.localService.getData("email")){
+      this.router.navigateByUrl("/login");
+    }
+  }
 
   add(row: any) {
 
     this.params.row = {};
-    this.params.language = this.translate.currentLang;
-    this.translate.use(localStorage.getItem('language')?? 'es');
+    this.params.language = this.translate.currentLang;    
     const dialogRef =  this.dialog.open(AddDialogComponent, {
       data: this.params,
       maxHeight: '500px',
@@ -220,8 +234,7 @@ export class CustomTableComponent implements AfterViewInit {
 
 
   edit(row: any) {
-    this.params.row = {...row};
-    this.translate.use(localStorage.getItem('language')?? 'es');
+    this.params.row = {...row};    
     const dialogRef =  this.dialog.open(EditDialogComponent, {
       data: this.params,
       maxHeight: '500px',
@@ -244,8 +257,6 @@ export class CustomTableComponent implements AfterViewInit {
 
   delete(row: any) {
     this.params.row = row;
-
-    this.translate.use(localStorage.getItem('language')?? 'es');
     const dialogRef =  this.dialog.open(DeleteDialogComponent, {
       data: this.params,
     });
@@ -263,8 +274,6 @@ export class CustomTableComponent implements AfterViewInit {
   }
 
   private refreshTable() {
-
-    this.translate.use(localStorage.getItem('language')?? 'es');
     // Refreshing table using paginator
     // Thanks yeager-j for tips
     // https://github.com/marinantonio/angular-mat-table-crud/issues/12

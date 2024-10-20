@@ -48,6 +48,8 @@ import { RowComponent, ColComponent, TextColorDirective, CardComponent, CardHead
 
   FormFloatingDirective, FormSelectDirective, GutterDirective
 } from '@coreui/angular';
+import { ListService } from 'src/app/services/list.service';
+import {environment} from '../../../../environments/environment';
 
 @Component({
   selector: 'app-add.dialog',
@@ -116,6 +118,13 @@ export class AddDialogComponent implements OnInit, AfterViewInit{
   dataType: any;
   columnsWithButtons: string[] = [];
 
+  countries: any[];
+  states: any[];
+  cities: any[];
+  pathCountries: string;
+  pathStates: string;
+  pathCities: string;
+
   public date: moment.Moment;
   public disabled = false;
   public showSpinners = true;
@@ -135,21 +144,17 @@ export class AddDialogComponent implements OnInit, AfterViewInit{
     private translate: TranslateService,
     public dialogRef: MatDialogRef<AddDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: ParamsCustomTable,
-    public dataService: DataService
+    public dataService: DataService,
+    public listService : ListService,
   ) {
     //this.translate.use(data.language? data.language: 'en');
-
-
   }
 
   ngOnInit(): void {
+    //this.fillList();
     this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
       this.translate.use(event.lang);
     });
-  }
-
-  isType(types:string[], column: string){
-    return types.includes(this.dataType.get(column));
   }
 
   ngAfterViewInit() {
@@ -157,6 +162,42 @@ export class AddDialogComponent implements OnInit, AfterViewInit{
     this.textHeaders = new Map(Object.entries(this.data.textHeaders));
     this.dataType = new Map(Object.entries(this.data.dataType));
     this.columnsWithButtons = this.buildHeaders();
+  }
+
+  fillList(){
+    console.log("LLENANDO LISTAS");
+    this.pathCities = `${environment.apiUrl}${environment.path.cities}`,
+    this.pathCountries = `${environment.apiUrl}${environment.path.countries}`
+    this.pathStates = `${environment.apiUrl}${environment.path.states}`
+
+    this.listService.getList(this.pathCountries)
+    .subscribe({
+      next: (result: any) => {
+        this.countries = result;
+      },
+    });
+
+    this.listService.getList(this.pathStates)
+    .subscribe({
+      next: (result: any) => {
+        this.states = result;
+      },
+    });
+
+    this.listService.getList(this.pathCities)
+    .subscribe({
+      next: (result: any) => {
+        this.cities = result;
+      },
+    });
+  }
+
+  getPlaceholder(value:any){
+    return this.translate.instant(value);
+  }
+
+  isType(types:string[], column: string){
+    return types.includes(this.dataType.get(column));
   }
 
   buildHeaders() {
@@ -190,7 +231,6 @@ export class AddDialogComponent implements OnInit, AfterViewInit{
   }
 
   public confirmAdd(): void {
-
     this.translate.use(localStorage.getItem('language')?? 'es');
     this.dataService.addItem(this.data, this.translate);
   }
