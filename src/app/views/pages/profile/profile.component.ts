@@ -168,7 +168,7 @@ export class ProfileComponent {
     this.listService.getList(this.pathCities)
     .subscribe({
       next: (result: any) => {
-        this.cities = result;
+        this.cities = [...result];
       }
     });
   }
@@ -178,7 +178,7 @@ export class ProfileComponent {
     this.listService.getList(this.pathDocumentTypes)
     .subscribe({
       next: (result: any) => {
-        this.documentTypes = result;
+        this.documentTypes = [...result];
       }
     });
   }

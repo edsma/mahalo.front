@@ -94,7 +94,7 @@ export class RegisterComponent {
     this.listService.getList(this.pathCities)
     .subscribe({
       next: (result: any) => {
-        this.cities = result;
+        this.cities = [...result];
       }
     });
   }
