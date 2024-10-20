@@ -64,7 +64,7 @@ export class DefaultHeaderComponent extends HeaderComponent implements OnInit {
   }
 
   loadProfilePhoto(){
-    this.localService.getData("photo");
+    this.photo = this.localService.getData("photo");
   }
 
   logout(){
