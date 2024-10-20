@@ -17,6 +17,7 @@ import { ParamsCustomTable } from './../../../models/params-custom-table';
 export class UserComponent {
 
   params: ParamsCustomTable = {
+    type: 'Users',
     title: 'USERS',
     path: `${environment.apiUrl}${environment.path.users}`,
     id: 'id',
