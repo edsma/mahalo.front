@@ -62,7 +62,7 @@
                 <option value="0">Admin</option>
                 <option value="1">User</option>
               </select>
-        
+
               <select class="form-select mb-3 mt-3"aria-label="Default select example" formControlName="cityId">
                 <option selected value="">Select city</option>
                 <option *ngFor="let city of cities" [value]="city.id">{{ city.name }}</option>
@@ -75,7 +75,7 @@
               <div class="mb-3"></div>
               <img class="" [src]="base64Output" width="150"/>
               <!-- <div class="d-grid"> -->
-              <div  class="d-grid" style="text-align: center;">  
+              <div  class="d-grid" style="text-align: center;">
                 <button cButton class="mb-2" color="primary" [disabled]="!registerForm.valid" (click)="save()">Create Account</button>
                 <button cButton class="mb-2" color="secondary" routerLink="/login">Go back</button>
               </div>
