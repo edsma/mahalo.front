@@ -117,7 +117,6 @@ export class ProfileComponent {
 
   update(){
     this.data = this.profileForm.value;
-    console.log(this.data);
     this.profileService.updateProfile(this.data)
     .subscribe({
       next: (result: any) => {
