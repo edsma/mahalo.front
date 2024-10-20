@@ -83,6 +83,10 @@ export class DataService extends HeaderService {
       params.row.State = {Name : '', Id: 1};
       params.path = `${environment.apiUrl}${environment.path.cities}`+ '/PostAsyncDto';
     }
+    else if(params.type == 'Psychologists'){
+      params.path = `${environment.apiUrl}${environment.path.psychologists}`+ '/PostAsyncDto';
+    }
+
     delete params.row.creationDate;
     const headers = this.getHeaders();
     this.httpClient.post(`${params.path}`, params.row, {headers}).subscribe({
@@ -140,6 +144,8 @@ export class DataService extends HeaderService {
       params.row.PhoneNumber   = '';
       params.row.UserName    = '';
       params.path = `${environment.apiUrl}${environment.path.users}`+ '/EditAsyncDto';
+    }   else if(params.type == 'Psychologists'){
+      params.path = `${environment.apiUrl}${environment.path.psychologists}`+ '/EditAsyncDto';
     }
     delete params.row.creationDate;
     const headers = this.getHeaders();
