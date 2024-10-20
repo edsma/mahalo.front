@@ -58,6 +58,8 @@ export class RecoverPasswordComponent {
 
 
   ngOnInit(): void {
+    let language =  localStorage.getItem('language')?? 'es';
+    this.translate.use(language);
     // Inicializar el formulario con los controles de 'oldPassword' y 'newPassword'
     this.changePasswordForm = this.fb.group({
       oldPassword: ['', [Validators.required]], // Campo obligatorio
