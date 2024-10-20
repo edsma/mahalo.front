@@ -42,11 +42,15 @@ export class RegisterComponent {
     private toasterService: ToastrService,
     private listService: ListService,
     private router: Router
-  ) { }
+  ) {
 
-  ngOnInit(): void {
     this.fillCities();
     this.fillDocumentTypes();
+    //console.log(this.documentTypes);
+   }
+
+  ngOnInit(): void {
+
     this.registerForm = new FormGroup({
       firstName: new FormControl('', [Validators.required]),
       lastName: new FormControl('', [Validators.required]),
@@ -56,15 +60,20 @@ export class RegisterComponent {
       language: new FormControl('', [Validators.required]),
       phoneNumber: new FormControl('', [Validators.required]),
       userType: new FormControl('', [Validators.required]),
-      cityId: new FormControl('', [Validators.required]),
-      photo: new FormControl('', [Validators.required]),
-      documentTypeId: new FormControl('', [Validators.required]),
+      cityId: new FormControl(''),
+      photo: new FormControl(''),
+      documentTypeId: new FormControl(''),
       documentNumber: new FormControl('', [Validators.required]),
     });
+
   }
 
   save(){
     this.data = this.registerForm.value;
+    this.data.userType =  Number(this.data.userType);
+    this.data.cityId = 1;
+    this.data.documentTypeId = 1;
+    debugger;
     this.registerService.createUser(this.data)
     .subscribe({
       next: (result: any) => {
@@ -94,7 +103,7 @@ export class RegisterComponent {
     this.listService.getList(this.pathDocumentTypes)
     .subscribe({
       next: (result: any) => {
-        this.documentTypes = result;
+        this.documentTypes = [...result];
       }
     });
   }

@@ -34,10 +34,10 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { AddDialogComponent } from '../dialogs/add/add.dialog.component';
 import { EditDialogComponent } from '../dialogs/edit/edit.dialog.component';
 import { DeleteDialogComponent } from '../dialogs/delete/delete.dialog.component';
-import { RowComponent, ColComponent, TextColorDirective, CardComponent, CardHeaderComponent, CardBodyComponent, 
-  TableDirective, TableColorDirective, TableActiveDirective, BorderDirective, AlignDirective, 
-  FormDirective, FormLabelDirective, FormControlDirective, ButtonDirective, ProgressBarDirective, 
-  ProgressComponent as ProgressComponent_1, ProgressBarComponent, ProgressStackedComponent, 
+import { RowComponent, ColComponent, TextColorDirective, CardComponent, CardHeaderComponent, CardBodyComponent,
+  TableDirective, TableColorDirective, TableActiveDirective, BorderDirective, AlignDirective,
+  FormDirective, FormLabelDirective, FormControlDirective, ButtonDirective, ProgressBarDirective,
+  ProgressComponent as ProgressComponent_1, ProgressBarComponent, ProgressStackedComponent,
   FormCheckComponent, FormCheckInputDirective, FormCheckLabelDirective,
 
   ButtonGroupComponent,  ButtonToolbarComponent, InputGroupComponent, InputGroupTextDirective, ThemeDirective, DropdownComponent, DropdownToggleDirective, DropdownMenuDirective, DropdownItemDirective, DropdownDividerDirective,
@@ -86,7 +86,7 @@ export interface ApiResponse {
     MatDialogModule,
     DeleteDialogComponent,
     TranslationModule,
-    
+
     RowComponent, ColComponent, TextColorDirective, CardComponent, CardHeaderComponent, CardBodyComponent, TableDirective, TableColorDirective, TableActiveDirective, BorderDirective, AlignDirective,
     //FormDirective, FormLabelDirective, FormControlDirective, ButtonDirective
     ProgressBarDirective, ProgressComponent_1, ProgressBarComponent, ProgressStackedComponent,
@@ -94,9 +94,9 @@ export interface ApiResponse {
     ButtonGroupComponent,  ButtonToolbarComponent, InputGroupComponent, InputGroupTextDirective, ThemeDirective, DropdownComponent, DropdownToggleDirective, DropdownMenuDirective, DropdownItemDirective, DropdownDividerDirective,
     FormFloatingDirective, FormSelectDirective, GutterDirective,
 
-    FormCheckComponent, 
-    FormCheckInputDirective, 
-    FormCheckLabelDirective,    
+    FormCheckComponent,
+    FormCheckInputDirective,
+    FormCheckLabelDirective,
     RouterOutlet,
     RouterLink,
   ],
@@ -104,7 +104,7 @@ export interface ApiResponse {
   styleUrls: ['./custom-table.component.scss']
 })
 export class CustomTableComponent implements AfterViewInit {
-  
+
   @Input() params!: ParamsCustomTable;
 
   data: any[] = [];
@@ -194,6 +194,7 @@ export class CustomTableComponent implements AfterViewInit {
       }
     }
     const userType = this.localService.getData("userType", true) || '-1';
+    debugger;
     if(parseInt(userType) == 0){
       headers.push('__actions');
     }
@@ -209,7 +210,7 @@ export class CustomTableComponent implements AfterViewInit {
   add(row: any) {
 
     this.params.row = {};
-    this.params.language = this.translate.currentLang;    
+    this.params.language = this.translate.currentLang;
     const dialogRef =  this.dialog.open(AddDialogComponent, {
       data: this.params,
       maxHeight: '500px',
@@ -234,7 +235,7 @@ export class CustomTableComponent implements AfterViewInit {
 
 
   edit(row: any) {
-    this.params.row = {...row};    
+    this.params.row = {...row};
     const dialogRef =  this.dialog.open(EditDialogComponent, {
       data: this.params,
       maxHeight: '500px',

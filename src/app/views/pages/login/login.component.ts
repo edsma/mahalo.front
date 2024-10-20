@@ -45,7 +45,7 @@ export class LoginComponent {
         password: new FormControl('', [Validators.required])
       });
     }
-  
+
     login(){
       this.data = this.loginForm.value;
       this.loginService.login(this.data)
@@ -56,14 +56,16 @@ export class LoginComponent {
           this.localService.saveData("token", result.token, true);
           this.localService.saveData("expiration", result.expiration, true);
           this.localService.saveData("userType", result.userType!=undefined? result.userType.toString() : "-", true);
-          
+          console.log(result);
+          debugger;
+
           console.log("result.userType: ", result.userType);
           console.log("result.userType Decrypt: ", this.localService.getData("userType", true));
           let screens = '';
           if(result.userType == 0){
-            screens = 'Cities,Countries,Disorders,Document Types,Notification History,Psychologists,States,Therapies,Users';            
+            screens = 'Cities,Countries,Disorders,Document Types,Notification History,Psychologists,States,Therapies,Users';
           }else{
-              screens = 'Therapies';            
+              screens = 'Therapies';
           }
           this.localService.saveData("screens", screens);
 
@@ -73,7 +75,7 @@ export class LoginComponent {
           this.localService.saveData("expiration", "2024-11-18T03:15:46.3500983Z", true);
           this.localService.saveData("userType", "0", true);
           */
-          
+
           this.router.navigateByUrl('/cruds/therapies');
 
           this.toasterService.success(`Successful login`, 'Mahalo');
@@ -83,6 +85,6 @@ export class LoginComponent {
         },
         complete() {
         },
-      });      
-    }   
+      });
+    }
 }
