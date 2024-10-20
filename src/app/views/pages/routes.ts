@@ -33,8 +33,12 @@ export const routes: Routes = [
     path: 'renew',
     loadComponent: () => import('./RecoverPassword/recover-password/recover-password.component').then(m => m.RecoverPasswordComponent),
 
-  }
-  ,
+  },
+  {
+    path: 'send-email',
+    loadComponent: () => import('./send-email/send-email.component').then(m => m.SendEmailComponent),
+
+  },
   {
     path: 'profile',
     loadComponent: () => import('./profile/profile.component').then(m => m.ProfileComponent),

@@ -78,5 +78,8 @@
   "Email": "Correo Electronico",
   "Light": "Claro",
   "Dark": "Oscuro",
-  "Auto": "Automático"
+  "Auto": "Automático",
+  "AccountRecovery": "Recuperación de contraseña",
+  "MessageRegisteredEmail": "Por favor, inserte su cuenta de correo registrada",
+  "Send": "Enviar"
 }
