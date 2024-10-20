@@ -6,12 +6,18 @@ import { SortDirection } from '@angular/material/sort';
 import { ApiResponse } from '../views/custom-table/custom-table.component';
 import {environment} from '../../environments/environment'
 import {PaginationDTO} from '../models/paginationDto';
+import { HeaderService } from './header.service';
+import { LocalService } from './local.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class TableDataService {
-  constructor(private http: HttpClient) { }
+export class TableDataService extends HeaderService {
+  constructor(private http: HttpClient,
+    protected override localService: LocalService
+  ) {
+    super(localService);
+  }
 
   fetchTableData(
     search_filter: string,
@@ -31,10 +37,7 @@ export class TableDataService {
         .set('RecordsNumber', limit_per_page  )
         .set('Filter', search_filter.toString());
       const requestUrl = `${endpoint}/paginated`;
-      const headers = new HttpHeaders({
-        'Content-Type': 'application/json',  // Indica que el contenido es JSON
-        'Accept': 'application/json'          // Espera respuesta en formato JSON
-      });
+      const headers = this.getHeaders();
       return this.http.get<ApiResponse>(requestUrl, { params });
     }
     

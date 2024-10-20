@@ -11,6 +11,9 @@ export const environment = {
         states: '/api/States',
         therapies: '/api/Terapies',
         users: '/api/Users',
-        accounts: '/api/Accounts'
+        accounts: '/api/Accounts',
+        regiter: '/api/accounts/CreateUser',
+        login: '/api/accounts/Login',
+        recoverPassword: '/api/accounts/recoverPassword'
     }
 };

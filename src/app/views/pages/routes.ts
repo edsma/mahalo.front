@@ -34,4 +34,9 @@ export const routes: Routes = [
     loadComponent: () => import('./RecoverPassword/recover-password/recover-password.component').then(m => m.RecoverPasswordComponent),
 
   }
+  ,
+  {
+    path: 'profile',
+    loadComponent: () => import('./profile/profile.component').then(m => m.ProfileComponent),
+  }
 ];

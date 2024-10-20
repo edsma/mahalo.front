@@ -4,7 +4,7 @@ import { ButtonDirective, CardBodyComponent, CardComponent, CardGroupComponent, 
 import { IconDirective } from '@coreui/icons-angular';
 import { NgScrollbar } from 'ngx-scrollbar';
 import { DefaultHeaderComponent } from "../../../../layout/default-layout/default-header/default-header.component";
-import { RouterLink, RouterOutlet } from '@angular/router';
+import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { DefaultFooterComponent } from 'src/app/layout';
 import { TranslateService } from '@ngx-translate/core';
 import { getNavItems } from 'src/app/layout/default-layout/_nav';
@@ -14,6 +14,7 @@ import { ParamsCustomTable } from '../../../../models/params-custom-table';
 import { DataService } from 'src/app/services/data.service';
 import { environment } from 'src/environments/environment';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { LocalService } from 'src/app/services/local.service';
 
 function isOverflown(element: HTMLElement) {
   return (
@@ -52,21 +53,37 @@ export class RecoverPasswordComponent {
   public navItems: INavData[] | undefined;
   constructor(private translate: TranslateService,
     private dataService: DataService,
-    private fb: FormBuilder){
+    private fb: FormBuilder,
+    private localService: LocalService,
+    private router: Router){
     this.loadNavItems();
   }
 
 
   ngOnInit(): void {
     // Inicializar el formulario con los controles de 'oldPassword' y 'newPassword'
+    this.validateSesion();
     this.changePasswordForm = this.fb.group({
       oldPassword: ['', [Validators.required]], // Campo obligatorio
       newPassword: ['', [Validators.required]]  // Campo obligatorio
     });
   }
 
+  validateSesion(){
+    if(!this.localService.getData("email")){
+      this.router.navigateByUrl("/login");
+    }
+  }
+
   loadNavItems(): void {
-    this.navItems = getNavItems(this.translate);  // Regenera el menú con el idioma actual
+    const screens: string = this.localService.getData("screens") || '';
+    let options: string[] =  screens.split(','); 
+    this.navItems = getNavItems(this.translate);
+    for( var it of this.navItems ){
+      if(it.children){
+        it.children = it.children.filter( ch => options.includes(ch.screen || ''));
+      }
+    }
   }
 
   onScrollbarUpdate($event: any) {

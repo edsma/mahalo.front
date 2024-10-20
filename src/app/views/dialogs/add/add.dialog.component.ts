@@ -151,7 +151,7 @@ export class AddDialogComponent implements OnInit, AfterViewInit{
   }
 
   ngOnInit(): void {
-    this.fillList();
+    //this.fillList();
     this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
       this.translate.use(event.lang);
     });
@@ -231,7 +231,6 @@ export class AddDialogComponent implements OnInit, AfterViewInit{
   }
 
   public confirmAdd(): void {
-
     this.translate.use(localStorage.getItem('language')?? 'es');
     this.dataService.addItem(this.data, this.translate);
   }
