@@ -26,7 +26,7 @@ import { RowComponent, ColComponent, TextColorDirective, CardComponent, CardHead
   ProgressComponent as ProgressComponent_1, ProgressBarComponent, ProgressStackedComponent,
   FormCheckComponent, FormCheckInputDirective, FormCheckLabelDirective,
   ButtonGroupComponent,  ButtonToolbarComponent, InputGroupComponent, InputGroupTextDirective, ThemeDirective, DropdownComponent, DropdownToggleDirective, DropdownMenuDirective, DropdownItemDirective, DropdownDividerDirective,
-  FormFloatingDirective, FormSelectDirective, GutterDirective, INavData, ShadowOnScrollDirective, SidebarBrandComponent, SidebarComponent, SidebarFooterComponent, SidebarHeaderComponent, SidebarNavComponent, SidebarToggleDirective, SidebarTogglerDirective, 
+  FormFloatingDirective, FormSelectDirective, GutterDirective, INavData, ShadowOnScrollDirective, SidebarBrandComponent, SidebarComponent, SidebarFooterComponent, SidebarHeaderComponent, SidebarNavComponent, SidebarToggleDirective, SidebarTogglerDirective,
   ContainerComponent, CardGroupComponent,
 } from '@coreui/angular';
 import { TranslateService } from '@ngx-translate/core';
@@ -115,7 +115,7 @@ export class ProfileComponent implements AfterViewInit {
       this.router.navigateByUrl("/login");
     }else{
       const screens: string = this.localService.getData("screens") || '';
-      let options: string[] =  screens.split(','); 
+      let options: string[] =  screens.split(',');
       if(!options.includes('Profiles')){
         this.router.navigateByUrl("/404");
       }
@@ -161,7 +161,7 @@ export class ProfileComponent implements AfterViewInit {
 
   loadNavItems(): void {
     const screens: string = this.localService.getData("screens") || '';
-    let options: string[] =  screens.split(','); 
+    let options: string[] =  screens.split(',');
     this.navItems = getNavItems(this.translate);
     for( var it of this.navItems ){
       if(it.children){
@@ -203,7 +203,7 @@ export class ProfileComponent implements AfterViewInit {
   }
 
   base64Output : string;
-  
+
   onFileSelected(event) {
     if(event.target.files.length == 1){
       this.convertFile(event.target.files[0]).subscribe(base64 => {

@@ -82,29 +82,30 @@ sidebarId="sidebar1"
                   <input autoComplete="phoneNumber" cFormControl placeholder="phoneNumber" formControlName="phoneNumber"/>
                 </c-input-group>
                 <select class="form-select mb-3 mt-3" aria-label="Default select example" formControlName="language" placeholder="Select language">
-                  <option selected value="">Select language</option>
+                  <option selected value="">{{ 'selectLanguage' | translate }}</option>
                   <option value="ES">Spanish</option>
                   <option value="EN">English</option>
                 </select>
                 <select class="form-select" aria-label="Default select example" formControlName="userType">
-                  <option selected value="">Select Role</option>
+                  <option selected value="">{{ 'selectUserType' | translate }}</option>
                   <option value="0">Admin</option>
                   <option value="1">User</option>
                 </select>
-          
+
                 <select class="form-select mb-3 mt-3"aria-label="Default select example" formControlName="cityId">
-                  <option selected value="">Select city</option>
+                  <option selected value="">{{ 'selectCity' | translate }}</option>
+                  <option selected value="1">Medell�n</option>
                   <option *ngFor="let city of cities" [value]="city.id">{{ city.name }}</option>
                 </select>
-  
+
                 <div class="mb-3">
                   <label for="profileImage" class="me-2">Subir foto de perfil</label>
                   <input id="profileImage" type="file" accept="image/*" (change)="onFileSelected($event)" />
-                </div>  
-                <div class="mb-3"></div>    
+                </div>
+                <div class="mb-3"></div>
                 <!-- <div class="d-grid"> -->
                   <img class="" [src]="base64Output" width="150"/>
-                <div  class="d-grid" style="text-align: center;">  
+                <div  class="d-grid" style="text-align: center;">
                   <button cButton class="mb-2" color="primary" [disabled]="!profileForm.valid" (click)="update()">Update Profile</button>
                 </div>
               </form>
