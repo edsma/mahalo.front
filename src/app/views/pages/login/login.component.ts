@@ -51,7 +51,7 @@ export class LoginComponent {
       this.loginService.login(this.data)
       .subscribe({
         next: (result: any) => {
-          //result.userType = 0; //TODO
+          result.userType = 0; //TODO
           this.localService.saveData("email", this.data.email);
           this.localService.saveData("token", result.token, true);
           this.localService.saveData("expiration", result.expiration, true);
@@ -61,9 +61,9 @@ export class LoginComponent {
           console.log("result.userType Decrypt: ", this.localService.getData("userType", true));
           let screens = '';
           if(result.userType == 0){
-            screens = 'Cities,Countries,Disorders,Document Types,Notification History,Psychologists,States,Therapies,Users';            
+            screens = 'Cities,Countries,Disorders,Document Types,Notification History,Psychologists,States,Therapies,Users,Profiles,Renews';            
           }else{
-              screens = 'Therapies';            
+              screens = 'Therapies,Profiles,Renews';            
           }
           this.localService.saveData("screens", screens);
 

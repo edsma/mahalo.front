@@ -14,6 +14,7 @@ import { ParamsCustomTable } from './../../../models/params-custom-table';
 export class DisorderComponent {
 
   params: ParamsCustomTable = {
+    type: 'Disorders',
     title: 'DISORDERS',
     path: `${environment.apiUrl}${environment.path.disorders}`,
     id: 'id',

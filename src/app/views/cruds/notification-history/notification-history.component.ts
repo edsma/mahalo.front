@@ -14,6 +14,7 @@ import { ParamsCustomTable } from './../../../models/params-custom-table';
 export class NotificationHistoryComponent {
 
   params: ParamsCustomTable = {
+    type: 'Notification History',
     title: 'NOTIFICATION HISTORY',
     path: `${environment.apiUrl}${environment.path.documentsTypes}`,
     id: 'id',

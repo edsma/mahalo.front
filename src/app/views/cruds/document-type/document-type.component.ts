@@ -15,6 +15,7 @@ import { ParamsCustomTable } from './../../../models/params-custom-table';
 export class DocumentTypeComponent {
 
   params: ParamsCustomTable = {
+    type: 'Document Types',
     title: 'DOCUMENT TYPES',
     path: `${environment.apiUrl}${environment.path.documentsTypes}`,
     id: 'id',

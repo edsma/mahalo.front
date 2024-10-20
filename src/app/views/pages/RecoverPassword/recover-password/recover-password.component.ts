@@ -72,6 +72,12 @@ export class RecoverPasswordComponent {
   validateSesion(){
     if(!this.localService.getData("email")){
       this.router.navigateByUrl("/login");
+    }else{
+      const screens: string = this.localService.getData("screens") || '';
+      let options: string[] =  screens.split(','); 
+      if(!options.includes('Renews')){
+        this.router.navigateByUrl("/404");
+      }
     }
   }
 

@@ -105,6 +105,12 @@ export class ProfileComponent {
   validateSesion(){
     if(!this.localService.getData("email")){
       this.router.navigateByUrl("/login");
+    }else{
+      const screens: string = this.localService.getData("screens") || '';
+      let options: string[] =  screens.split(','); 
+      if(!options.includes('Profiles')){
+        this.router.navigateByUrl("/404");
+      }
     }
   }
 

@@ -15,7 +15,7 @@ import { ParamsCustomTable } from './../../../models/params-custom-table';
 export class CountryComponent {
 
   params:  ParamsCustomTable = {
-    type: 'country',
+    type: 'Countries',
     title: 'COUNTRIES', // Cambié a 'COUNTRIES' según la entidad
     path: `${environment.apiUrl}${environment.path.countries}`, // Asegúrate de que la URL sea correcta
     id: 'id',
