@@ -6,8 +6,8 @@
           <c-card class="p-4">
             <c-card-body>
               <form cForm [formGroup]="loginForm">
-                <h1>Login</h1>
-                <p class="text-body-secondary">Sign In to your account</p>
+                <h1>{{ 'login' | translate }}</h1>
+                <p class="text-body-secondary">{{ 'SignInMessages' | translate }}</p>
                 <c-input-group class="mb-3">
                   <span cInputGroupText>
                     <svg cIcon name="cilUser"></svg>
@@ -31,12 +31,12 @@
                 <c-row>
                   <c-col xs="6">
                     <button cButton class="px-4" color="primary" [disabled]="!loginForm.valid" (click)="login()">
-                      Login
+                      {{ 'login' | translate }}
                     </button>
                   </c-col>
                   <c-col class="text-right" xs="6">
                     <button cButton class="px-0" color="link">
-                      Forgot password?
+                      {{ 'ForgotPassword' | translate }}
                     </button>
                   </c-col>
                 </c-row>
@@ -47,11 +47,11 @@
             <c-card-body class="text-center">
               <div>
                 <h2>Sign up</h2>
-                <p>                  
+                <p>
                 </p>
                 <br/><br/><br/><br/><br/><br/>
                 <button [active]="true" cButton class="mt-3" color="primary" routerLink="/register">
-                  Register Now!
+                  {{ 'RegisterNow' | translate }}
                 </button>
               </div>
             </c-card-body>

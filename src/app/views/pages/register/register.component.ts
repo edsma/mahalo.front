@@ -21,13 +21,16 @@ import {
 import { LanguageVariant } from 'typescript';
 import { ListService } from 'src/app/services/list.service';
 import { Observable, ReplaySubject } from 'rxjs';
+import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
+
+import { TranslationModule } from 'src/app/services/Transalation.module';
 
 @Component({
     selector: 'app-register',
     templateUrl: './register.component.html',
     styleUrls: ['./register.component.scss'],
     standalone: true,
-    imports: [ContainerComponent, RowComponent, ColComponent, TextColorDirective, CardComponent, CardBodyComponent, FormDirective, InputGroupComponent, InputGroupTextDirective, IconDirective, FormControlDirective, ButtonDirective, ReactiveFormsModule, RouterModule, RouterOutlet ]
+    imports: [ContainerComponent,TranslationModule, RowComponent, ColComponent, TextColorDirective, CardComponent, CardBodyComponent, FormDirective, InputGroupComponent, InputGroupTextDirective, IconDirective, FormControlDirective, ButtonDirective, ReactiveFormsModule, RouterModule, RouterOutlet ]
 })
 export class RegisterComponent {
 
@@ -36,22 +39,33 @@ export class RegisterComponent {
 
   cities: any[];
   pathCities: string;
-  documentTypes: any[];
+  documentTypesList: any[];
   pathDocumentTypes: string;
+  numbers: number[] = [];
 
   constructor(private registerService: RegisterService,
     private toasterService: ToastrService,
+
+    private translate: TranslateService,
     private listService: ListService,
     private router: Router
   ) {
-
+    let language =  localStorage.getItem('language')?? 'es';
+    this.translate.use(language);
+    this.numbers = Array.from({ length: 10 }, (_, i) => i + 1);
     this.fillCities();
     this.fillDocumentTypes();
-    //console.log(this.documentTypes);
+    this.documentTypesList = [
+      { id: 1, name: 'Passport' },
+      { id: 2, name: 'Driver’s License' },
+      { id: 3, name: 'National ID' }
+    ];
    }
 
   ngOnInit(): void {
-
+    this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
+      this.translate.use(event.lang);
+    });
     this.registerForm = new FormGroup({
       firstName: new FormControl('', [Validators.required]),
       lastName: new FormControl('', [Validators.required]),
@@ -74,7 +88,6 @@ export class RegisterComponent {
     this.data.userType =  Number(this.data.userType);
     this.data.cityId = 1;
     this.data.documentTypeId = 1;
-    debugger;
     this.registerService.createUser(this.data)
     .subscribe({
       next: (result: any) => {
@@ -104,13 +117,16 @@ export class RegisterComponent {
     this.listService.getList(this.pathDocumentTypes)
     .subscribe({
       next: (result: any) => {
-        this.documentTypes = [...result];
+        //this.documentTypes = result;
+        result.map((item) => {
+          this.documentTypesList.push(item);
+      });
       }
     });
   }
 
   base64Output : string;
-  
+
   onFileSelected(event) {
     if(event.target.files.length == 1){
       this.convertFile(event.target.files[0]).subscribe(base64 => {

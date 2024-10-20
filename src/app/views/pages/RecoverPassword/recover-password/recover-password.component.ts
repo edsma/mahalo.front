@@ -76,8 +76,8 @@ export class RecoverPasswordComponent {
       this.router.navigateByUrl("/login");
     }else{
       const screens: string = this.localService.getData("screens") || '';
-      let options: string[] =  screens.split(','); 
-      if(!options.includes('Renews')){
+      let options: string[] =  screens.split(',');
+      if(!options.includes('renew')){
         this.router.navigateByUrl("/404");
       }
     }
@@ -85,7 +85,7 @@ export class RecoverPasswordComponent {
 
   loadNavItems(): void {
     const screens: string = this.localService.getData("screens") || '';
-    let options: string[] =  screens.split(','); 
+    let options: string[] =  screens.split(',');
     this.navItems = getNavItems(this.translate);
     for( var it of this.navItems ){
       if(it.children){
@@ -101,7 +101,6 @@ export class RecoverPasswordComponent {
   }
 
   onSubmit(): void {
-    debugger;
     if (this.changePasswordForm.valid) {
       const formData = this.changePasswordForm.value;
       let params =  {

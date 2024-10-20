@@ -27,7 +27,6 @@ export class TableDataService extends HeaderService {
     limit_per_page: number,
     endpoint: string,
   ): Observable<ApiResponse> {
-
     if(environment.isLocal){
       const requestUrl = `${endpoint}?q=${search_filter}+in:title+repo:angular/components&sort=${sort_field}&order=${sort_order}&page=${page1}&per_page=${limit_per_page}`;
       return this.http.get<ApiResponse>(requestUrl);
@@ -38,8 +37,8 @@ export class TableDataService extends HeaderService {
         .set('Filter', search_filter.toString());
       const requestUrl = `${endpoint}/paginated`;
       const headers = this.getHeaders();
-      return this.http.get<ApiResponse>(requestUrl, { params });
+      return this.http.get<ApiResponse>(requestUrl, { params, headers });
     }
-    
+
   }
 }

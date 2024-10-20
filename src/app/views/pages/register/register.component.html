@@ -7,9 +7,13 @@
             <form cForm [formGroup]="registerForm">
               <h1>Register</h1>
               <p class="text-body-secondary">Create your account</p>
-              <select class="form-select mb-3 mt-3"aria-label="Default select example" formControlName="documentTypeId">
-                <option selected value="">Select document type</option>
-                <option *ngFor="let docType of documentTypes" [value]="docType.id">{{ docType.name }}</option>
+              <select class="form-select mb-3 mt-3" aria-label="Default select example" formControlName="documentTypeId">
+                <!-- Opción predeterminada -->
+                <option value="" selected>{{ 'selectTypeOfDocument' | translate }}</option>
+                <option value="1" selected>Cédula de ciudadania</option>
+                <option *ngFor='let number of pruebas' [value]="number">{{ number }}</option>
+                <!-- Opciones generadas dinámicamente desde documentTypesList -->
+                <option *ngFor="let docType of documentTypesList" [value]="docType.id">{{ docType.name }}</option>
               </select>
               <div class="mb-3"></div>
               <c-input-group class="mb-3">
@@ -53,25 +57,26 @@
                 <input autoComplete="phoneNumber" cFormControl placeholder="phoneNumber" formControlName="phoneNumber"/>
               </c-input-group>
               <select class="form-select mb-3 mt-3" aria-label="Default select example" formControlName="language">
-                <option selected value="">Select language</option>
+                <option selected value="">{{ 'selectLanguage' | translate }}</option>
                 <option value="ES">Spanish</option>
                 <option value="EN">English</option>
               </select>
               <select class="form-select" aria-label="Default select example" formControlName="userType">
-                <option selected value="">Select Role</option>
+                <option selected value="">{{ 'selectUserType' | translate }}</option>
                 <option value="0">Admin</option>
                 <option value="1">User</option>
               </select>
 
               <select class="form-select mb-3 mt-3"aria-label="Default select example" formControlName="cityId">
-                <option selected value="">Select city</option>
+                <option selected value="">{{ 'selectCity' | translate }}</option>
+                <option selected value="1">Medellín</option>
                 <option *ngFor="let city of cities" [value]="city.id">{{ city.name }}</option>
               </select>
 
               <div class="mb-3">
                 <label for="profileImage" class="me-2">Subir foto de perfil</label>
                 <input id="profileImage" type="file" accept="image/*" (change)="onFileSelected($event)"/>
-              </div>  
+              </div>
               <div class="mb-3"></div>
               <img class="" [src]="base64Output" width="150"/>
               <!-- <div class="d-grid"> -->
