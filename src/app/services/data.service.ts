@@ -129,7 +129,17 @@ export class DataService extends HeaderService {
       params.row.stateId = 1;
       params.row.State = {Name : '', Id: 1};
       params.path = `${environment.apiUrl}${environment.path.cities}`+ '/EditAsyncDto';
-
+    }
+    else if(params.type == 'Users'){
+      params.row.CityId = 0;
+      params.row.DocumentNumber = 0;
+      params.row.Language = '';
+      params.row.DocumentNumber = '';
+      params.row.CityId = '';
+      params.row.Photo  = '';
+      params.row.PhoneNumber   = '';
+      params.row.UserName    = '';
+      params.path = `${environment.apiUrl}${environment.path.users}`+ '/EditAsyncDto';
     }
     delete params.row.creationDate;
     const headers = this.getHeaders();

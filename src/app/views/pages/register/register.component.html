@@ -11,9 +11,8 @@
                 <!-- Opción predeterminada -->
                 <option value="" selected>{{ 'selectTypeOfDocument' | translate }}</option>
                 <option value="1" selected>Cédula de ciudadania</option>
-                <option *ngFor='let number of pruebas' [value]="number">{{ number }}</option>
                 <!-- Opciones generadas dinámicamente desde documentTypesList -->
-                <option *ngFor="let docType of documentTypesList" [value]="docType.id">{{ docType.name }}</option>
+                <option *ngFor="let docType of documentTypes" [value]="docType.id">{{ docType.name }}</option>
               </select>
               <div class="mb-3"></div>
               <c-input-group class="mb-3">
@@ -69,7 +68,6 @@
 
               <select class="form-select mb-3 mt-3"aria-label="Default select example" formControlName="cityId">
                 <option selected value="">{{ 'selectCity' | translate }}</option>
-                <option selected value="1">Medellín</option>
                 <option *ngFor="let city of cities" [value]="city.id">{{ city.name }}</option>
               </select>
 
