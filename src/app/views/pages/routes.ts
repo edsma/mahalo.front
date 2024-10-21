@@ -35,6 +35,11 @@ export const routes: Routes = [
 
   },
   {
+    path: 'reset',
+    loadComponent: () => import('./resetPassword/reset-password/reset-password.component').then(m => m.ResetPasswordComponent),
+
+  },
+  {
     path: 'send-email',
     loadComponent: () => import('./send-email/send-email.component').then(m => m.SendEmailComponent),
 
