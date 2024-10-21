@@ -69,6 +69,26 @@ export class DataService extends HeaderService {
     });
   }
 
+  getItemByParas(params: any, ConfirmEmail: string,userId: string,translate: TranslateService ): void {
+    const headers = this.getHeaders();
+    debugger;
+    this.httpClient.get(`${params.path}?userId=${userId}&token=${ConfirmEmail}`, {headers}).subscribe({
+      next: (result: any) => {
+        //this.dataChange.next(result);
+        if (result.length == 0){
+          this.toasterService.warning(translate.instant('AccountConfirmed'), 'Mahalo');
+        }else{
+          this.toasterService.success(translate.instant('AccountConfirmed'), 'Mahalo');
+        }
+      },
+      error: (err) => {
+          this.toasterService.error(translate.instant('ErrorDetails')`: ${err.name} ${err.message}`, 'Mahalo');
+      },
+      complete() {
+      },
+    });
+  }
+
   // ADD, POST METHOD
   addItem(params: ParamsCustomTable, translate: TranslateService): void {
     params.row[params.id] = 0;
