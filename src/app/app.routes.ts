@@ -22,6 +22,10 @@ export const routes: Routes = [
         path: 'cruds',
         loadChildren: () => import('./views/cruds/routes').then((m) => m.routes)
       },
+      {
+        path: 'IA',
+        loadChildren: () => import('./views/cruds/routes').then((m) => m.routes)
+      },
     ]
   },
   {

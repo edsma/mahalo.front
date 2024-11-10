@@ -1,0 +1,25 @@
+.card {
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.card-header {
+  background-color: #4a90e2;
+  color: white;
+}
+
+.card-body {
+  background-color: #f8f9fa;
+}
+
+.bg-primary {
+  background-color: #4a90e2 !important;
+}
+
+.bg-light {
+  background-color: #e0e0e0 !important;
+}
+
+.overflow-auto {
+  overflow-y: auto;
+}

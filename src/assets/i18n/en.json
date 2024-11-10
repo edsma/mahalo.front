@@ -2,6 +2,7 @@
   "Welcome": "Bienvenido(a) a ",
   "GOODBYE": "Goodbye",
   "login": "Login",
+  "SendMessage": "Send",
   "ForgotPassword": "Forgot your password?",
   "RegisterNow": "Register now!",
   "Register": "Register",
@@ -11,7 +12,8 @@
   "selectCity": "Please, select a ciy",
   "selectUserType": "Please, select a typeOfUser",
   "Return": "Return",
-
+  "IaFelling": "how i felling today?",
+  "IaHowFelling": "We care about you, how are felling today?",
   "Account": "Account",
   "Updates": "Updates",
   "UpdateAccount": "Update your account",

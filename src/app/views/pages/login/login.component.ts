@@ -81,7 +81,7 @@ export class LoginComponent {
           let screens = '';
           console.log(result.userType);
           if(result.userType == 0){
-            screens = 'Cities,Countries,Disorders,Document Types,Notification History,Psychologists,States,Therapies,Users,Profiles,renew';
+            screens = 'Cities,Feeling,Countries,Disorders,Document Types,Notification History,Psychologists,States,Therapies,Users,Profiles,renew';
           }else{
               screens = 'Therapies,Profiles,renew';
           }

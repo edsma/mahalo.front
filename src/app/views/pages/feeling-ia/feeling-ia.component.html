@@ -1,0 +1,33 @@
+<div class="card h-100">
+  <div class="card-header d-flex justify-content-between align-items-center">
+    <h5 class="mb-0">{{ 'IaHowFelling' | translate }}</h5>
+  </div>
+  <div class="card-body p-0">
+    <!-- Lista de mensajes -->
+    <div class="overflow-auto p-3" style="height: 400px;">
+      <div *ngFor="let message of messages">
+        <div *ngIf="message.sender === 'me'" class="d-flex justify-content-end mb-2">
+          <div class="bg-primary text-white rounded p-2" style="max-width: 70%;">
+            {{ message.text }}
+          </div>
+        </div>
+        <div *ngIf="message.sender !== 'me'" class="d-flex justify-content-start mb-2">
+          <div class="bg-light text-dark rounded p-2" style="max-width: 70%;">
+            {{ message.text }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card-footer">
+    <div class="input-group">
+      <input
+        [(ngModel)]="analysysIaValor"
+        type="text"
+        class="form-control"
+        placeholder="Escribe un mensaje..."
+      />
+      <button class="btn btn-primary" (click)="sendMessage()" >{{ 'SendMessage' | translate }}</button>
+    </div>
+  </div>
+</div>

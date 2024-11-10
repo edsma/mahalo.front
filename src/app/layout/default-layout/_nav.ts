@@ -9,13 +9,27 @@ return [
     title: true,
   },
   {
-    name: 'Cruds',
-    url: '/cruds',
-    iconComponent: { name: 'cil-puzzle' },
+    name: 'IA',
+    url: '/IA',
+    iconComponent: { name: 'cil-chat-bubble' },
     badge: {
       color: 'warning',
       text: 'NEW'
     },
+    children: [
+      {
+        screen: 'Feeling',
+        name: translate.instant('IaFelling'),
+        url: '/IA/Feeling',
+        icon: 'nav-icon-bullet'
+      },
+    ]
+  },
+  {
+    name: 'Cruds',
+    url: '/cruds',
+    iconComponent: { name: 'cil-puzzle' },
+
     children: [
       {
         screen: 'Cities',

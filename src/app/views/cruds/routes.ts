@@ -4,6 +4,26 @@ export const routes: Routes = [
   {
     path: '',
     data: {
+      title: 'IA'
+    },
+    children: [
+      {
+        path: '',
+        redirectTo: 'therapies',
+        pathMatch: 'full'
+      },
+      {
+        path: 'Feeling',
+        loadComponent: () => import('./../pages/feeling-ia/feeling-ia.component').then(m => m.FeelingIAComponent),
+        data: {
+          title: 'Feeling'
+        }
+      }
+    ]
+  },
+  {
+    path: '',
+    data: {
       title: 'Cruds'
     },
     children: [
@@ -19,6 +39,7 @@ export const routes: Routes = [
           title: 'Cities'
         }
       },
+
       {
         path: 'countries',
         loadComponent: () => import('./country/country.component').then(m => m.CountryComponent),
