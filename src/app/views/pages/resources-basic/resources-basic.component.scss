@@ -1,0 +1,48 @@
+mat-card {
+    max-width: 90%;
+    margin: auto;
+    margin-top: 2em;
+}
+
+mat-card .search {
+    padding: 1em;
+    max-width: 15em;
+}
+
+mat-card .table-wrapper {
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.search {
+    width: 300px;
+}
+
+.simulated-text-box {
+    width: 100%;                /* Ocupa el 100% del ancho del contenedor */
+    max-width: 500px;           /* Máximo ancho para pantallas grandes */
+    height: 100%;               /* Altura mayor para simular un cuadro más grande */
+    border: 1px solid #ccc;     /* Borde para simular un cuadro de texto */
+    border-radius: 8px;         /* Bordes redondeados */
+    background-color: #f9f9f9;  /* Color de fondo */
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1); /* Sombra interior */
+    margin: 0 auto;             /* Centrado */
+    display: block;             /* Para que ocupe toda la línea */
+  }
+
+  .file-icon {
+    width: 8%;  /* La imagen ocupará el 50% del tamaño del contenedor */
+    height: auto;  /* Mantiene la relación de aspecto original */
+    margin-right: 10px;
+  }
+
+  
+  .button-container{
+    margin-top: 20px;          /* Espacio entre el mensaje y el botón */
+    justify-content: center;   /* Centrado horizontal */
+  }
+
+  .button-upload {
+    margin-top: 30px;
+  }
+
+
