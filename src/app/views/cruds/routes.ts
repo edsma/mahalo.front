@@ -34,10 +34,10 @@ export const routes: Routes = [
         pathMatch: 'full'
       },
       {
-        path: 'prueba2',
+        path: 'resourceViewer',
         loadComponent: () => import('../pages/resources-basic/resources-basic.component').then(m => m.ResourcesBasicComponent),
         data: {
-          title: 'prueba2'
+          title: 'resourceViewer'
         }
       },
       

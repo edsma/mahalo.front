@@ -1,48 +1,106 @@
+/* Estilo del contenedor principal */
 mat-card {
-    max-width: 90%;
-    margin: auto;
-    margin-top: 2em;
+  max-width: 90%;
+  margin: 2em auto;
+  padding: 1.5em;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 4px 12px;
+  border-radius: 8px;
+  background-color: #ffffff;
 }
 
-mat-card .search {
-    padding: 1em;
-    max-width: 15em;
-}
-
-mat-card .table-wrapper {
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-}
-
+/* Estilo para la búsqueda y el selector de categoría */
 .search {
-    width: 300px;
+  width: 100%;
+  max-width: 300px;
+  margin: 0 auto 1em auto;
+  padding: 0.5em;
 }
 
-.simulated-text-box {
-    width: 100%;                /* Ocupa el 100% del ancho del contenedor */
-    max-width: 500px;           /* Máximo ancho para pantallas grandes */
-    height: 100%;               /* Altura mayor para simular un cuadro más grande */
-    border: 1px solid #ccc;     /* Borde para simular un cuadro de texto */
-    border-radius: 8px;         /* Bordes redondeados */
-    background-color: #f9f9f9;  /* Color de fondo */
-    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1); /* Sombra interior */
-    margin: 0 auto;             /* Centrado */
-    display: block;             /* Para que ocupe toda la línea */
+mat-form-field.search-field {
+  width: 100%;
+  max-width: 300px;
+  margin: 1em auto;
+  display: block;
+}
+
+/* Estilo para el panel de expansión */
+mat-expansion-panel {
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  margin-bottom: 1em;
+}
+
+mat-expansion-panel-header {
+  background-color: #f5f5f5;
+  padding: 1em;
+  border-radius: 8px 8px 0 0;
+  font-weight: bold;
+  color: #333;
+}
+
+/* Estilo del contenido de los recursos */
+.resource-content {
+  padding: 1em;
+  color: #555;
+  line-height: 1.5;
+}
+
+/* Estilo para el icono de archivo */
+.file-icon {
+  width: 30px;
+  height: auto;
+  margin-right: 10px;
+  vertical-align: middle;
+}
+
+.file-download {
+  display: flex;
+  align-items: center;
+  padding: 0.5em 1em;
+  border-top: 1px solid #e0e0e0;
+  font-size: 0.9em;
+  color: #007bff;
+}
+
+.file-download .file-name {
+  margin-left: 8px;
+  color: #333;
+}
+
+/* Enlace de descarga */
+.download-link {
+  text-decoration: none;
+  color: #007bff;
+  margin-left: auto;
+}
+
+.download-link:hover {
+  text-decoration: underline;
+}
+
+/* Contenedor para el botón de subida */
+.button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.button-upload {
+  margin-top: 20px;
+  background-color: #007bff;
+  color: #fff;
+  padding: 0.5em 1em;
+  border-radius: 4px;
+}
+
+.button-upload:hover {
+  background-color: #0056b3;
+}
+
+/* Ajustes para pantallas grandes */
+@media (min-width: 768px) {
+  .search,
+  .search-field {
+      max-width: 500px;
   }
-
-  .file-icon {
-    width: 8%;  /* La imagen ocupará el 50% del tamaño del contenedor */
-    height: auto;  /* Mantiene la relación de aspecto original */
-    margin-right: 10px;
-  }
-
-  
-  .button-container{
-    margin-top: 20px;          /* Espacio entre el mensaje y el botón */
-    justify-content: center;   /* Centrado horizontal */
-  }
-
-  .button-upload {
-    margin-top: 30px;
-  }
-
-
+}
