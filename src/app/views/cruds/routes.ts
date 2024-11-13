@@ -18,7 +18,29 @@ export const routes: Routes = [
         data: {
           title: 'Feeling'
         }
-      }
+      },
+      
+    ]
+  },
+  {
+    path: '',
+    data: {
+      title: 'resource'
+    },
+    children: [
+      {
+        path: '',
+        redirectTo: 'therapies',
+        pathMatch: 'full'
+      },
+      {
+        path: 'resourceViewer',
+        loadComponent: () => import('../pages/resources-basic/resources-basic.component').then(m => m.ResourcesBasicComponent),
+        data: {
+          title: 'resourceViewer'
+        }
+      },
+      
     ]
   },
   {
@@ -80,6 +102,20 @@ export const routes: Routes = [
         loadComponent: () => import('./psychologist/psychologist.component').then(m => m.PsychologistComponent),
         data: {
           title: 'Psychologists'
+        }
+      },
+      {
+        path: 'resources',
+        loadComponent: () => import('./resource/resource.component').then(m => m.ResourceComponent),
+        data: {
+          title: 'Resources'
+        }
+      },
+      {
+        path: 'resourcesDisorder',
+        loadComponent: () => import('./resources-disorder/resources-disorder.component').then(m => m.ResourcesDisorderComponent),
+        data: {
+          title: 'ResourcesDisorder'
         }
       },
       {

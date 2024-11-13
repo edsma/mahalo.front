@@ -13,10 +13,10 @@ import { ParamsCustomTable } from './../../../models/params-custom-table';
 })
 export class NotificationHistoryComponent {
 
-  params: ParamsCustomTable = {
+  /*params: ParamsCustomTable = {
     type: 'Notification History',
     title: 'NOTIFICATION HISTORY',
-    path: `${environment.apiUrl}${environment.path.documentsTypes}`,
+    path: `${environment.apiUrl}${environment.path.notificationhistory}`,
     id: 'id',
     jsonColumns: [
       'id',
@@ -33,5 +33,5 @@ export class NotificationHistoryComponent {
       creationDate: 'date',
       isActive: 'boolean'
     }
-  };
+  };*/
 }

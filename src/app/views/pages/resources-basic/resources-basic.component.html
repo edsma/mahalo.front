@@ -1,0 +1,47 @@
+<!-- Campo de búsqueda -->
+<mat-form-field>
+  <mat-label>Buscar</mat-label>
+  <input matInput [(ngModel)]="searchText" placeholder="Buscar recurso" />
+</mat-form-field>
+
+<!-- Selector de categorías -->
+<mat-form-field appearance="fill">
+  <mat-label>Seleccionar categoría</mat-label>
+  <mat-select [(ngModel)]="selectedCategory">
+    <mat-option value="">Todas las categorías</mat-option>
+    <mat-option *ngFor="let category of categories" [value]="category.value">
+      {{ category.viewValue }}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+
+<!-- Lista de recursos filtrados -->
+<mat-accordion multi="true">
+  <mat-expansion-panel *ngFor="let resource of filteredResources">
+    <mat-expansion-panel-header>
+      <mat-panel-title>{{ resource.title }}</mat-panel-title>
+      <mat-panel-description>{{ resource.category }}</mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <div class="resource-content">
+      {{ resource.content }}
+    </div>
+
+    <!-- Enlace para descargar archivo -->
+    <div class="file-download">
+      <img [src]="resource.image" alt="{{ resource.altImage }}" class="file-icon" />
+      <span class="file-name">{{ resource.fileName }}</span>
+      <a [href]="'ruta/al/archivo/' + resource.fileName" download class="download-link">
+        Descargar
+      </a>
+    </div>
+  </mat-expansion-panel>
+</mat-accordion>
+
+<!-- Botón para subir archivo -->
+<button mat-raised-button (click)="triggerFileUpload()">
+  <mat-icon>upload_file</mat-icon> Subir archivo
+</button>
+
+<!-- Input oculto para seleccionar archivo -->
+<input type="file" #fileInput (change)="onFileSelected($event)" style="display: none" />

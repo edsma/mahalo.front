@@ -1,0 +1,30 @@
+<c-row ngPreserveWhitespaces>
+    <c-col xs="12">
+      <c-card class="mb-4">
+        <c-card-header>
+          <strong>{{ params.title | translate }}</strong>
+        </c-card-header>
+        <c-card-body>
+  
+          <div class="search" [cFormFloating]="true">          
+            <input cFormControl [formControl]="searchKeywordFilter" placeholder="Type to Search" #input />
+            <label cLabel> {{ 'Search' | translate }}</label>
+          </div>
+
+          <mat-expansion-panel hideToggle>
+            <mat-expansion-panel-header>
+              <mat-panel-title> {{ 'Resources' | translate }} </mat-panel-title>
+              <mat-panel-description> {{ 'Disorder Resources' | translate }} </mat-panel-description>
+            </mat-expansion-panel-header>
+            <p>T{{ 'Resources...' | translate }}</p>
+          </mat-expansion-panel>
+
+          <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
+          <mat-paginator [length]="totalCount" [pageSizeOptions]="pageSizes" showFirstLastButtons></mat-paginator>
+          <div *ngIf="isLoading">
+            <ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "square-jelly-box" [fullScreen] = "true"><p style="color: white" > Loading... </p></ngx-spinner>
+          </div>
+        </c-card-body>
+      </c-card>
+    </c-col>
+  </c-row>  

@@ -81,9 +81,9 @@ export class LoginComponent {
           let screens = '';
           console.log(result.userType);
           if(result.userType == 0){
-            screens = 'Cities,Feeling,Countries,Disorders,Document Types,Notification History,Psychologists,States,Therapies,Users,Profiles,renew';
+            screens = 'Cruds,IA,resource,resourceViewer,resourcesBasic,Cities,Resources,ResourcesDisorder,Feeling,Countries,Disorders,Document Types,Notification History,Psychologists,States,Therapies,Users,Profiles,renew';
           }else{
-              screens = 'Therapies,Profiles,renew';
+              screens = 'Therapies,Profiles,renew,resource,resourceViewer,Cruds,IA,Feeling';
           }
           this.localService.saveData("screens", screens);
 
