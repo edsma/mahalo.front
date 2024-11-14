@@ -25,7 +25,7 @@
         [(ngModel)]="analysysIaValor"
         type="text"
         class="form-control"
-        placeholder="Escribe un mensaje..."
+        placeholder="{{ 'TypeMessage' | translate }}"
       />
       <button class="btn btn-primary" (click)="sendMessage()" >{{ 'SendMessage' | translate }}</button>
     </div>

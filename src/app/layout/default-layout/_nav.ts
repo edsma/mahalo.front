@@ -26,6 +26,23 @@ return [
     ]
   },
   {
+    name: 'resource',
+    url: '/resource',
+    iconComponent: { name: 'cil-chat-bubble' },
+    badge: {
+      color: 'warning',
+      text: 'NEW'
+    },
+    children: [
+      {
+        screen: 'resource',
+        name: translate.instant('resourceViewer'),
+        url: '/resource/resourceViewer',
+        icon: 'nav-icon-bullet'
+      },
+    ]
+  },
+  {
     name: 'Cruds',
     url: '/cruds',
     iconComponent: { name: 'cil-puzzle' },
@@ -55,13 +72,12 @@ return [
         url: '/cruds/documents-types',
         icon: 'nav-icon-bullet'
       },
-      {
+      /*{
         screen: 'Notification History',
         name: translate.instant('Notification History'),
         url: '/cruds/notification-history',
         icon: 'nav-icon-bullet'
       },
-      /*
       {
         name: 'Scheduling',
         url: '/cruds/notification-scheduling',
@@ -72,6 +88,18 @@ return [
         screen: 'Psychologists',
         name: translate.instant('Psychologists'),
         url: '/cruds/psychologists',
+        icon: 'nav-icon-bullet'
+      },
+      {
+        screen: 'Resources',
+        name: translate.instant('Resources'),
+        url: '/cruds/resources', 
+        icon: 'nav-icon-bullet'
+      },
+      {
+        screen: 'ResourcesDisorder',
+        name: translate.instant('ResourcesDisorder'),
+        url: '/cruds/resourcesDisorder', 
         icon: 'nav-icon-bullet'
       },
       {
@@ -91,7 +119,7 @@ return [
         name: translate.instant('Users'),
         url: '/cruds/users',
         icon: 'nav-icon-bullet'
-      },
+      }
     ]
   },
 ];

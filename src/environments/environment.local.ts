@@ -14,6 +14,8 @@ export const environment = {
         accounts: '/api/Accounts',
         regiter: '/api/accounts/CreateUser',
         login: '/api/accounts/Login',
-        recoverPassword: '/api/accounts/recoverPassword'
+        recoverPassword: '/api/accounts/recoverPassword',
+        resources: '/api/Resources',
+        resourcesDisorder: '/api/ResourcesDisorder'
     }
 };

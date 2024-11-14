@@ -2,9 +2,10 @@ import { Component } from '@angular/core';
 import { NgStyle, NgFor, NgIf } from '@angular/common';
 
 import { FormsModule } from '@angular/forms'; // Importa FormsModule aquí
-import { TranslationModule } from 'src/app/services/Transalation.module';
+
 import { LocalService } from 'src/app/services/local.service';
 import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
+import { TranslationModule } from 'src/app/services/Transalation.module';
 
 @Component({
   selector: 'app-feeling-ia',
@@ -14,8 +15,9 @@ import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
   styleUrl: './feeling-ia.component.scss'
 })
 export class FeelingIAComponent {
-   language = '';
+   
    analysysIaValor = '';
+   language = '';
   constructor(
     private translate: TranslateService){
     this.language =  localStorage.getItem('language')?? 'es';

@@ -13,7 +13,7 @@
   </c-sidebar-header>
 <!--Lateral Menu-->
   <ng-scrollbar #scrollbar="ngScrollbar" (updated)="onScrollbarUpdate(scrollbar.state)" class="overflow" pointerEventsMethod="scrollbar" visibility="hover">
-    <c-sidebar-nav #overflow [navItems]="navItems" dropdownMode="close" compact />
+    <c-sidebar-nav #overflow [navItems]="copyNavItems" dropdownMode="close" compact />
   </ng-scrollbar>
 
   @if (!sidebar1.narrow) {

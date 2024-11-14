@@ -1,7 +1,7 @@
 export const environment = {
     production: false,
     isLocal: false,
-    apiUrl: "https://localhost:44360",
+    apiUrl: "https://localhost:7299",
     path: {
         cities: '/api/Cities',
         countries: '/api/Countries',
@@ -14,6 +14,8 @@ export const environment = {
         accounts: '/api/Accounts',
         regiter: '/api/accounts/CreateUser',
         login: '/api/accounts/Login',
-        recoverPassword: '/api/accounts/recoverPassword'
+        recoverPassword: '/api/accounts/recoverPassword',
+        resources: '/api/Resources',
+        resourcesDisorder: '/api/ResourcesDisorder'
     }
 };
