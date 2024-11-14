@@ -30,7 +30,7 @@ export class AppComponent implements OnInit {
   readonly #colorModeService = inject(ColorModeService);
   readonly #iconSetService = inject(IconSetService);
 
-  constructor(private translate: TranslateService){
+  constructor(private router: Router,private translate: TranslateService){
     const browserLang = this.getBrowserLang();
 
 
@@ -40,6 +40,13 @@ export class AppComponent implements OnInit {
       this.#titleService.setTitle(this.title);
     });
 
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+
+        // Recarga el idioma después de cada navegación
+        this.translate.use(this.translate.currentLang?? 'es');
+      }
+    });
 
     // iconSet singleton
     this.#iconSetService.icons = { ...iconSubset };

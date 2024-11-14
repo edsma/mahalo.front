@@ -11,7 +11,7 @@ return [
   {
     name: 'IA',
     url: '/IA',
-    iconComponent: { name: 'cil-chat-bubble' },
+    iconComponent: { name: 'cil-puzzle' },
     badge: {
       color: 'warning',
       text: 'NEW'
@@ -28,7 +28,7 @@ return [
   {
     name: 'resource',
     url: '/resource',
-    iconComponent: { name: 'cil-chat-bubble' },
+    iconComponent: { name: 'cil-puzzle' },
     badge: {
       color: 'warning',
       text: 'NEW'
@@ -93,13 +93,13 @@ return [
       {
         screen: 'Resources',
         name: translate.instant('Resources'),
-        url: '/cruds/resources', 
+        url: '/cruds/resources',
         icon: 'nav-icon-bullet'
       },
       {
         screen: 'ResourcesDisorder',
         name: translate.instant('ResourcesDisorder'),
-        url: '/cruds/resourcesDisorder', 
+        url: '/cruds/resourcesDisorder',
         icon: 'nav-icon-bullet'
       },
       {

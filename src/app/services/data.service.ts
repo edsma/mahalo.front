@@ -71,7 +71,6 @@ export class DataService extends HeaderService {
 
   getItemByParas(params: any, ConfirmEmail: string,userId: string,translate: TranslateService ): void {
     const headers = this.getHeaders();
-    debugger;
     this.httpClient.get(`${params.path}?userId=${userId}&token=${ConfirmEmail}`, {headers}).subscribe({
       next: (result: any) => {
         //this.dataChange.next(result);

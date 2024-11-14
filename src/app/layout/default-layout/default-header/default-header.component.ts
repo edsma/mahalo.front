@@ -1,5 +1,5 @@
 import { NgStyle, NgTemplateOutlet } from '@angular/common';
-import { Component, computed, inject, input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, computed, inject, input, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterModule, RouterOutlet, Router, RouterLink, RouterLinkActive} from '@angular/router';
 import { CommonModule, NgIf } from '@angular/common';
 import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
@@ -32,6 +32,7 @@ import { IconDirective } from '@coreui/icons-angular';
 import { TranslationModule } from 'src/app/services/Transalation.module';
 import { LoginService } from 'src/app/services/login.service';
 import { LocalService } from 'src/app/services/local.service';
+import { LanguageService } from 'src/app/services/language.service';
 
 @Component({
   selector: 'app-default-header',
@@ -39,7 +40,7 @@ import { LocalService } from 'src/app/services/local.service';
   standalone: true,
     imports: [ContainerComponent, TranslationModule, HeaderTogglerDirective, SidebarToggleDirective, IconDirective, HeaderNavComponent, NavItemComponent, NavLinkDirective, RouterLink, RouterLinkActive, NgTemplateOutlet, BreadcrumbRouterComponent, ThemeDirective, DropdownComponent, DropdownToggleDirective, TextColorDirective, AvatarComponent, DropdownMenuDirective, DropdownHeaderDirective, DropdownItemDirective, BadgeComponent, DropdownDividerDirective, ProgressBarDirective, ProgressComponent, NgStyle,
     CommonModule,
-    NgIf,    
+    NgIf,
   ]
 })
 export class DefaultHeaderComponent extends HeaderComponent implements OnInit {
@@ -50,6 +51,8 @@ export class DefaultHeaderComponent extends HeaderComponent implements OnInit {
   constructor(private translate: TranslateService,
     private loginService: LoginService,
     private localService: LocalService,
+    private languageService: LanguageService,
+    private cdr: ChangeDetectorRef
   ) {
 
     super();
@@ -90,6 +93,11 @@ export class DefaultHeaderComponent extends HeaderComponent implements OnInit {
     this.language = lang;
     localStorage.setItem('language', lang);
     this.translate.use(this.language); // Cambia esto si deseas otro idioma por defecto
+
+    this.languageService.setLanguage(localStorage.getItem('language')?? 'es');
+    this.translate.use(this.language).subscribe(() => {
+      this.cdr.detectChanges(); // Fuerza la actualización
+    });
   }
 
   sidebarId = input('sidebar1');

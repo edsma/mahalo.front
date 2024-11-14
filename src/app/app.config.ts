@@ -14,6 +14,7 @@ import { IconSetService } from '@coreui/icons-angular';
 import { routes } from './app.routes';
 import { provideHttpClient } from '@angular/common/http';
 import { provideToastr } from 'ngx-toastr';
+import { LanguageService } from './services/language.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -31,6 +32,7 @@ export const appConfig: ApplicationConfig = {
     ),
     importProvidersFrom(SidebarModule, DropdownModule),
     IconSetService,
+    LanguageService,
     provideAnimations(),
     provideHttpClient(),
     provideToastr(),

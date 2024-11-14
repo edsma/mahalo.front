@@ -186,7 +186,6 @@ export class CustomViewerComponent implements AfterViewInit {
   buildHeaders() {
     /*
     this.translate.onLangChange.subscribe(() => {
-      //debugger;
     });
     */
     let headers = [];

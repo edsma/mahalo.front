@@ -78,7 +78,6 @@ export class ConfirmAccountComponent {
             this.token = params.get('token');  // Obtén el valor de 'userid'
           });
       console.log(params, this.idUser,this.token);
-      debugger;
       this.dataService.getItemByParas(params,this.token,this.idUser, this.translate);
 
 

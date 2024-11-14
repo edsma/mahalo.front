@@ -1,11 +1,12 @@
-import { Component } from '@angular/core';
-import { NgStyle, NgFor, NgIf } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import {  NgFor, NgIf } from '@angular/common';
 
 import { FormsModule } from '@angular/forms'; // Importa FormsModule aquí
 
-import { LocalService } from 'src/app/services/local.service';
-import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
+import { TranslateService } from '@ngx-translate/core';
 import { TranslationModule } from 'src/app/services/Transalation.module';
+import { LanguageService } from '../../../services/language.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-feeling-ia',
@@ -15,22 +16,23 @@ import { TranslationModule } from 'src/app/services/Transalation.module';
   styleUrl: './feeling-ia.component.scss'
 })
 export class FeelingIAComponent {
-   
+
    analysysIaValor = '';
    language = '';
+   private langSubscription: Subscription;
   constructor(
-    private translate: TranslateService){
-    this.language =  localStorage.getItem('language')?? 'es';
-    this.translate.use(this.language)
+    private translate: TranslateService,
+    private languageService: LanguageService){
+      this.translate.use(localStorage.getItem('language')?? 'es');
   }
 
   ngOnInit(): void {
-    this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
-
-    this.language =  localStorage.getItem('language')?? 'es';
-      this.translate.use(this.language);
+    this.langSubscription = this.languageService.currentLang$.subscribe(lang => {
+      this.translate.use(lang);
     });
   }
+
+
 
   messages = [
     { sender: 'me', text: 'Hoy me siento... ' },

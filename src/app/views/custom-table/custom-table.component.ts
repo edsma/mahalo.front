@@ -11,7 +11,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { TableDataService } from '../../services/table-data.service';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogConfig, MatDialogRef, MatDialogModule, } from '@angular/material/dialog';
 import { FormControl } from '@angular/forms';
-import { merge, of as observableOf } from 'rxjs';
+import { merge, of as observableOf, Subscription } from 'rxjs';
 import { catchError, debounceTime, map, startWith, switchMap } from 'rxjs/operators';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -53,6 +53,7 @@ import {BehaviorSubject, fromEvent, Observable} from 'rxjs';
 import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
 import { TranslationModule } from 'src/app/services/Transalation.module';
 import { LocalService } from 'src/app/services/local.service';
+import { LanguageService } from 'src/app/services/language.service';
 
 export interface ApiResponse {
   data: any[];
@@ -114,15 +115,19 @@ export class CustomTableComponent implements AfterViewInit {
   textHeaders: any;
   columnsWithButtons: string[] = [];
 
+  private langSubscription: Subscription;
+
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
   constructor(public tableDataService: TableDataService,
     private translate: TranslateService,
     private spinner: NgxSpinnerService,
+
     private snackBar: MatSnackBar,
     public dialog: MatDialog,
     private localService: LocalService,
+    private languageService: LanguageService,
     private router: Router) {
       let language =  localStorage.getItem('language')?? 'es';
       this.translate.use(language);
@@ -132,6 +137,10 @@ export class CustomTableComponent implements AfterViewInit {
 
   ngOnInit(): void {
     this.validateSesion();
+    this.langSubscription = this.languageService.currentLang$.subscribe(lang => {
+      console.log(lang);
+      this.translate.use(lang);
+    });
   }
 
   ngAfterViewInit() {
@@ -186,7 +195,6 @@ export class CustomTableComponent implements AfterViewInit {
   buildHeaders() {
     /*
     this.translate.onLangChange.subscribe(() => {
-      //debugger;
     });
     */
     let headers = [];

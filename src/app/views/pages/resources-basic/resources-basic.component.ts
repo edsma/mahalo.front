@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
@@ -7,12 +7,14 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { FormsModule } from '@angular/forms';
+
+import { TranslateService } from '@ngx-translate/core';
 import { TranslationModule } from 'src/app/services/Transalation.module';
-import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
 import { NgStyle, NgFor, NgIf } from '@angular/common';
-import { ChangeDetectorRef } from '@angular/core';
 import { DialogUploadComponent } from '../../dialogs/upload/upload.component';
 import { MatDialog } from '@angular/material/dialog';
+import { LanguageService } from '../../../services/language.service';
+import { Subscription } from 'rxjs';
 
 
 
@@ -29,8 +31,7 @@ import { MatDialog } from '@angular/material/dialog';
     MatSelectModule,
     FormsModule,
     TranslationModule,
-    NgFor,
-    NgIf
+    NgFor
   ],
   templateUrl: './resources-basic.component.html',
   styleUrls: ['./resources-basic.component.scss'],
@@ -38,21 +39,23 @@ import { MatDialog } from '@angular/material/dialog';
 export class ResourcesBasicComponent {
 
   language = '';
+
+  private langSubscription: Subscription;
   constructor(
     private translate: TranslateService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private languageService: LanguageService,
   ) {
-    this.language = localStorage.getItem('language') ?? 'es';
-    this.translate.use(this.language);
+    this.translate.use(localStorage.getItem('language')?? 'es');
   }
-  
+
   ngOnInit(): void {
-    this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
-    this.language =  localStorage.getItem('language')?? 'es';
-      this.translate.use(this.language);
+    this.langSubscription = this.languageService.currentLang$.subscribe(lang => {
+      console.log(lang);
+      this.translate.use(lang);
     });
   }
-  
+
   @ViewChild('fileInput') fileInput!: ElementRef;
 
   categories = [
@@ -60,7 +63,7 @@ export class ResourcesBasicComponent {
     { value: 'Depresión', viewValue: 'Depresión' },
     { value: 'Estrés', viewValue: 'Estrés' },
   ];
- 
+
   selectedCategory: string = '';
   searchText: string = '';
 
@@ -101,13 +104,13 @@ export class ResourcesBasicComponent {
     if (input?.files?.length) {
       const file = input.files[0];
       const filePath = file.name;
-  
+
       // Abre el diálogo y envía el archivo seleccionado
       const dialogRef = this.dialog.open(DialogUploadComponent, {
         width: '400px',
         data: { name: '', path: filePath, category: '' },
       });
-  
+
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
           // Añade el recurso a la lista resources

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { NgScrollbar } from 'ngx-scrollbar';
 
@@ -7,6 +7,12 @@ import { IconDirective } from '@coreui/icons-angular';
 import {
   ContainerComponent,
   INavData,
+  DropdownComponent,
+  DropdownDividerDirective,
+  DropdownHeaderDirective,
+  DropdownItemDirective,
+  DropdownMenuDirective,
+  DropdownToggleDirective,
   ShadowOnScrollDirective,
   SidebarBrandComponent,
   SidebarComponent,
@@ -40,6 +46,12 @@ function isOverflown(element: HTMLElement) {
     TranslationModule,
     SidebarBrandComponent,
     RouterLink,
+    DropdownComponent,
+    DropdownToggleDirective,
+    DropdownMenuDirective,
+    DropdownHeaderDirective,
+    DropdownItemDirective,
+    DropdownDividerDirective,
     IconDirective,
     NgScrollbar,
     SidebarNavComponent,
@@ -55,13 +67,22 @@ function isOverflown(element: HTMLElement) {
 })
 export class DefaultLayoutComponent {
   public navItems: INavData[] | undefined;
+
+  language: string = this.getNavigatorLang();
   public copyNavItems: INavData[] | undefined;
   constructor(private translate: TranslateService,
-    private localService: LocalService
+    private localService: LocalService,
+    private cdr: ChangeDetectorRef
   ){
 
 
     this.loadNavItems();
+    this.translate.use('es');
+  }
+
+  private getNavigatorLang(): string {
+    const lang = navigator.language || navigator.languages[0]; // Obtener el idioma del navegador
+    return lang.split('-')[0]; // Retorna solo el c�digo del idioma (por ejemplo, "en" en lugar de "en-US")
   }
 
   ngOnInit(): void {
@@ -73,10 +94,19 @@ export class DefaultLayoutComponent {
 
   }
 
-  loadNavItems(): void { 
+  changeLanguage(lang: string){
+    this.language = lang;
+    localStorage.setItem('language', lang);
+    this.translate.use(this.language); // Cambia esto si deseas otro idioma por defecto
+    this.translate.use(this.language).subscribe(() => {
+      this.cdr.detectChanges(); // Fuerza la actualización
+    });
+  }
+
+  loadNavItems(): void {
     this.copyNavItems = [];
     const screens: string = this.localService.getData("screens") || '';
-    let options: string[] =  screens.split(','); 
+    let options: string[] =  screens.split(',');
     this.navItems = getNavItems(this.translate);
     for( var it of this.navItems ){
       if(it.children && options.includes(it.name)){
