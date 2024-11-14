@@ -1,0 +1,42 @@
+/* Contenedor principal del diálogo */
+.dialog-container {
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    width: 100%;
+    max-width: 400px;
+    box-sizing: border-box;
+  }
+  
+  /* Estilos para los campos de formulario */
+  .mat-form-field {
+    width: 100%;
+    margin-bottom: 16px; /* Espacio entre los campos */
+  }
+  
+  /* Ajuste para el tamaño de los botones en mat-dialog-actions */
+  .mat-dialog-actions {
+    display: flex;
+    justify-content: flex-end; /* Alinea los botones a la derecha */
+    gap: 8px; /* Espacio entre los botones */
+    padding-top: 12px;
+  }
+  
+  /* Apariencia y alineación de los botones */
+  button[mat-button] {
+    min-width: 80px;
+  }
+  
+  /* Mejora la apariencia del campo de selección de categoría */
+  .mat-form-field-appearance-outline .mat-form-field-outline {
+    border-radius: 4px;
+  }
+  
+  /* Asegura que el diálogo no exceda el tamaño de la pantalla */
+  @media (max-width: 600px) {
+    .dialog-container {
+      max-width: 100%;
+      padding: 12px;
+    }
+  }
+  
