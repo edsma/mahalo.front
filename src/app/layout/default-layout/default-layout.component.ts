@@ -55,6 +55,7 @@ function isOverflown(element: HTMLElement) {
 })
 export class DefaultLayoutComponent {
   public navItems: INavData[] | undefined;
+  public copyNavItems: INavData[] | undefined;
   constructor(private translate: TranslateService,
     private localService: LocalService
   ){
@@ -72,13 +73,15 @@ export class DefaultLayoutComponent {
 
   }
 
-  loadNavItems(): void {
+  loadNavItems(): void { 
+    this.copyNavItems = [];
     const screens: string = this.localService.getData("screens") || '';
     let options: string[] =  screens.split(','); 
     this.navItems = getNavItems(this.translate);
     for( var it of this.navItems ){
-      if(it.children){
+      if(it.children && options.includes(it.name)){
         it.children = it.children.filter( ch => options.includes(ch.screen || ''));
+        this.copyNavItems.push(it);
       }
     }
   }

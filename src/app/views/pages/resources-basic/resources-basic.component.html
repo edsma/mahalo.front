@@ -1,14 +1,14 @@
 <!-- Campo de búsqueda -->
 <mat-form-field>
-  <mat-label>Buscar</mat-label>
+  <mat-label>{{ 'Search' | translate }}</mat-label>
   <input matInput [(ngModel)]="searchText" placeholder="Buscar recurso" />
 </mat-form-field>
 
 <!-- Selector de categorías -->
 <mat-form-field appearance="fill">
-  <mat-label>Seleccionar categoría</mat-label>
+  <mat-label>{{ 'Select category' | translate }}</mat-label>
   <mat-select [(ngModel)]="selectedCategory">
-    <mat-option value="">Todas las categorías</mat-option>
+    <mat-option value="">{{ 'All categories' | translate }}</mat-option>
     <mat-option *ngFor="let category of categories" [value]="category.value">
       {{ category.viewValue }}
     </mat-option>
@@ -32,7 +32,7 @@
       <img [src]="resource.image" alt="{{ resource.altImage }}" class="file-icon" />
       <span class="file-name">{{ resource.fileName }}</span>
       <a [href]="'ruta/al/archivo/' + resource.fileName" download class="download-link">
-        Descargar
+        {{ 'Download' | translate }}
       </a>
     </div>
   </mat-expansion-panel>
@@ -40,7 +40,7 @@
 
 <!-- Botón para subir archivo -->
 <button mat-raised-button (click)="triggerFileUpload()">
-  <mat-icon>upload_file</mat-icon> Subir archivo
+  <mat-icon>upload_file</mat-icon> {{ 'Upload file' | translate }}
 </button>
 
 <!-- Input oculto para seleccionar archivo -->

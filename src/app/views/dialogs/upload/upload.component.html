@@ -1,0 +1,40 @@
+<h2 mat-dialog-title>{{ 'Resource details' | translate }}</h2>
+<mat-dialog-content class="dialog-container">
+    <mat-form-field appearance="outline">
+      <mat-label>{{ 'Resource name' | translate }}</mat-label>
+      <input
+        matInput
+        [(ngModel)]="data.name"
+        placeholder="{{ 'Type name resource' | translate }}"
+      />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+        <mat-label>{{ 'Content resource' | translate }}</mat-label>
+        <input
+          matInput
+          [(ngModel)]="data.content"
+          placeholder="{{ 'Content resource' | translate }}"
+        />
+      </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>{{ 'File path' | translate }}</mat-label>
+      <input matInput [(ngModel)]="data.path" disabled />
+    </mat-form-field>
+
+  <!-- Selector de categorías -->
+  <mat-form-field *ngIf="categories.length > 0" appearance="fill">
+    <mat-label>{{ 'Select category' | translate }}</mat-label>
+    <mat-select [(ngModel)]="data.category">
+      <mat-option value="">{{ 'All categories' | translate }}</mat-option>
+      <mat-option *ngFor="let category of categories" [value]="category.value">
+        {{ category.viewValue }}
+      </mat-option>
+    </mat-select>
+</mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions align="end" class="mat-dialog-actions">
+    <button mat-button (click)="onCancel()">{{ 'Cancel' | translate }}</button>
+    <button mat-button color="primary" (click)="onSave()">Guardar</button>
+  </mat-dialog-actions>
