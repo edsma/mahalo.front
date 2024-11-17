@@ -37,6 +37,7 @@
     "@coreui/icons": "^3.0.1",
     "@coreui/icons-angular": "~5.2.16",
     "@coreui/utils": "^2.0.2",
+    "@google/generative-ai": "^0.21.0",
     "@ngx-translate/core": "^15.0.0",
     "@ngx-translate/http-loader": "^8.0.0",
     "chart.js": "^4.4.4",
@@ -46,7 +47,9 @@
     "ngx-scrollbar": "^13.0.3",
     "ngx-spinner": "^17.0.0",
     "ngx-toastr": "^19.0.0",
+    "openai": "^4.72.0",
     "rxjs": "~7.8.1",
+    "spinkit": "^2.0.1",
     "tslib": "^2.7.0",
     "zone.js": "~0.14.10"
   },
