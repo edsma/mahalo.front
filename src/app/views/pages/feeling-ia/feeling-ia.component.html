@@ -6,14 +6,25 @@
     <!-- Lista de mensajes -->
     <div class="overflow-auto p-3" style="height: 400px;">
       <div *ngFor="let message of messages">
-        <div *ngIf="message.sender === 'me'" class="d-flex justify-content-end mb-2">
+        <div *ngIf="message.role !== 'assistant'" class="d-flex justify-content-end mb-2">
           <div class="bg-primary text-white rounded p-2" style="max-width: 70%;">
-            {{ message.text }}
+            {{ message.content }}
           </div>
         </div>
-        <div *ngIf="message.sender !== 'me'" class="d-flex justify-content-start mb-2">
+        <div *ngIf="message.role === 'assistant'" class="d-flex justify-content-start mb-2">
           <div class="bg-light text-dark rounded p-2" style="max-width: 70%;">
-            {{ message.text }}
+            <div *ngIf="message.content==''" class="sk-grid">
+              <div class="sk-grid-cube"></div>
+              <div class="sk-grid-cube"></div>
+              <div class="sk-grid-cube"></div>
+              <div class="sk-grid-cube"></div>
+              <div class="sk-grid-cube"></div>
+              <div class="sk-grid-cube"></div>
+              <div class="sk-grid-cube"></div>
+              <div class="sk-grid-cube"></div>
+              <div class="sk-grid-cube"></div>
+            </div>
+            {{ message.content }}
           </div>
         </div>
       </div>
@@ -26,8 +37,9 @@
         type="text"
         class="form-control"
         placeholder="{{ 'TypeMessage' | translate }}"
+        (keydown.enter)="sendMessage2()"
       />
-      <button class="btn btn-primary" (click)="sendMessage()" >{{ 'SendMessage' | translate }}</button>
+      <button class="btn btn-primary" (click)="sendMessage2()" >{{ 'SendMessage' | translate }}</button>
     </div>
   </div>
 </div>
