@@ -88,6 +88,7 @@ export class RegisterComponent implements AfterViewInit {
     this.data.userType =  Number(this.data.userType);
     this.data.cityId = 1;
     this.data.documentTypeId = 1;
+    this.data.userName = this.data.email;
     this.registerService.createUser(this.data)
     .subscribe({
       next: (result: any) => {

@@ -17,7 +17,7 @@ import { ChatgptService } from '../../../services/chatgpt.service';
   styleUrl: './feeling-ia.component.scss'
 })
 export class FeelingIAComponent {
-  
+
    analysysIaValor = '';
    language = '';
    private langSubscription: Subscription;
@@ -30,7 +30,7 @@ export class FeelingIAComponent {
 
   //userMessage: string = '';
   messages: { role: string, content: string }[] = [
-    { role: 'system', content: 'Hola, Soy Mahalo, ¿quieres hablar conmigo?' }
+    { role: 'assistant', content: 'Hola, Soy Mahalo, ¿quieres hablar conmigo?' }
   ];
   responseMessage: string = '';
 
@@ -45,7 +45,7 @@ export class FeelingIAComponent {
       return;
     }
     // Agregar mensaje del usuario a la historia del chat
-    this.messages.push({ role: 'user', content: this.analysysIaValor });   
+    this.messages.push({ role: 'user', content: this.analysysIaValor });
 
     // Llamar al servicio de OpenAI
     this.chatgptService.getChatOpenAIResponse(this.messages).subscribe({
@@ -53,7 +53,7 @@ export class FeelingIAComponent {
         // Respuesta de la IA
         const assistantMessage = response.choices[0].message.content;
         this.messages[this.messages.length-1].content = assistantMessage;
-        this.responseMessage = assistantMessage;        
+        this.responseMessage = assistantMessage;
       },
       error: (err) => {
         console.error('Error al obtener la respuesta de la API', err);
@@ -83,7 +83,7 @@ export class FeelingIAComponent {
         // Respuesta de la IA
         const assistantMessage = response;
         this.messages[this.messages.length-1].content = assistantMessage;
-        this.responseMessage = assistantMessage;        
+        this.responseMessage = assistantMessage;
       },
       error: (err) => {
         console.error('Error al obtener la respuesta de la API', err);

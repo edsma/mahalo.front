@@ -8,7 +8,10 @@ import { FooterComponent } from '@coreui/angular';
     standalone: true,
 })
 export class DefaultFooterComponent extends FooterComponent {
+  actualYear: number;
   constructor() {
     super();
+
+   this.actualYear = (new Date()).getFullYear();
   }
 }
