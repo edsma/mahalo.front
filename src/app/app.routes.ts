@@ -4,7 +4,7 @@ import { DefaultLayoutComponent } from './layout';
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'cruds',
+    redirectTo: 'login',
     pathMatch: 'full'
   },
   {

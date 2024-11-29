@@ -53,7 +53,7 @@ export class ChatgptService {
   }
 
   refineQuestion(question: string, topic: string): string {    
-    const refinedQuestion = `Sobre el tema de ${topic}, ${question} y recuerda que si preguntan tu nombre, te llamas Mahalo.`;
+    const refinedQuestion = `Sobre el tema de ${topic}, ${question}.`;
     return refinedQuestion;
   }
 }

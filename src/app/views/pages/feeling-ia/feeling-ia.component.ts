@@ -38,6 +38,7 @@ export class FeelingIAComponent {
     this.langSubscription = this.languageService.currentLang$.subscribe(lang => {
       this.translate.use(lang);
     });
+    this.sendToIA("Para que lo tengas siempre presente, cuando te pregunte por tu nombre, responde con 'Mahalo, tu asistente en salud mental'", false);
   }
 
   sendMessage() {
@@ -71,25 +72,38 @@ export class FeelingIAComponent {
   }
 
   sendMessage2() {
-    if (!this.analysysIaValor.trim()) {
+    //this.sendToIA("Cuando te pregunte por tu nombre, responde con 'Mahalo, tu asistente en salud mental'", false);
+    this.sendToIA(this.analysysIaValor);
+    this.analysysIaValor = '';  // Limpiar mensaje del usuario
+  }
+
+  sendToIA( message: string, saveInHistory: boolean = true ) {
+    console.log("Mensaje enviado: ", message);
+    if (!message.trim()) {
       return;
     }
     // Agregar mensaje del usuario a la historia del chat
-    this.messages.push({ role: 'user', content: this.analysysIaValor });
+    if(saveInHistory){
+      this.messages.push({ role: 'user', content: message });
+    }
     // Llamar al servicio de OpenAI
     this.chatgptService.getChatGeminisResponse(this.messages).subscribe({
       next: (response: any) => {
         //console.log("La respuesta ... ", response);
         // Respuesta de la IA
+        console.log("Mensaje recibido: ", response);
         const assistantMessage = response;
-        this.messages[this.messages.length-1].content = assistantMessage;
+        if(saveInHistory){
+          this.messages[this.messages.length-1].content = assistantMessage;
+        }
         this.responseMessage = assistantMessage;
       },
       error: (err) => {
         console.error('Error al obtener la respuesta de la API', err);
       }
     });
-    this.messages.push({ role: 'assistant', content: '' });
-    this.analysysIaValor = '';  // Limpiar mensaje del usuario
+    if(saveInHistory){
+      this.messages.push({ role: 'assistant', content: '' });
+    }
   }
 }
